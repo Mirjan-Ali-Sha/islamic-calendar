@@ -310,6 +310,17 @@
                 <div class="qibla-bearing" id="qibla-bearing">Bearing: --°</div>
                 <div class="qibla-status" id="qibla-status">Calculating...</div>
             </div>
+
+            <div class="qibla-calibration-controls">
+                <button id="btn-calibrate" class="calibrate-btn">
+                    <span class="icon">⚖️</span> Calibrate Compass
+                </button>
+                <div id="qibla-calibration-progress" class="calibration-progress" style="display:none;">
+                    <div class="progress-bar"></div>
+                    <span>Stabilizing...</span>
+                </div>
+            </div>
+
             <div class="qibla-instructions">
                 <p>📍 Lay your device flat on a non-metallic surface.</p>
                 <p>🔄 If the needle seems stuck, move your device in a <b>figure-8</b> motion to recalibrate the

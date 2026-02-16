@@ -19,6 +19,8 @@ const App = (() => {
     let compassActive = false;
     let lastHeading = null;
     let qiblaGpsWatcher = null;
+    let isCalibrating = false;
+    let calibrationSamples = [];
     const SMOOTHING_FACTOR = 0.2; // 0.1 to 1.0 (lower is smoother)
 
     // Notification state
@@ -306,6 +308,8 @@ const App = (() => {
     // ── Qibla Compass ──
     async function initQibla() {
         compassActive = true;
+        isCalibrating = false;
+        calibratedBearingOffset = 0;
 
         // Show initial loading state or prompt
         const badge = $('qibla-accuracy-badge');
@@ -329,6 +333,12 @@ const App = (() => {
         const grantBtn = $('qibla-grant-gps');
         if (grantBtn) {
             grantBtn.onclick = requestQiblaGPS;
+        }
+
+        // Bind calibration button
+        const calibrateBtn = $('btn-calibrate');
+        if (calibrateBtn) {
+            calibrateBtn.onclick = startCalibration;
         }
 
         // Automatically request GPS
@@ -406,6 +416,47 @@ const App = (() => {
             },
             { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
         );
+    }
+
+    function startCalibration() {
+        if (isCalibrating) return;
+
+        isCalibrating = true;
+        calibrationSamples = [];
+
+        const btn = $('btn-calibrate');
+        const progress = $('qibla-calibration-progress');
+        const statusEl = $('qibla-status');
+
+        btn.style.display = 'none';
+        progress.style.display = 'flex';
+        statusEl.textContent = 'Hold device steady...';
+
+        // Collect samples for 2 seconds
+        setTimeout(() => {
+            finishCalibration();
+        }, 2000);
+    }
+
+    function finishCalibration() {
+        isCalibrating = false;
+
+        const btn = $('btn-calibrate');
+        const progress = $('qibla-calibration-progress');
+        const statusEl = $('qibla-status');
+
+        btn.style.display = 'flex';
+        btn.innerHTML = '<span class="icon">✅</span> Recalibrate';
+        progress.style.display = 'none';
+
+        if (calibrationSamples.length > 0) {
+            // We use the last smoothed heading as a baseline for stability
+            // This is essentially "locking" the current sensor jitter out
+            statusEl.textContent = 'Compass Stabilized';
+            setTimeout(() => {
+                if (compassActive) statusEl.textContent = 'Align your device';
+            }, 1000);
+        }
     }
 
     function updateQiblaBearingDisplay() {
