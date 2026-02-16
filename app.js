@@ -748,5 +748,64 @@ const App = (() => {
         prayerCountdownInterval = setInterval(tick, 1000);
     }
 
+    // Splash Screen & Date Jumper Init
+    window.addEventListener('load', () => {
+        // Splash
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                setTimeout(() => { splash.style.display = 'none'; }, 700);
+            }, 2500);
+        }
+
+        // Date Jumper
+        const dateBtn = $('btn-date-jump');
+        const dateInput = $('date-jumper');
+
+        if (dateBtn && dateInput) {
+            dateBtn.addEventListener('click', () => {
+                if ('showPicker' in HTMLInputElement.prototype) {
+                    dateInput.showPicker();
+                } else {
+                    dateInput.click();
+                }
+            });
+
+            dateInput.addEventListener('change', (e) => {
+                try {
+                    const val = e.target.value;
+                    if (!val) return;
+
+                    const parts = val.split('-');
+                    const y = parseInt(parts[0], 10);
+                    const m = parseInt(parts[1], 10);
+                    const d = parseInt(parts[2], 10);
+
+                    e.target.value = ''; // Reset
+
+                    const h = HijriEngine.gregorianToHijri(y, m, d);
+                    currentHijriYear = h.year;
+                    currentHijriMonth = h.month;
+
+                    render();
+
+                    setTimeout(() => {
+                        const cell = document.querySelector(`.day-cell[data-day="${h.day}"]`);
+                        if (cell) {
+                            cell.classList.add('selected-highlight');
+                            cell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 100);
+
+                    showDayPrayerTimes(h.year, h.month, h.day);
+                } catch (err) {
+                    console.error('DateJumpError', err);
+                    alert('Error: ' + err.message);
+                }
+            });
+        }
+    });
+
     return { navigateMonth, goToToday, setLanguage };
 })();

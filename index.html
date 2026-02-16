@@ -27,6 +27,17 @@
 
 <body>
 
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">☪️</div>
+            <h1 class="splash-title">Islamic Calendar</h1>
+            <p class="splash-subtitle">Prayer Times & Events</p>
+            <div class="splash-loader"></div>
+            <p class="splash-author">Created by Mirjan Ali Sha</p>
+        </div>
+    </div>
+
     <!-- ========== HEADER ========== -->
     <header id="app-header">
         <div class="header-top">
@@ -43,6 +54,19 @@
                             d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                 </button>
+                <button id="btn-date-jump" class="icon-btn" title="Jump to Date" aria-label="Jump to Date">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <circle cx="12" cy="16" r="2"></circle>
+                    </svg>
+                </button>
+                <input type="date" id="date-jumper"
+                    style="position:absolute; visibility:hidden; width:0; height:0; bottom:0; right:0;">
+
                 <button id="btn-today" class="icon-btn" title="Go to Today" aria-label="Go to Today">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -166,6 +190,7 @@
     <!-- ========== FOOTER ========== -->
     <footer id="app-footer">
         <p>Islamic Calendar PWA &bull; <span id="footer-year"></span></p>
+        <p class="author-credit">Created by <span class="author-name">Mirjan Ali Sha</span></p>
         <p class="footer-note" id="footer-note">Dates are based on the tabular Islamic calendar (arithmetic
             approximation). Actual dates may vary by 1-2 days based on moon sighting.</p>
     </footer>
