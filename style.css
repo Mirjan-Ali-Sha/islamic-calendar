@@ -1699,6 +1699,52 @@ body::before {
     background-attachment: fixed;
 }
 
+.qibla-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.overlay-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    max-width: 320px;
+    width: 100%;
+}
+
+.overlay-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.overlay-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.overlay-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+.error-text {
+    margin-top: 1rem;
+    color: #ef4444;
+    font-size: 0.8rem;
+}
+
 .compass-container {
     position: relative;
     width: 280px;

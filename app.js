@@ -307,10 +307,17 @@ const App = (() => {
     async function initQibla() {
         compassActive = true;
 
-        // Initial setup with current (possibly city-based) location
-        updateQiblaBearingDisplay();
+        // Show initial loading state or prompt
+        const badge = $('qibla-accuracy-badge');
+        badge.textContent = 'Waiting for GPS...';
+        badge.className = 'qibla-accuracy-badge';
 
-        // Bind refresh button
+        // Hide compass initially until GPS is fixed
+        $('compass-needle').style.opacity = '0';
+        $('qibla-bearing').style.opacity = '0';
+        $('qibla-status').textContent = 'Searching for satellites...';
+
+        // Bind refresh and grant buttons
         const refreshBtn = $('qibla-refresh-gps');
         if (refreshBtn) {
             refreshBtn.onclick = () => {
@@ -319,10 +326,15 @@ const App = (() => {
             };
         }
 
-        // Automatically request GPS for high accuracy
+        const grantBtn = $('qibla-grant-gps');
+        if (grantBtn) {
+            grantBtn.onclick = requestQiblaGPS;
+        }
+
+        // Automatically request GPS
         requestQiblaGPS();
 
-        // Request Orientation Permission for iOS 13+
+        // Request Orientation Permission
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             try {
                 const permissionState = await DeviceOrientationEvent.requestPermission();
@@ -341,13 +353,19 @@ const App = (() => {
     }
 
     function requestQiblaGPS() {
-        if (!navigator.geolocation) return;
+        if (!navigator.geolocation) {
+            alert('Your device does not support GPS.');
+            return;
+        }
 
+        const overlay = $('qibla-gps-overlay');
         const badge = $('qibla-accuracy-badge');
+        const errEl = $('qibla-gps-error');
+
         badge.textContent = 'Updating Location...';
         badge.className = 'qibla-accuracy-badge';
+        errEl.style.display = 'none';
 
-        // Clear existing watcher if any
         if (qiblaGpsWatcher) navigator.geolocation.clearWatch(qiblaGpsWatcher);
 
         qiblaGpsWatcher = navigator.geolocation.watchPosition(
@@ -356,49 +374,46 @@ const App = (() => {
                 const lng = pos.coords.longitude;
                 const accuracy = pos.coords.accuracy;
 
-                // Update bearing based on NEW precise coordinates
                 qiblaBearing = calculateQiblaBearing(lat, lng);
+
+                overlay.style.display = 'none';
+                $('compass-needle').style.opacity = '1';
+                $('qibla-bearing').style.opacity = '1';
 
                 badge.textContent = accuracy < 100 ? 'High Accuracy (GPS)' : 'Good Accuracy (GPS)';
                 badge.className = 'qibla-accuracy-badge high';
-
                 $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+                $('qibla-status').textContent = 'Align your device';
 
                 const refreshBtn = $('qibla-refresh-gps');
                 if (refreshBtn) refreshBtn.style.animation = '';
             },
             err => {
-                console.warn('GPS failed for Qibla:', err);
-                const badge = $('qibla-accuracy-badge');
-                badge.textContent = 'Approximate (City)';
+                console.warn('GPS Error:', err);
+                overlay.style.display = 'flex';
+                badge.textContent = 'GPS Required';
                 badge.className = 'qibla-accuracy-badge low';
+
+                if (err.code === 1) { // PERMISSION_DENIED
+                    errEl.textContent = 'Location access was denied. Please allow location in your browser settings.';
+                } else {
+                    errEl.textContent = 'Could not get a GPS fix. Ensure you are outdoors or near a window.';
+                }
+                errEl.style.display = 'block';
 
                 const refreshBtn = $('qibla-refresh-gps');
                 if (refreshBtn) refreshBtn.style.animation = '';
-
-                // Fallback to city bearing if not already set
-                if (currentCity) {
-                    qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
-                    $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-                }
             },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
         );
     }
 
     function updateQiblaBearingDisplay() {
-        if (!currentCity) return;
-        qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
-        $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-
+        // City fallback removed as per mandatory GPS requirement
+        // But we can show a placeholder or last known state
         const badge = $('qibla-accuracy-badge');
-        if (currentCity.id === '__gps__') {
-            badge.textContent = 'Last GPS Location';
-            badge.className = 'qibla-accuracy-badge high';
-        } else {
-            badge.textContent = 'Approximate (City)';
-            badge.className = 'qibla-accuracy-badge low';
-        }
+        badge.textContent = 'GPS Mandatory';
+        badge.className = 'qibla-accuracy-badge low';
     }
 
     function stopQibla() {

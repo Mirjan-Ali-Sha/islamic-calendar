@@ -279,6 +279,18 @@
             </button>
         </header>
         <div class="view-content qibla-content">
+            <!-- GPS Permission Overlay -->
+            <div id="qibla-gps-overlay" class="qibla-overlay" style="display:none;">
+                <div class="overlay-card">
+                    <div class="overlay-icon">🛰️</div>
+                    <h3>GPS Access Required</h3>
+                    <p>Precise Qibla direction requires your current GPS location. Please enable location access in your
+                        device settings.</p>
+                    <button id="qibla-grant-gps" class="primary-btn">Enable Precise Location</button>
+                    <div id="qibla-gps-error" class="error-text" style="display:none;"></div>
+                </div>
+            </div>
+
             <div class="compass-container">
                 <div class="alignment-glow" id="alignment-glow"></div>
                 <div class="compass-ring">
