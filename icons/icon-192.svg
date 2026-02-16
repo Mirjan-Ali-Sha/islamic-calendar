@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#0f2440"/>
+    </linearGradient>
+    <linearGradient id="moon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5c842"/>
+      <stop offset="100%" style="stop-color:#e8a830"/>
+    </linearGradient>
+    <linearGradient id="mosque" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00c896"/>
+      <stop offset="100%" style="stop-color:#00a87a"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="40" fill="url(#bg)"/>
+  <!-- Crescent Moon -->
+  <circle cx="96" cy="68" r="34" fill="url(#moon)"/>
+  <circle cx="112" cy="60" r="28" fill="url(#bg)"/>
+  <!-- Star -->
+  <polygon points="88,52 90,58 96,58 91,62 93,68 88,64 83,68 85,62 80,58 86,58" fill="url(#moon)" opacity="0.9"/>
+  <!-- Mosque Silhouette -->
+  <path d="M46,148 L46,128 Q46,118 56,113 L56,108 Q56,98 66,93 Q76,88 86,93 L96,98 L106,93 Q116,88 126,93 Q136,98 136,108 L136,113 Q146,118 146,128 L146,148 Z" fill="url(#mosque)" opacity="0.85"/>
+  <!-- Minaret left -->
+  <rect x="52" y="105" width="6" height="43" rx="3" fill="url(#mosque)" opacity="0.9"/>
+  <circle cx="55" cy="103" r="4" fill="url(#moon)" opacity="0.7"/>
+  <!-- Minaret right -->
+  <rect x="134" y="105" width="6" height="43" rx="3" fill="url(#mosque)" opacity="0.9"/>
+  <circle cx="137" cy="103" r="4" fill="url(#moon)" opacity="0.7"/>
+  <!-- Dome -->
+  <ellipse cx="96" cy="98" rx="18" ry="14" fill="url(#mosque)"/>
+  <circle cx="96" cy="84" r="3" fill="url(#moon)" opacity="0.8"/>
+  <!-- Door -->
+  <rect x="89" y="130" width="14" height="18" rx="7" fill="url(#bg)" opacity="0.5"/>
+</svg>
