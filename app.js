@@ -18,6 +18,7 @@ const App = (() => {
     let qiblaBearing = 0;
     let compassActive = false;
     let lastHeading = null;
+    let qiblaGpsWatcher = null;
     const SMOOTHING_FACTOR = 0.2; // 0.1 to 1.0 (lower is smoother)
 
     // Notification state
@@ -301,23 +302,34 @@ const App = (() => {
         $('zakat-result').textContent = zakatDue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+
     // ── Qibla Compass ──
     async function initQibla() {
-        if (!currentCity) return;
-
-        qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
-        $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-
         compassActive = true;
 
-        // Request Permission for iOS 13+
+        // Initial setup with current (possibly city-based) location
+        updateQiblaBearingDisplay();
+
+        // Bind refresh button
+        const refreshBtn = $('qibla-refresh-gps');
+        if (refreshBtn) {
+            refreshBtn.onclick = () => {
+                refreshBtn.style.animation = 'spin 1s linear infinite';
+                requestQiblaGPS();
+            };
+        }
+
+        // Automatically request GPS for high accuracy
+        requestQiblaGPS();
+
+        // Request Orientation Permission for iOS 13+
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             try {
                 const permissionState = await DeviceOrientationEvent.requestPermission();
                 if (permissionState === 'granted') {
                     window.addEventListener('deviceorientation', handleOrientation);
                 } else {
-                    $('qibla-status').textContent = 'Permission denied';
+                    $('qibla-status').textContent = 'Sensor permission denied';
                 }
             } catch (e) {
                 console.error(e);
@@ -328,14 +340,84 @@ const App = (() => {
         }
     }
 
+    function requestQiblaGPS() {
+        if (!navigator.geolocation) return;
+
+        const badge = $('qibla-accuracy-badge');
+        badge.textContent = 'Updating Location...';
+        badge.className = 'qibla-accuracy-badge';
+
+        // Clear existing watcher if any
+        if (qiblaGpsWatcher) navigator.geolocation.clearWatch(qiblaGpsWatcher);
+
+        qiblaGpsWatcher = navigator.geolocation.watchPosition(
+            pos => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                const accuracy = pos.coords.accuracy;
+
+                // Update bearing based on NEW precise coordinates
+                qiblaBearing = calculateQiblaBearing(lat, lng);
+
+                badge.textContent = accuracy < 100 ? 'High Accuracy (GPS)' : 'Good Accuracy (GPS)';
+                badge.className = 'qibla-accuracy-badge high';
+
+                $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+
+                const refreshBtn = $('qibla-refresh-gps');
+                if (refreshBtn) refreshBtn.style.animation = '';
+            },
+            err => {
+                console.warn('GPS failed for Qibla:', err);
+                const badge = $('qibla-accuracy-badge');
+                badge.textContent = 'Approximate (City)';
+                badge.className = 'qibla-accuracy-badge low';
+
+                const refreshBtn = $('qibla-refresh-gps');
+                if (refreshBtn) refreshBtn.style.animation = '';
+
+                // Fallback to city bearing if not already set
+                if (currentCity) {
+                    qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+                    $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+                }
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    }
+
+    function updateQiblaBearingDisplay() {
+        if (!currentCity) return;
+        qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+        $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+
+        const badge = $('qibla-accuracy-badge');
+        if (currentCity.id === '__gps__') {
+            badge.textContent = 'Last GPS Location';
+            badge.className = 'qibla-accuracy-badge high';
+        } else {
+            badge.textContent = 'Approximate (City)';
+            badge.className = 'qibla-accuracy-badge low';
+        }
+    }
+
     function stopQibla() {
         compassActive = false;
         lastHeading = null;
+
+        if (qiblaGpsWatcher) {
+            navigator.geolocation.clearWatch(qiblaGpsWatcher);
+            qiblaGpsWatcher = null;
+        }
+
         window.removeEventListener('deviceorientation', handleOrientation);
         window.removeEventListener('deviceorientationabsolute', handleOrientation);
         $('compass-needle').style.transform = '';
         $('qibla-status').textContent = 'Align your device';
         $('compass-needle').parentElement.classList.remove('aligned');
+
+        const refreshBtn = $('qibla-refresh-gps');
+        if (refreshBtn) refreshBtn.style.animation = '';
     }
 
     function handleOrientation(e) {

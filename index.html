@@ -270,7 +270,13 @@
                     <polyline points="15 18 9 12 15 6" />
                 </svg>
             </button>
-            <h2 id="qibla-title">Qibla Compass</h2>
+            <div style="flex:1">
+                <h2 id="qibla-title">Qibla Compass</h2>
+                <div id="qibla-accuracy-badge" class="qibla-accuracy-badge">Checking Accuracy...</div>
+            </div>
+            <button id="qibla-refresh-gps" class="icon-btn" title="Refresh GPS Location" style="margin-left: 10px;">
+                <span style="font-size: 1.1rem;">🛰️</span>
+            </button>
         </header>
         <div class="view-content qibla-content">
             <div class="compass-container">

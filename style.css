@@ -1652,8 +1652,31 @@ body::before {
 }
 
 .view-header h2 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 600;
+}
+
+.qibla-accuracy-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    display: inline-block;
+    margin-top: 2px;
+}
+
+.qibla-accuracy-badge.high {
+    background: rgba(var(--accent-primary-rgb), 0.15);
+    color: var(--accent-primary);
+}
+
+.qibla-accuracy-badge.low {
+    background: rgba(var(--accent-gold-rgb), 0.15);
+    color: var(--accent-gold);
 }
 
 .view-content {
