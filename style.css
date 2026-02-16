@@ -1668,6 +1668,12 @@ body::before {
     align-items: center;
     justify-content: center;
     text-align: center;
+    background: var(--bg-primary);
+    background-image:
+        radial-gradient(circle at center, transparent 0%, var(--bg-primary) 70%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f5c842' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' /%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' /%3E%3Ccircle cx='50' cy='50' r='40' /%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .compass-container {
@@ -1675,19 +1681,31 @@ body::before {
     width: 280px;
     height: 280px;
     margin: 2rem auto;
-    background: var(--bg-sidebar);
+    background: rgba(15, 31, 58, 0.75);
+    backdrop-filter: blur(12px);
     border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.1s ease-out;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alignment-glow {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 200, 150, 0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
 }
 
 .compass-ring {
     position: absolute;
     inset: 10px;
-    border: 2px solid var(--border);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
 }
 
@@ -1695,7 +1713,7 @@ body::before {
     position: absolute;
     font-weight: 700;
     font-size: 1rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .direction.n {
@@ -1728,10 +1746,11 @@ body::before {
     width: 6px;
     height: 200px;
     background: transparent;
-    transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    transition: transform 0.05s linear;
     display: flex;
     flex-direction: column;
     align-items: center;
+    will-change: transform;
 }
 
 .needle-north {
@@ -1768,20 +1787,43 @@ body::before {
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .qibla-status {
-    font-size: 1rem;
-    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 1rem;
+    min-height: 1.5em;
+}
+
+.qibla-guide-arrow {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    animation: bounceLR 1s infinite alternate;
+}
+
+@keyframes bounceLR {
+    from {
+        transform: translateX(-5px);
+    }
+
+    to {
+        transform: translateX(5px);
+    }
 }
 
 .qibla-instructions {
-    margin-top: 3rem;
-    padding: 1rem;
-    background: var(--highlight-bg);
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.8);
     max-width: 400px;
 }
 
@@ -1857,7 +1899,27 @@ body::before {
 
 /* Animation for aligned compass */
 .compass-container.aligned {
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), inset 0 0 20px rgba(16, 185, 129, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 40px rgba(var(--accent-primary-rgb), 0.4), inset 0 0 20px rgba(var(--accent-primary-rgb), 0.1);
+}
+
+.compass-container.aligned .alignment-glow {
+    opacity: 1;
+    animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
 }
 
 @keyframes pulse-primary {

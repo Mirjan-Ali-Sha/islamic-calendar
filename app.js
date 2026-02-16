@@ -17,6 +17,8 @@ const App = (() => {
     // Qibla state
     let qiblaBearing = 0;
     let compassActive = false;
+    let lastHeading = null;
+    const SMOOTHING_FACTOR = 0.2; // 0.1 to 1.0 (lower is smoother)
 
     // Notification state
     let notificationsEnabled = localStorage.getItem('ic-notif') === 'true';
@@ -328,6 +330,7 @@ const App = (() => {
 
     function stopQibla() {
         compassActive = false;
+        lastHeading = null;
         window.removeEventListener('deviceorientation', handleOrientation);
         window.removeEventListener('deviceorientationabsolute', handleOrientation);
         $('compass-needle').style.transform = '';
@@ -338,28 +341,67 @@ const App = (() => {
     function handleOrientation(e) {
         if (!compassActive) return;
 
-        let heading = 0;
-        if (e.webkitCompassHeading) {
+        let heading = null;
+
+        // Try to get heading from various sensor events
+        if (e.webkitCompassHeading !== undefined) {
+            // iOS
             heading = e.webkitCompassHeading;
-        } else if (e.absolute && e.alpha !== null) {
-            heading = 360 - e.alpha;
-        } else {
-            // Fallback for devices without absolute orientation
-            heading = 360 - (e.alpha || 0);
+        } else if (e.alpha !== null) {
+            // Android / Generic
+            if (e.absolute || e.webkitCompassHeading === undefined) {
+                heading = 360 - e.alpha;
+            }
         }
 
-        const rotation = (qiblaBearing - heading);
+        if (heading === null) return;
+
+        // Smoothing (Exponential Moving Average)
+        if (lastHeading === null) {
+            lastHeading = heading;
+        } else {
+            // Adjust for 360-degree wrap-around during smoothing
+            let diff = heading - lastHeading;
+            if (diff > 180) diff -= 360;
+            if (diff < -180) diff += 360;
+
+            lastHeading = (lastHeading + diff * SMOOTHING_FACTOR + 360) % 360;
+        }
+
+        const currentHeading = lastHeading;
+
+        // Directional delta (where to turn)
+        let rotation = (qiblaBearing - currentHeading + 360) % 360;
+
+        // Apply rotation to needle (it points to Mecca relative to the device's North)
         $('compass-needle').style.transform = `rotate(${rotation}deg)`;
 
-        // Check alignment
-        const diff = Math.abs((rotation + 360) % 360);
-        if (diff < 5 || diff > 355) {
-            $('qibla-status').textContent = '🎯 ALIGNED WITH QIBLA';
+        // Visual Guidance
+        const guidEl = $('qibla-guide');
+        const statusEl = $('qibla-status');
+
+        // Normalize rotation to -180 to 180 for easy direction check
+        let turnDiff = rotation;
+        if (turnDiff > 180) turnDiff -= 360;
+
+        const absDiff = Math.round(Math.abs(turnDiff));
+
+        if (absDiff < 3) {
+            statusEl.textContent = '🎯 ALIGNED WITH QIBLA';
+            guidEl.textContent = '🕋';
+            guidEl.style.animation = 'pulse-primary 1s infinite ease-in-out';
             $('compass-needle').parentElement.classList.add('aligned');
-            if (navigator.vibrate) navigator.vibrate(50);
         } else {
-            $('qibla-status').textContent = 'Align your device';
+            guidEl.style.animation = '';
             $('compass-needle').parentElement.classList.remove('aligned');
+
+            if (turnDiff > 0) {
+                statusEl.textContent = `Turn ${absDiff}° RIGHT`;
+                guidEl.textContent = '➡️';
+            } else {
+                statusEl.textContent = `Turn ${absDiff}° LEFT`;
+                guidEl.textContent = '⬅️';
+            }
         }
     }
 

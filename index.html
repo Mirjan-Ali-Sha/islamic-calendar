@@ -274,6 +274,7 @@
         </header>
         <div class="view-content qibla-content">
             <div class="compass-container">
+                <div class="alignment-glow" id="alignment-glow"></div>
                 <div class="compass-ring">
                     <span class="direction n">N</span>
                     <span class="direction e">E</span>
@@ -285,15 +286,16 @@
                     <div class="needle-south"></div>
                     <div class="mecca-icon">🕋</div>
                 </div>
-                <div class="vibration-area"></div>
             </div>
             <div class="qibla-info">
+                <div id="qibla-guide" class="qibla-guide-arrow"></div>
                 <div class="qibla-bearing" id="qibla-bearing">Bearing: --°</div>
-                <div class="qibla-status" id="qibla-status">Align your device</div>
+                <div class="qibla-status" id="qibla-status">Calculating...</div>
             </div>
             <div class="qibla-instructions">
-                <p>Lay your device flat for best accuracy.</p>
-                <p>Ensure location services are enabled.</p>
+                <p>📍 Lay your device flat on a non-metallic surface.</p>
+                <p>🔄 If the needle seems stuck, move your device in a <b>figure-8</b> motion to recalibrate the
+                    sensors.</p>
             </div>
         </div>
     </div>
