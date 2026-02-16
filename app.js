@@ -14,6 +14,14 @@ const App = (() => {
     let asrSchool = localStorage.getItem('ic-asr') || 'shafii';
     let prayerCountdownInterval = null;
 
+    // Qibla state
+    let qiblaBearing = 0;
+    let compassActive = false;
+
+    // Notification state
+    let notificationsEnabled = localStorage.getItem('ic-notif') === 'true';
+    let lastNotifiedPrayer = '';
+
     // RTL languages
     const RTL_LANGS = ['ar', 'ur'];
 
@@ -49,6 +57,7 @@ const App = (() => {
         goToToday();
         initPWA();
         startPrayerCountdown();
+        updateNotifUI();
     }
 
     // ── Event bindings (called once) ──
@@ -65,6 +74,10 @@ const App = (() => {
         $('btn-lang').addEventListener('click', () => toggleModal('lang-modal', true));
         $('lang-modal-close').addEventListener('click', () => toggleModal('lang-modal', false));
         $('event-modal-close').addEventListener('click', () => toggleModal('event-modal', false));
+
+        // Duas button removed
+
+
 
         // Language selection
         $('lang-grid').addEventListener('click', e => {
@@ -97,7 +110,7 @@ const App = (() => {
         });
 
         // Close modals on overlay click
-        ['lang-modal', 'event-modal', 'date-prayer-modal'].forEach(id => {
+        ['lang-modal', 'event-modal', 'date-prayer-modal', 'location-modal'].forEach(id => {
             $(id).addEventListener('click', e => {
                 if (e.target === $(id)) toggleModal(id, false);
             });
@@ -158,6 +171,30 @@ const App = (() => {
             renderPrayerTimes();
             startPrayerCountdown(); // Force immediate timer update
         });
+
+        // Qibla
+        $('btn-qibla').addEventListener('click', () => {
+            initQibla();
+            $('qibla-view').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        $('qibla-back-btn').addEventListener('click', () => {
+            stopQibla();
+            $('qibla-view').style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        // Zakat
+        $('btn-zakat').addEventListener('click', () => toggleModal('zakat-modal', true));
+        $('zakat-modal-close').addEventListener('click', () => toggleModal('zakat-modal', false));
+
+        // Zakat Inputs
+        ['zakat-cash', 'zakat-gold', 'zakat-other', 'zakat-debts'].forEach(id => {
+            $(id).addEventListener('input', calculateZakat);
+        });
+
+        // Notifications
+        $('btn-notifications').addEventListener('click', toggleNotifications);
 
         // Touch swipe
         let touchStartX = 0;
@@ -247,6 +284,158 @@ const App = (() => {
         renderEventsList();
         renderLegend();
         renderFooterYear();
+    }
+
+    // ── Zakat Calculator ──
+    function calculateZakat() {
+        const cash = parseFloat($('zakat-cash').value) || 0;
+        const gold = parseFloat($('zakat-gold').value) || 0;
+        const other = parseFloat($('zakat-other').value) || 0;
+        const debts = parseFloat($('zakat-debts').value) || 0;
+
+        const netWealth = (cash + gold + other) - debts;
+        const zakatDue = Math.max(0, netWealth * 0.025);
+
+        $('zakat-result').textContent = zakatDue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // ── Qibla Compass ──
+    async function initQibla() {
+        if (!currentCity) return;
+
+        qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+        $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+
+        compassActive = true;
+
+        // Request Permission for iOS 13+
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            try {
+                const permissionState = await DeviceOrientationEvent.requestPermission();
+                if (permissionState === 'granted') {
+                    window.addEventListener('deviceorientation', handleOrientation);
+                } else {
+                    $('qibla-status').textContent = 'Permission denied';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+            window.addEventListener('deviceorientation', handleOrientation, true);
+        }
+    }
+
+    function stopQibla() {
+        compassActive = false;
+        window.removeEventListener('deviceorientation', handleOrientation);
+        window.removeEventListener('deviceorientationabsolute', handleOrientation);
+        $('compass-needle').style.transform = '';
+        $('qibla-status').textContent = 'Align your device';
+        $('compass-needle').parentElement.classList.remove('aligned');
+    }
+
+    function handleOrientation(e) {
+        if (!compassActive) return;
+
+        let heading = 0;
+        if (e.webkitCompassHeading) {
+            heading = e.webkitCompassHeading;
+        } else if (e.absolute && e.alpha !== null) {
+            heading = 360 - e.alpha;
+        } else {
+            // Fallback for devices without absolute orientation
+            heading = 360 - (e.alpha || 0);
+        }
+
+        const rotation = (qiblaBearing - heading);
+        $('compass-needle').style.transform = `rotate(${rotation}deg)`;
+
+        // Check alignment
+        const diff = Math.abs((rotation + 360) % 360);
+        if (diff < 5 || diff > 355) {
+            $('qibla-status').textContent = '🎯 ALIGNED WITH QIBLA';
+            $('compass-needle').parentElement.classList.add('aligned');
+            if (navigator.vibrate) navigator.vibrate(50);
+        } else {
+            $('qibla-status').textContent = 'Align your device';
+            $('compass-needle').parentElement.classList.remove('aligned');
+        }
+    }
+
+    function calculateQiblaBearing(lat, lng) {
+        const phi1 = lat * Math.PI / 180;
+        const lambda1 = lng * Math.PI / 180;
+        const phi2 = 21.4225 * Math.PI / 180; // Mecca Lat
+        const lambda2 = 39.8262 * Math.PI / 180; // Mecca Lng
+
+        const y = Math.sin(lambda2 - lambda1);
+        const x = Math.cos(phi1) * Math.tan(phi2) - Math.sin(phi1) * Math.cos(lambda2 - lambda1);
+        let bearing = Math.atan2(y, x) * 180 / Math.PI;
+        return (bearing + 360) % 360;
+    }
+
+    // ── Notifications ──
+    async function toggleNotifications() {
+        if (!notificationsEnabled) {
+            if (Notification.permission === 'default') {
+                const permission = await Notification.requestPermission();
+                if (permission !== 'granted') return;
+            } else if (Notification.permission === 'denied') {
+                alert('Notification permission is blocked. Please enable it in browser settings.');
+                return;
+            }
+            notificationsEnabled = true;
+        } else {
+            notificationsEnabled = false;
+        }
+
+        localStorage.setItem('ic-notif', notificationsEnabled);
+        updateNotifUI();
+    }
+
+    function updateNotifUI() {
+        const btn = $('btn-notifications');
+        btn.classList.toggle('enabled', notificationsEnabled);
+        btn.title = notificationsEnabled ? 'Disable Notifications' : 'Enable Notifications';
+    }
+
+    function checkNotifications(times, currentHrs) {
+        if (!notificationsEnabled) return;
+
+        const prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+        for (const prayer of prayers) {
+            const prayerTime = times[prayer].decimal;
+            const diff = (currentHrs - prayerTime) * 60; // diff in minutes
+
+            // Notify if within 1 minute of prayer time AND not already notified for this prayer today
+            if (diff >= 0 && diff < 1 && lastNotifiedPrayer !== prayer) {
+                lastNotifiedPrayer = prayer;
+
+                const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
+                const prayerName = names[prayer];
+
+                new Notification('Prayer Time', {
+                    body: `It is time for ${prayerName} prayer.`,
+                    icon: 'icons/icon-192.png'
+                });
+
+                // Play Audio
+                playAdhan();
+            }
+        }
+
+        // Reset lastNotifiedPrayer at midnight
+        if (currentHrs < 0.01) {
+            lastNotifiedPrayer = '';
+        }
+    }
+
+    function playAdhan() {
+        // Simple built-in chime if no Adhan file provided
+        // We'll use a short Bismillah audio if possible, or just a beep
+        const audio = new Audio('https://www.soundjay.com/buttons/sounds/beep-07.mp3');
+        audio.play().catch(e => console.warn('Audio playback blocked:', e));
     }
 
     function scrollToToday(animate = false) {
@@ -497,6 +686,8 @@ const App = (() => {
     // ── Boot ──
     document.addEventListener('DOMContentLoaded', init);
 
+
+
     // ── Location Management ──
     function loadLocation() {
         const savedType = localStorage.getItem('ic-loc-type');
@@ -746,6 +937,8 @@ const App = (() => {
             const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
             const next = PrayerTimes.getNextPrayer(times, currentHrs);
             $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+
+            checkNotifications(times, currentHrs);
         }
 
         tick();
