@@ -12,218 +12,348 @@ const IslamicEvents = (() => {
         // ── MUHARRAM (Month 1) ──
         {
             month: 1, day: 1, category: 'holy', id: 'new_year',
-            name: { en: 'Islamic New Year', ar: 'رأس السنة الهجرية', bn: 'ইসলামি নববর্ষ', ur: 'اسلامی نیا سال', tr: 'Hicri Yılbaşı', ms: 'Awal Muharam', id: 'Tahun Baru Islam', fr: 'Nouvel An Islamique' },
+            name: {
+                en: 'Islamic New Year', ar: 'رأس السنة الهجرية', bn: 'ইসলামি নববর্ষ', ur: 'اسلامی نیا سال', tr: 'Hicri Yılbaşı', ms: 'Awal Muharam', id: 'Tahun Baru Islam', fr: 'Nouvel An Islamique',
+                hi: 'इस्लामिक नया साल', te: 'ఇస్లామిక్ న్యూ ఇయర్', ta: 'இஸ்லாமிய புத்தாண்டு', ml: 'ഇസ്ലാമിക് ന്യൂ ഇയർ'
+            },
             desc: { en: 'The first day of the Islamic lunar calendar year.', ar: 'أول يوم في السنة الهجرية القمرية.', bn: 'ইসলামি চান্দ্র বর্ষপঞ্জির প্রথম দিন।', ur: 'اسلامی قمری تقویم سال کا پہلا دن۔' }
         },
         {
             month: 1, day: 10, category: 'fasting', id: 'ashura',
-            name: { en: 'Day of Ashura', ar: 'يوم عاشوراء', bn: 'আশুরা', ur: 'یوم عاشورہ', tr: 'Aşure Günü', ms: 'Hari Asyura', id: 'Hari Asyura', fr: 'Jour d\'Achoura' },
+            name: {
+                en: 'Day of Ashura', ar: 'يوم عاشوراء', bn: 'আশুরা', ur: 'یوم عاشورہ', tr: 'Aşure Günü', ms: 'Hari Asyura', id: 'Hari Asyura', fr: 'Jour d\'Achoura',
+                hi: 'आशूरा का दिन', te: 'ఆశురా రోజు', ta: 'ஆஷுரா நாள்', ml: 'ആഷൂര ദിനം'
+            },
             desc: { en: 'A day of fasting and remembrance. Marks the day Prophet Musa (Moses) was saved from Pharaoh.', ar: 'يوم صيام وذكرى. يصادف اليوم الذي نجّى الله فيه موسى من فرعون.', bn: 'রোজা ও স্মরণের দিন। মুসা (আ.) ফেরাউন থেকে মুক্তি পেয়েছিলেন।', ur: 'روزے اور یاد کا دن۔ حضرت موسیٰ کو فرعون سے نجات ملی۔' }
         },
         {
             month: 1, day: 9, category: 'fasting', id: 'tasu_a',
-            name: { en: 'Tasu\'a (9th Muharram)', ar: 'تاسوعاء', bn: 'তাসুআ', ur: 'تاسوعاء', tr: 'Tasuâ', ms: 'Tasua', id: 'Tasua', fr: 'Tâsou\'â' },
+            name: {
+                en: 'Tasu\'a (9th Muharram)', ar: 'تاسوعاء', bn: 'তাসুআ', ur: 'تاسوعاء', tr: 'Tasuâ', ms: 'Tasua', id: 'Tasua', fr: 'Tâsou\'â',
+                hi: 'तासुआ (9 मुहर्रम)', te: 'తసువా (9వ ముహర్రం)', ta: 'தாசுஆ (9வது முஹர்ரம்)', ml: 'താസുവ (9 മുഹറം)'
+            },
             desc: { en: 'Recommended fasting day, the day before Ashura.', ar: 'يوم صيام مستحب، اليوم الذي يسبق عاشوراء.', bn: 'আশুরার আগের দিন, রোজা রাখা মুস্তাহাব।', ur: 'عاشوراء سے پہلے کا دن، روزہ مستحب ہے۔' }
         },
 
         // ── SAFAR (Month 2) ──
         {
             month: 2, day: 1, category: 'historical', id: 'safar_start',
-            name: { en: 'Beginning of Safar', ar: 'بداية صفر', bn: 'সফর মাসের শুরু', ur: 'صفر کی ابتدا', tr: 'Safer Ayı Başlangıcı', ms: 'Awal Safar', id: 'Awal Safar', fr: 'Début de Safar' },
+            name: {
+                en: 'Beginning of Safar', ar: 'بداية صفر', bn: 'সফর মাসের শুরু', ur: 'صفر کی ابتدا', tr: 'Safer Ayı Başlangıcı', ms: 'Awal Safar', id: 'Awal Safar', fr: 'Début de Safar',
+                hi: 'सफ़र की शुरुआत', te: 'సఫర్ ప్రారంభం', ta: 'ஸஃபர் ஆரம்பம்', ml: 'സഫർ തുടക്കം'
+            },
             desc: { en: 'The second month of the Islamic calendar begins.', ar: 'بداية الشهر الثاني من التقويم الإسلامي.', bn: 'ইসলামি বর্ষপঞ্জির দ্বিতীয় মাস শুরু।', ur: 'اسلامی تقویم کا دوسرا مہینہ شروع۔' }
         },
         {
             month: 2, day: 27, category: 'historical', id: 'hijra_madinah',
-            name: { en: 'Prophet\'s ﷺ Migration to Madinah', ar: 'هجرة النبي ﷺ إلى المدينة', bn: 'নবী ﷺ এর মদিনায় হিজরত', ur: 'نبی ﷺ کی مدینہ ہجرت', tr: 'Hz. Peygamber\'in Medine\'ye Hicreti', ms: 'Hijrah Nabi ke Madinah', id: 'Hijrah Nabi ke Madinah', fr: 'Hégire vers Médine' },
+            name: {
+                en: 'Prophet\'s ﷺ Migration to Madinah', ar: 'هجرة النبي ﷺ إلى المدينة', bn: 'নবী ﷺ এর মদিনায় হিজরত', ur: 'نبی ﷺ کی مدینہ ہجرت', tr: 'Hz. Peygamber\'in Medine\'ye Hicreti', ms: 'Hijrah Nabi ke Madinah', id: 'Hijrah Nabi ke Madinah', fr: 'Hégire vers Médine',
+                hi: 'पैगंबर ﷺ का मदीना प्रवास', te: 'ప్రవక్త ﷺ మదీనా వలస', ta: 'நபிகள் நாயகம் ﷺ மதீனா பயணம்', ml: 'പ്രവാചകൻ ﷺ മദീന പലായനം'
+            },
             desc: { en: 'Commemoration of the Prophet Muhammad\'s ﷺ migration from Makkah to Madinah.', ar: 'ذكرى هجرة النبي محمد ﷺ من مكة إلى المدينة.', bn: 'নবী মুহাম্মাদ ﷺ এর মক্কা থেকে মদিনায় হিজরতের স্মরণ।', ur: 'نبی محمد ﷺ کی مکہ سے مدینہ ہجرت کی یاد۔' }
         },
 
         // ── RABI AL-AWWAL (Month 3) ──
         {
             month: 3, day: 12, category: 'holy', id: 'mawlid',
-            name: { en: 'Mawlid al-Nabi ﷺ (Prophet\'s Birthday)', ar: 'المولد النبوي الشريف ﷺ', bn: 'ঈদে মিলাদুন্নবী ﷺ', ur: 'عید میلاد النبی ﷺ', tr: 'Mevlid Kandili', ms: 'Maulidur Rasul', id: 'Maulid Nabi', fr: 'Mawlid an-Nabî' },
+            name: {
+                en: 'Mawlid al-Nabi ﷺ (Prophet\'s Birthday)', ar: 'المولد النبوي الشريف ﷺ', bn: 'ঈদে মিলাদুন্নবী ﷺ', ur: 'عید میلاد النبی ﷺ', tr: 'Mevlid Kandili', ms: 'Maulidur Rasul', id: 'Maulid Nabi', fr: 'Mawlid an-Nabî',
+                hi: 'ईद-ए-मिलाद-उन-नबी ﷺ', te: 'మిలాద్-ఉన్-నబి ﷺ', ta: 'மீலாதுன் நபி ﷺ', ml: 'നബിദിനം ﷺ'
+            },
             desc: { en: 'Celebration of the birth of Prophet Muhammad ﷺ (12th Rabi al-Awwal, widely observed).', ar: 'الاحتفال بمولد النبي محمد ﷺ (12 ربيع الأول).', bn: 'নবী মুহাম্মাদ ﷺ এর জন্ম উদযাপন।', ur: 'نبی محمد ﷺ کے یوم پیدائش کا جشن۔' }
         },
 
         // ── RABI AL-THANI (Month 4) ──
         {
             month: 4, day: 11, category: 'historical', id: 'abdulqadir_urs',
-            name: { en: 'Urs of Sheikh Abdul Qadir Jilani', ar: 'عرس الشيخ عبد القادر الجيلاني', bn: 'শেখ আবদুল কাদের জিলানীর ওরশ', ur: 'عرس شیخ عبدالقادر جیلانی', tr: 'Abdülkâdir Geylânî Anma', ms: 'Urs Syeikh Abdul Qadir', id: 'Haul Syeikh Abdul Qadir', fr: 'Commémoration du Cheikh Abdul Qadir' },
+            name: {
+                en: 'Urs of Sheikh Abdul Qadir Jilani', ar: 'عرس الشيخ عبد القادر الجيلاني', bn: 'শেখ আবদুল কাদের জিলানীর ওরশ', ur: 'عرس شیخ عبدالقادر جیلانی', tr: 'Abdülkâdir Geylânî Anma', ms: 'Urs Syeikh Abdul Qadir', id: 'Haul Syeikh Abdul Qadir', fr: 'Commémoration du Cheikh Abdul Qadir',
+                hi: 'शेख अब्दुल कादिर जिलानी का उर्स', te: 'షేక్ అబ్దుల్ ఖాదిర్ జిలాని ఉర్స్', ta: 'ஷேக் அப்துல் காதர் ஜிலானி உர்ஸ்', ml: 'ശൈഖ് അബ്ദുൽ ഖാദിർ ജീലാനി ഉറൂസ്'
+            },
             desc: { en: 'Anniversary commemorating the great Sufi saint Sheikh Abdul Qadir Jilani.', ar: 'ذكرى الولي الصوفي الكبير الشيخ عبد القادر الجيلاني.', bn: 'মহান সুফি সাধক শেখ আবদুল কাদের জিলানীর স্মরণ।', ur: 'عظیم صوفی بزرگ شیخ عبدالقادر جیلانی کی یاد۔' }
         },
 
         // ── JUMADA AL-ULA (Month 5) ──
-        // No widely universal events, but keep month marker
+        // No widely universal events
 
         // ── JUMADA AL-THANI (Month 6) ──
         {
             month: 6, day: 20, category: 'historical', id: 'fatima_birth',
-            name: { en: 'Birth of Fatimah al-Zahra (RA)', ar: 'مولد فاطمة الزهراء رضي الله عنها', bn: 'ফাতিমা আল-জাহরা (রা.) এর জন্ম', ur: 'ولادت فاطمہ الزہراء رضی اللہ عنہا', tr: 'Hz. Fatıma\'nın Doğumu', ms: 'Kelahiran Fatimah Az-Zahra', id: 'Kelahiran Fatimah Az-Zahra', fr: 'Naissance de Fatima az-Zahra' },
+            name: {
+                en: 'Birth of Fatimah al-Zahra (RA)', ar: 'مولد فاطمة الزهراء رضي الله عنها', bn: 'ফাতিমা আল-জাহরা (রা.) এর জন্ম', ur: 'ولادت فاطمہ الزہراء رضی اللہ عنہا', tr: 'Hz. Fatıma\'nın Doğumu', ms: 'Kelahiran Fatimah Az-Zahra', id: 'Kelahiran Fatimah Az-Zahra', fr: 'Naissance de Fatima az-Zahra',
+                hi: 'फ़ातिमा अल-ज़हरा (र.अ.) का जन्म', te: 'ఫాతిమా అల్-జహ్రా పుట్టినరోజు', ta: 'பாத்திமா அல்-ஜஹ்ரா (ரலி) பிறப்பு', ml: 'ഫാത്തിമ അസ്-സഹ്റ (റ) ജനനം'
+            },
             desc: { en: 'Birth anniversary of Lady Fatimah, daughter of Prophet Muhammad ﷺ.', ar: 'ذكرى ولادة السيدة فاطمة بنت النبي محمد ﷺ.', bn: 'নবী মুহাম্মাদ ﷺ এর কন্যা ফাতিমার জন্মদিন।', ur: 'نبی محمد ﷺ کی بیٹی سیدہ فاطمہ کا یوم پیدائش۔' }
         },
 
         // ── RAJAB (Month 7) ──
         {
             month: 7, day: 1, category: 'holy', id: 'rajab_start',
-            name: { en: 'Beginning of Rajab (Sacred Month)', ar: 'بداية رجب (الشهر الحرام)', bn: 'রজব মাসের শুরু (পবিত্র মাস)', ur: 'رجب کی ابتدا (حرمت والا مہینہ)', tr: 'Recep Ayı Başlangıcı', ms: 'Awal Rejab', id: 'Awal Rajab', fr: 'Début de Rajab' },
+            name: {
+                en: 'Beginning of Rajab (Sacred Month)', ar: 'بداية رجب (الشهر الحرام)', bn: 'রজব মাসের শুরু (পবিত্র মাস)', ur: 'رجب کی ابتدا (حرمت والا مہینہ)', tr: 'Recep Ayı Başlangıcı', ms: 'Awal Rejab', id: 'Awal Rajab', fr: 'Début de Rajab',
+                hi: 'रजब की शुरुआत', te: 'రజబ్ ఆరంభం', ta: 'ரஜப் ஆரம்பம்', ml: 'റജബ് തുടക്കം'
+            },
             desc: { en: 'Rajab is one of the four sacred months in Islam.', ar: 'رجب هو أحد الأشهر الحرم الأربعة في الإسلام.', bn: 'রজব ইসলামের চারটি পবিত্র মাসের একটি।', ur: 'رجب اسلام میں چار حرمت والے مہینوں میں سے ایک ہے۔' }
         },
         {
             month: 7, day: 13, category: 'historical', id: 'ali_birth',
-            name: { en: 'Birth of Ali ibn Abi Talib (RA)', ar: 'مولد علي بن أبي طالب رضي الله عنه', bn: 'আলী ইবনে আবু তালিব (রা.) এর জন্ম', ur: 'ولادت علی ابن ابی طالب رضی اللہ عنہ', tr: 'Hz. Ali\'nin Doğumu', ms: 'Kelahiran Ali bin Abu Talib', id: 'Kelahiran Ali bin Abu Thalib', fr: 'Naissance d\'Ali ibn Abi Talib' },
+            name: {
+                en: 'Birth of Ali ibn Abi Talib (RA)', ar: 'مولد علي بن أبي طالب رضي الله عنه', bn: 'আলী ইবনে আবু তালিব (রা.) এর জন্ম', ur: 'ولادت علی ابن ابی طالب رضی اللہ عنہ', tr: 'Hz. Ali\'nin Doğumu', ms: 'Kelahiran Ali bin Abu Talib', id: 'Kelahiran Ali bin Abu Thalib', fr: 'Naissance d\'Ali ibn Abi Talib',
+                hi: 'अली इब्न अबी तालिब (र.अ.) का जन्म', te: 'అలీ ఇబ్న్ అబీ తాలిబ్ (ర) పుట్టినరోజు', ta: 'அலி இப்னு அபி தாலிப் (ரலி) பிறப்பு', ml: 'അലി (റ) ജനനം'
+            },
             desc: { en: 'Birth of Ali ibn Abi Talib (RA), the fourth Caliph and cousin of the Prophet ﷺ.', ar: 'ولادة علي بن أبي طالب، الخليفة الرابع وابن عم النبي ﷺ.', bn: 'চতুর্থ খলিফা ও নবী ﷺ এর চাচাতো ভাই আলীর জন্ম।', ur: 'چوتھے خلیفہ اور نبی ﷺ کے چچا زاد بھائی علی کی پیدائش۔' }
         },
         {
             month: 7, day: 27, category: 'holy', id: 'isra_miraj',
-            name: { en: 'Isra & Mi\'raj (Night Journey)', ar: 'الإسراء والمعراج', bn: 'ইসরা ও মিরাজ', ur: 'شب اسراء و معراج', tr: 'Miraç Kandili', ms: 'Israk & Mikraj', id: 'Isra Mi\'raj', fr: 'Isra et Miraj' },
+            name: {
+                en: 'Isra & Mi\'raj (Night Journey)', ar: 'الإسراء والمعراج', bn: 'ইসরা ও মিরাজ', ur: 'شب اسراء و معراج', tr: 'Miraç Kandili', ms: 'Israk & Mikraj', id: 'Isra Mi\'raj', fr: 'Isra et Miraj',
+                hi: 'शब-ए-मेराज', te: 'షబ్-ఎ-మేరాజ్', ta: 'இஸ்ரா மிஃராஜ்', ml: 'മിഅ്റാജ് ദിനം'
+            },
             desc: { en: 'The Night Journey of Prophet Muhammad ﷺ from Makkah to Jerusalem and ascension to the heavens.', ar: 'رحلة الإسراء والمعراج للنبي محمد ﷺ من مكة إلى القدس ثم العروج إلى السماوات.', bn: 'নবী মুহাম্মাদ ﷺ এর মক্কা থেকে জেরুজালেম ও ঊর্ধ্বাকাশে আরোহণ।', ur: 'نبی محمد ﷺ کا مکہ سے بیت المقدس اور آسمانوں کی طرف سفر۔' }
         },
 
         // ── SHA'BAN (Month 8) ──
         {
             month: 8, day: 1, category: 'holy', id: 'shaban_start',
-            name: { en: 'Beginning of Sha\'ban', ar: 'بداية شعبان', bn: 'শাবান মাসের শুরু', ur: 'شعبان کی ابتدا', tr: 'Şaban Ayı Başlangıcı', ms: 'Awal Syaaban', id: 'Awal Syakban', fr: 'Début de Chaabane' },
+            name: {
+                en: 'Beginning of Sha\'ban', ar: 'بداية شعبان', bn: 'শাবান মাসের শুরু', ur: 'شعبان کی ابتدا', tr: 'Şaban Ayı Başlangıcı', ms: 'Awal Syaaban', id: 'Awal Syakban', fr: 'Début de Chaabane',
+                hi: 'शाबान की शुरुआत', te: 'షాబాన్ ఆరంభం', ta: 'ஷஃபான் ஆரம்பம்', ml: 'ശഅ്ബാൻ തുടക്കം'
+            },
             desc: { en: 'Sha\'ban is the month preceding Ramadan. Extra fasting is recommended.', ar: 'شعبان هو الشهر الذي يسبق رمضان. يستحب الصيام فيه.', bn: 'শাবান রমজানের আগের মাস। অতিরিক্ত রোজা রাখা মুস্তাহাব।', ur: 'شعبان رمضان سے پہلے کا مہینہ ہے۔ نفلی روزے مستحب ہیں۔' }
         },
         {
             month: 8, day: 15, category: 'holy', id: 'shab_e_barat',
-            name: { en: 'Shab-e-Barat (Mid-Sha\'ban)', ar: 'ليلة النصف من شعبان', bn: 'শবে বরাত', ur: 'شب برات', tr: 'Berat Kandili', ms: 'Nisfu Syaaban', id: 'Nisfu Sya\'ban', fr: 'Nuit du Mi-Chaabane' },
+            name: {
+                en: 'Shab-e-Barat (Mid-Sha\'ban)', ar: 'ليلة النصف من شعبان', bn: 'শবে বরাত', ur: 'شب برات', tr: 'Berat Kandili', ms: 'Nisfu Syaaban', id: 'Nisfu Sya\'ban', fr: 'Nuit du Mi-Chaabane',
+                hi: 'शब-ए-बारात', te: 'షబ్-ఎ-బరాత్', ta: 'ஷபே பராத்', ml: 'ബറാഅത്ത് രാവ്'
+            },
             desc: { en: 'The Night of Forgiveness. A blessed night when Allah\'s mercy descends abundantly.', ar: 'ليلة المغفرة. ليلة مباركة تنزل فيها رحمة الله بكثرة.', bn: 'ক্ষমার রাত। এক বরকতময় রাত যখন আল্লাহর রহমত প্রচুর পরিমাণে নাযিল হয়।', ur: 'مغفرت کی رات۔ ایک بابرکت رات جب اللہ کی رحمت کثرت سے نازل ہوتی ہے۔' }
         },
 
         // ── RAMADAN (Month 9) ──
         {
             month: 9, day: 1, category: 'fasting', id: 'ramadan_start',
-            name: { en: 'Start of Ramadan', ar: 'بداية رمضان', bn: 'রমজান শুরু', ur: 'رمضان کی ابتدا', tr: 'Ramazan Başlangıcı', ms: 'Awal Ramadan', id: 'Awal Ramadan', fr: 'Début du Ramadan' },
+            name: {
+                en: 'Start of Ramadan', ar: 'بداية رمضان', bn: 'রমজান শুরু', ur: 'رمضان کی ابتدا', tr: 'Ramazan Başlangıcı', ms: 'Awal Ramadan', id: 'Awal Ramadan', fr: 'Début du Ramadan',
+                hi: 'रमज़ान की शुरुआत', te: 'రమజాన్ ఆరంభం', ta: 'ரம்ஜான் ஆரம்பம்', ml: 'റമദാൻ തുടക്കം'
+            },
             desc: { en: 'The blessed month of fasting begins. Muslims fast from dawn to sunset.', ar: 'بداية شهر الصيام المبارك. يصوم المسلمون من الفجر إلى غروب الشمس.', bn: 'বরকতময় রোজার মাস শুরু। মুসলিমরা ভোর থেকে সূর্যাস্ত পর্যন্ত রোজা রাখেন।', ur: 'روزوں کا بابرکت مہینہ شروع۔ مسلمان فجر سے غروب تک روزہ رکھتے ہیں۔' }
         },
         {
             month: 9, day: 17, category: 'historical', id: 'badr',
-            name: { en: 'Battle of Badr', ar: 'غزوة بدر', bn: 'বদরের যুদ্ধ', ur: 'غزوہ بدر', tr: 'Bedir Savaşı', ms: 'Perang Badar', id: 'Perang Badar', fr: 'Bataille de Badr' },
-            desc: { en: 'Anniversary of the first major battle in Islamic history (2 AH).', ar: 'ذكرى أول معركة كبرى في التاريخ الإسلامي (2 هـ).', bn: 'ইসলামি ইতিহাসের প্রথম বড় যুদ্ধের বার্ষিকী (২ হিজরি)।', ur: 'اسلامی تاریخ کی پہلی بڑی جنگ کی سالگرہ (2 ہجری)۔' }
+            name: {
+                en: 'Battle of Badr', ar: 'غزوة بدر', bn: 'বদরের যুদ্ধ', ur: 'غزوہ بدر', tr: 'Bedir Savaşı', ms: 'Perang Badar', id: 'Perang Badar', fr: 'Bataille de Badr',
+                hi: 'बद्र की लड़ाई', te: 'బద్ర యుద్ధం', ta: 'பத்ரு போர்', ml: 'ബദർ യുദ്ധം'
+            },
+            desc: { en: 'Anniversary of first major battle in Islamic history (2 AH).', ar: 'ذكرى أول معركة كبرى في التاريخ الإسلامي (2 هـ).', bn: 'ইসলামি ইতিহাসের প্রথম বড় যুদ্ধের বার্ষিকী (২ হিজরি)।', ur: 'اسلامی تاریخ کی پہلی بڑی جنگ کی سالگرہ (2 ہجری)۔' }
         },
         {
             month: 9, day: 20, category: 'historical', id: 'fath_makkah',
-            name: { en: 'Conquest of Makkah', ar: 'فتح مكة', bn: 'মক্কা বিজয়', ur: 'فتح مکہ', tr: 'Mekke\'nin Fethi', ms: 'Pembukaan Mekah', id: 'Penaklukan Mekkah', fr: 'Conquête de La Mecque' },
-            desc: { en: 'The Prophet ﷺ entered Makkah peacefully (8 AH / 630 CE).', ar: 'دخل النبي ﷺ مكة سلمياً (8 هـ / 630 م).', bn: 'নবী ﷺ শান্তিপূর্ণভাবে মক্কায় প্রবেশ করেন (৮ হিজরি)।', ur: 'نبی ﷺ نے پرامن طریقے سے مکہ میں داخلہ حاصل کیا (8 ہجری)۔' }
+            name: {
+                en: 'Conquest of Makkah', ar: 'فتح مكة', bn: 'মক্কা বিজয়', ur: 'فتح مکہ', tr: 'Mekke\'nin Fethi', ms: 'Pembukaan Mekah', id: 'Penaklukan Mekkah', fr: 'Conquête de La Mecque',
+                hi: 'मक्का की विजय', te: 'మక్కా విజయం', ta: 'மக்கா வெற்றி', ml: 'മക്കാ വിജയം'
+            },
+            desc: { en: 'The Prophet ﷺ entered Makkah peacefully (8 AH).', ar: 'دخل النبي ﷺ مكة سلمياً (8 هـ).', bn: 'নবী ﷺ শান্তিপূর্ণভাবে মক্কায় প্রবেশ করেন (৮ হিজরি)।', ur: 'نبی ﷺ نے پرامن طریقے سے مکہ میں داخلہ حاصل کیا (8 ہجری)۔' }
         },
         {
             month: 9, day: 21, category: 'holy', id: 'last_10_start',
-            name: { en: 'Last 10 Nights of Ramadan Begin', ar: 'بداية العشر الأواخر من رمضان', bn: 'রমজানের শেষ ১০ রাত শুরু', ur: 'رمضان کی آخری دس راتوں کی ابتدا', tr: 'Ramazan\'ın Son 10 Gecesi', ms: 'Bermula 10 Malam Terakhir', id: 'Awal 10 Malam Terakhir', fr: 'Dernières 10 nuits du Ramadan' },
-            desc: { en: 'The most virtuous nights of the year. Seek Laylat al-Qadr in these nights.', ar: 'أفضل ليالي السنة. تحرّوا ليلة القدر فيها.', bn: 'বছরের সবচেয়ে মর্যাদাপূর্ণ রাতগুলি। এই রাতগুলিতে লাইলাতুল কদর খোঁজা হয়।', ur: 'سال کی سب سے افضل راتیں۔ ان میں لیلۃ القدر تلاش کریں۔' }
+            name: {
+                en: 'Last 10 Nights of Ramadan Begin', ar: 'بداية العشر الأواخر من رمضان', bn: 'রমজানের শেষ ১০ রাত শুরু', ur: 'رمضان کی آخری دس راتوں کی ابتدا', tr: 'Ramazan\'ın Son 10 Gecesi', ms: 'Bermula 10 Malam Terakhir', id: 'Awal 10 Malam Terakhir', fr: 'Dernières 10 nuits du Ramadan',
+                hi: 'रमज़ान की आखिरी 10 रातें', te: 'రమజాన్ చివరి 10 రాత్రులు', ta: 'ரம்ஜானின் கடைசி 10 இரவுகள்', ml: 'റമദാനിലെ അവസാന 10 രാവുകൾ'
+            },
+            desc: { en: 'The most virtuous nights of the year. Seek Laylat al-Qadr.', ar: 'أفضل ليالي السنة. تحرّوا ليلة القدر فيها.', bn: 'বছরের সবচেয়ে মর্যাদাপূর্ণ রাতগুলি। এই রাতগুলিতে লাইলাতুল কদর খোঁজা হয়।', ur: 'سال کی سب سے افضل راتیں۔ ان میں لیلۃ القدر تلاش کریں۔' }
         },
         {
             month: 9, day: 27, category: 'holy', id: 'laylat_al_qadr',
-            name: { en: 'Laylat al-Qadr (Night of Power)', ar: 'ليلة القدر', bn: 'লাইলাতুল কদর (শবে কদর)', ur: 'شب قدر (لیلۃ القدر)', tr: 'Kadir Gecesi', ms: 'Lailatul Qadr', id: 'Lailatul Qadr', fr: 'Nuit du Destin' },
-            desc: { en: 'The Night of Power — better than a thousand months. The Quran was first revealed on this night.', ar: 'ليلة القدر خيرٌ من ألف شهر. أُنزل فيها القرآن الكريم.', bn: 'কদরের রাত — হাজার মাসের চেয়ে উত্তম। এই রাতে কুরআন অবতীর্ণ হয়েছিল।', ur: 'شب قدر — ہزار مہینوں سے بہتر۔ اس رات قرآن نازل ہوا۔' }
+            name: {
+                en: 'Laylat al-Qadr (Night of Power)', ar: 'ليلة القدر', bn: 'লাইলাতুল কদর (শবে কদর)', ur: 'شب قدر (لیلۃ القدر)', tr: 'Kadir Gecesi', ms: 'Lailatul Qadr', id: 'Lailatul Qadr', fr: 'Nuit du Destin',
+                hi: 'शब-ए-कद्र', te: 'లైలతుల్ ఖదర్', ta: 'லைலத்துல் கத்ர்', ml: 'ലൈലത്തുൽ ഖദർ'
+            },
+            desc: { en: 'The Night of Power — better than a thousand months.', ar: 'ليلة القدر خيرٌ من ألف شهر.', bn: 'কদরের রাত — হাজার মাসের চেয়ে উত্তম।', ur: 'شب قدر — ہزار مہینوں سے بہتر۔' }
         },
 
         // ── SHAWWAL (Month 10) ──
         {
             month: 10, day: 1, category: 'eid', id: 'eid_fitr',
-            name: { en: 'Eid al-Fitr', ar: 'عيد الفطر', bn: 'ঈদুল ফিতর', ur: 'عید الفطر', tr: 'Ramazan Bayramı', ms: 'Hari Raya Aidilfitri', id: 'Idul Fitri', fr: 'Aïd al-Fitr' },
-            desc: { en: 'The Festival of Breaking the Fast. Celebrates the end of Ramadan with prayers, charity, and feasts.', ar: 'عيد الفطر. يحتفل المسلمون بنهاية رمضان بالصلاة والصدقة والولائم.', bn: 'রোজা ভাঙার উৎসব। নামাজ, দান ও ভোজের মাধ্যমে রমজানের সমাপ্তি উদযাপন।', ur: 'روزے ختم ہونے کی خوشی۔ نماز، صدقے اور دعوتوں سے رمضان کا اختتام۔' }
+            name: {
+                en: 'Eid al-Fitr', ar: 'عيد الفطر', bn: 'ঈদুল ফিতর', ur: 'عید الفطر', tr: 'Ramazan Bayramı', ms: 'Hari Raya Aidilfitri', id: 'Idul Fitri', fr: 'Aïd al-Fitr',
+                hi: 'ईद-उल-फित्र', te: 'ఈద్ అల్-ఫితర్', ta: 'ஈதுல் பித்ர்', ml: 'ഈദുൽ ഫിത്തർ'
+            },
+            desc: { en: 'Festival of Breaking the Fast.', ar: 'عيد الفطر.', bn: 'রোজা ভাঙার উৎসব।', ur: 'روزے ختم ہونے کی خوشی۔' }
         },
         {
             month: 10, day: 2, category: 'eid', id: 'eid_fitr_2',
-            name: { en: 'Eid al-Fitr (Day 2)', ar: 'عيد الفطر (اليوم الثاني)', bn: 'ঈদুল ফিতর (দ্বিতীয় দিন)', ur: 'عید الفطر (دوسرا دن)', tr: 'Ramazan Bayramı (2. Gün)', ms: 'Hari Raya Aidilfitri (Hari 2)', id: 'Idul Fitri (Hari 2)', fr: 'Aïd al-Fitr (Jour 2)' },
-            desc: { en: 'Second day of Eid al-Fitr celebrations.', ar: 'اليوم الثاني من احتفالات عيد الفطر.', bn: 'ঈদুল ফিতর উদযাপনের দ্বিতীয় দিন।', ur: 'عید الفطر کے جشن کا دوسرا دن۔' }
+            name: {
+                en: 'Eid al-Fitr (Day 2)', ar: 'عيد الفطر (اليوم الثاني)', bn: 'ঈদুল ফিতর (দ্বিতীয় দিন)', ur: 'عید الفطر (دوسرا دن)', tr: '2. Gün', ms: 'Hari Raya (Hari 2)', id: 'Hari 2', fr: 'Jour 2',
+                hi: 'ईद-उल-फित्र (दूसरा दिन)', te: 'ఈద్ అల్-ఫితర్ (2వ రోజు)', ta: 'ஈதுல் பித்ர் (நாள் 2)', ml: 'ഈദുൽ ഫിത്തർ (ദിവസം 2)'
+            },
+            desc: { en: 'Second day of celebrations.', ar: 'اليوم الثاني.', bn: 'দ্বিতীয় দিন।', ur: 'دوسرا دن۔' }
         },
         {
             month: 10, day: 3, category: 'eid', id: 'eid_fitr_3',
-            name: { en: 'Eid al-Fitr (Day 3)', ar: 'عيد الفطر (اليوم الثالث)', bn: 'ঈদুল ফিতর (তৃতীয় দিন)', ur: 'عید الفطر (تیسرا دن)', tr: 'Ramazan Bayramı (3. Gün)', ms: 'Hari Raya Aidilfitri (Hari 3)', id: 'Idul Fitri (Hari 3)', fr: 'Aïd al-Fitr (Jour 3)' },
-            desc: { en: 'Third day of Eid al-Fitr celebrations.', ar: 'اليوم الثالث من احتفالات عيد الفطر.', bn: 'ঈদুল ফিতর উদযাপনের তৃতীয় দিন।', ur: 'عید الفطر کے جشن کا تیسرا دن۔' }
+            name: {
+                en: 'Eid al-Fitr (Day 3)', ar: 'عيد الفطر (اليوم الثالث)', bn: 'ঈদুল ফিতর (তৃতীয় দিন)', ur: 'عید الفطر (تیسرا دن)', tr: '3. Gün', ms: 'Hari Raya (Hari 3)', id: 'Hari 3', fr: 'Jour 3',
+                hi: 'ईद-उल-फित्र (तीसरा दिन)', te: 'ఈద్ అల్-ఫితర్ (3వ రోజు)', ta: 'ஈதுல் பித்ர் (நாள் 3)', ml: 'ഈദുൽ ഫിത്തർ (ദിവസം 3)'
+            },
+            desc: { en: 'Third day of celebrations.', ar: 'اليوم الثالث.', bn: 'তৃতীয় দিন।', ur: 'تیسرا دن۔' }
         },
         {
             month: 10, day: 2, category: 'fasting', id: 'shawwal_fasting_start',
-            name: { en: 'Six Days of Shawwal Fasting Begin', ar: 'بداية صيام الست من شوال', bn: 'শাওয়ালের ছয় রোজা শুরু', ur: 'شوال کے چھ روزوں کی ابتدا', tr: 'Şevval Oruçları', ms: 'Puasa Enam Syawal', id: 'Puasa Enam Syawal', fr: 'Jeûne des six jours de Chawwal' },
-            desc: { en: 'It is Sunnah to fast six days during Shawwal after Eid.', ar: 'من السنة صيام ستة أيام من شوال بعد العيد.', bn: 'ঈদের পর শাওয়ালে ছয়দিন রোজা রাখা সুন্নত।', ur: 'عید کے بعد شوال کے چھ روزے رکھنا سنت ہے۔' }
+            name: {
+                en: 'Six Days of Shawwal Fasting', ar: 'صيام الست من شوال', bn: 'শাওয়ালের ছয় রোজা', ur: 'شوال کے چھ روزے', tr: 'Şevval Oruçları', ms: 'Puasa Enam', id: 'Puasa Enam', fr: 'Jeûne de Chawwal',
+                hi: 'शव्वाल के 6 रोज़े', te: 'షవ్వాల్ ఉపవాసాలు', ta: 'ஷவ்வால் நோன்பு', ml: 'ശവ്വാൽ നോമ്പ്'
+            },
+            desc: { en: 'Sunnah fasts after Eid.', ar: 'صيام سنة بعد العيد.', bn: 'ঈদের পর সুন্নত রোজা।', ur: 'عید کے بعد سنت روزے۔' }
         },
 
         // ── DHUL QI'DAH (Month 11) ──
         {
             month: 11, day: 1, category: 'holy', id: 'dhul_qidah_start',
-            name: { en: 'Beginning of Dhul Qi\'dah (Sacred Month)', ar: 'بداية ذي القعدة (الشهر الحرام)', bn: 'জিলকদ মাসের শুরু (পবিত্র মাস)', ur: 'ذوالقعدہ کی ابتدا (حرمت والا مہینہ)', tr: 'Zilkade Ayı Başlangıcı', ms: 'Awal Zulkaedah', id: 'Awal Zulkaidah', fr: 'Début de Dhou al-Qi\'da' },
-            desc: { en: 'Dhul Qi\'dah is one of the four sacred months.', ar: 'ذو القعدة هو أحد الأشهر الحرم الأربعة.', bn: 'জিলকদ ইসলামের চারটি পবিত্র মাসের একটি।', ur: 'ذوالقعدہ چار حرمت والے مہینوں میں سے ایک ہے۔' }
+            name: {
+                en: 'Beginning of Dhul Qi\'dah', ar: 'بداية ذي القعدة', bn: 'জিলকদ শুরু', ur: 'ذوالقعدہ کی ابتدا', tr: 'Zilkade Başlangıcı', ms: 'Awal Zulkaedah', id: 'Awal Zulkaidah', fr: 'Début de Dhou al-Qi\'da',
+                hi: 'धुल-क़ादा की शुरुआत', te: 'ధూల్ ఖైదా ఆరంభం', ta: 'துல் கஃதா ஆரம்பம்', ml: 'ദുൽ ഖഅ്ദ തുടക്കം'
+            },
+            desc: { en: 'One of the four sacred months.', ar: 'أحد الأشهر الحرم.', bn: 'পবিত্র মাস।', ur: 'حرمت والا مہینہ۔' }
         },
         {
             month: 11, day: 25, category: 'historical', id: 'dahw_al_ard',
-            name: { en: 'Dahw al-Ard (Spreading of Earth)', ar: 'دحو الأرض', bn: 'দাহউল আরদ', ur: 'دحو الارض', tr: 'Dahvü\'l-Arz', ms: 'Dahw al-Ard', id: 'Dahw al-Ard', fr: 'Dahw al-Ard' },
-            desc: { en: 'Commemorates when Allah spread the earth from beneath the Kaaba.', ar: 'ذكرى بسط الأرض من تحت الكعبة.', bn: 'কাবার নিচ থেকে আল্লাহ পৃথিবী বিছিয়ে দেওয়ার স্মরণ।', ur: 'اللہ نے کعبے کے نیچے سے زمین کو پھیلایا اس کی یاد۔' }
+            name: {
+                en: 'Dahw al-Ard', ar: 'دحو الأرض', bn: 'দাহউল আরদ', ur: 'دحو الارض', tr: 'Dahvü\'l-Arz', ms: 'Dahw al-Ard', id: 'Dahw al-Ard', fr: 'Dahw al-Ard',
+                hi: 'दह्व अल-अर्ज़', te: 'దహ్వ అల్-అర్ద్', ta: 'தஹ்வு அல்-அர்த்', ml: 'ദഹ്‌വുൽ അർദ്'
+            },
+            desc: { en: 'Spreading of the earth.', ar: 'بسط الأرض.', bn: 'পৃথিবী বিছানো।', ur: 'زمین کا پھیلاؤ۔' }
         },
 
         // ── DHUL HIJJAH (Month 12) ──
         {
             month: 12, day: 1, category: 'hajj', id: 'dhul_hijjah_start',
-            name: { en: 'Beginning of Dhul Hijjah (Sacred Month)', ar: 'بداية ذي الحجة (الشهر الحرام)', bn: 'জিলহজ মাসের শুরু (পবিত্র মাস)', ur: 'ذوالحجہ کی ابتدا (حرمت والا مہینہ)', tr: 'Zilhicce Ayı Başlangıcı', ms: 'Awal Zulhijjah', id: 'Awal Zulhijah', fr: 'Début de Dhou al-Hijja' },
-            desc: { en: 'The most sacred month. First 10 days are the best days of the year.', ar: 'أقدس الشهور. أول عشرة أيام هي أفضل أيام السنة.', bn: 'সবচেয়ে পবিত্র মাস। প্রথম ১০ দিন বছরের সেরা দিন।', ur: 'سب سے مقدس مہینہ۔ پہلے دس دن سال کے بہترین دن ہیں۔' }
+            name: {
+                en: 'Beginning of Dhul Hijjah', ar: 'بداية ذي الحجة', bn: 'জিলহজ শুরু', ur: 'ذوالحجہ کی ابتدا', tr: 'Zilhicce Başlangıcı', ms: 'Awal Zulhijjah', id: 'Awal Zulhijah', fr: 'Début de Dhou al-Hijja',
+                hi: 'धुल-हिज्जा की शुरुआत', te: 'ధూల్ హిజ్జా ఆరంభం', ta: 'துல் ஹஜ் ஆரம்பம்', ml: 'ദുൽ ഹിജ്ജ തുടക്കം'
+            },
+            desc: { en: 'The month of Hajj.', ar: 'شهر الحج.', bn: 'হজের মাস।', ur: 'حج کا مہینہ۔' }
         },
         {
             month: 12, day: 1, category: 'fasting', id: 'first_10_dhul_hijjah',
-            name: { en: 'First 10 Days of Dhul Hijjah (Fasting Recommended)', ar: 'العشر الأوائل من ذي الحجة (يستحب الصيام)', bn: 'জিলহজের প্রথম ১০ দিন (রোজা মুস্তাহাব)', ur: 'ذوالحجہ کے پہلے دس دن (روزہ مستحب)', tr: 'Zilhicce\'nin İlk 10 Günü', ms: '10 Hari Pertama Zulhijjah', id: '10 Hari Pertama Zulhijah', fr: 'Premiers 10 jours de Dhou al-Hijja' },
-            desc: { en: 'Fasting during the first 9 days of Dhul Hijjah is highly recommended (especially day 9, Arafah).', ar: 'صيام التسع الأوائل من ذي الحجة مستحب جداً (خاصة يوم عرفة).', bn: 'জিলহজের প্রথম ৯ দিন রোজা রাখা অত্যন্ত মুস্তাহাব (বিশেষত আরাফার দিন)।', ur: 'ذوالحجہ کے پہلے 9 دن روزہ رکھنا بہت مستحب ہے (خاصکر یوم عرفہ)۔' }
+            name: {
+                en: 'First 10 Days of Dhul Hijjah', ar: 'العشر الأوائل من ذي الحجة', bn: 'জিলহজের প্রথম ১০ দিন', ur: 'ذوالحجہ کے پہلے دس دن', tr: 'İlk 10 Gün', ms: '10 Hari Pertama', id: '10 Hari Pertama', fr: '10 premiers jours',
+                hi: 'धुल-हिज्जा के पहले 10 दिन', te: 'ధూల్ హిజ్జా మొదటి 10 రోజులు', ta: 'துல் ஹஜ்ஜின் முதல் 10 நாட்கள்', ml: 'ദുൽ ഹിജ്ജ ആദ്യ 10 ദിനങ്ങൾ'
+            },
+            desc: { en: 'Fasting is recommended.', ar: 'يستحب الصيام.', bn: 'রোজা মুস্তাহাব।', ur: 'روزہ مستحب ہے۔' }
         },
         {
             month: 12, day: 8, category: 'hajj', id: 'tarwiyah',
-            name: { en: 'Day of Tarwiyah (Hajj Day 1)', ar: 'يوم التروية (الحج اليوم الأول)', bn: 'তারবিয়াহর দিন (হজের ১ম দিন)', ur: 'یوم الترویہ (حج کا پہلا دن)', tr: 'Terviye Günü', ms: 'Hari Tarwiyah', id: 'Hari Tarwiyah', fr: 'Jour de Tarwiya' },
-            desc: { en: 'Pilgrims begin the Hajj rituals. They proceed to Mina.', ar: 'يبدأ الحجاج مناسك الحج ويتوجهون إلى منى.', bn: 'হাজিরা হজের আনুষ্ঠানিকতা শুরু করেন। তারা মিনায় যান।', ur: 'حاجی حج کے مناسک شروع کرتے ہیں اور منیٰ کی طرف جاتے ہیں۔' }
+            name: {
+                en: 'Day of Tarwiyah', ar: 'يوم التروية', bn: 'তারবিয়াহর দিন', ur: 'یوم الترویہ', tr: 'Terviye', ms: 'Tarwiyah', id: 'Tarwiyah', fr: 'Tarwiya',
+                hi: 'यौम-ए-तरविया', te: 'తర్వియా రోజు', ta: 'தர்வியா நாள்', ml: 'തർവിയ ദിനം'
+            },
+            desc: { en: 'Hajj rituals begin.', ar: 'بدء مناسك الحج.', bn: 'হজ শুরু।', ur: 'حج کی شروعات۔' }
         },
         {
             month: 12, day: 9, category: 'hajj', id: 'arafah',
-            name: { en: 'Day of Arafah', ar: 'يوم عرفة', bn: 'আরাফাহর দিন', ur: 'یوم عرفہ', tr: 'Arefe Günü', ms: 'Hari Arafah', id: 'Hari Arafah', fr: 'Jour d\'Arafat' },
-            desc: { en: 'The most important day of Hajj. Fasting this day expiates sins of the previous and coming year (for non-pilgrims).', ar: 'أهم أيام الحج. صيام هذا اليوم يكفر ذنوب سنة ماضية وسنة قادمة (لغير الحاج).', bn: 'হজের সবচেয়ে গুরুত্বপূর্ণ দিন। এই দিন রোজা রাখলে আগের ও পরের বছরের গুনাহ মাফ হয়।', ur: 'حج کا سب سے اہم دن۔ اس دن کا روزہ پچھلے اور آنے والے سال کے گناہوں کا کفارہ ہے۔' }
+            name: {
+                en: 'Day of Arafah', ar: 'يوم عرفة', bn: 'আরাফাহর দিন', ur: 'یوم عرفہ', tr: 'Arefe', ms: 'Hari Arafah', id: 'Hari Arafah', fr: 'Arafat',
+                hi: 'अराफ़ा का दिन', te: 'అరాఫా రోజు', ta: 'அராஃபா நாள்', ml: 'അറഫാ ദിനം'
+            },
+            desc: { en: 'Pinnacle of Hajj.', ar: 'ركن الحج الأعظم.', bn: 'হজের মূল দিন।', ur: 'حج کا اہم ترین دن۔' }
         },
         {
             month: 12, day: 10, category: 'eid', id: 'eid_adha',
-            name: { en: 'Eid al-Adha (Festival of Sacrifice)', ar: 'عيد الأضحى', bn: 'ঈদুল আযহা (কুরবানির ঈদ)', ur: 'عید الاضحیٰ (قربانی کی عید)', tr: 'Kurban Bayramı', ms: 'Hari Raya Haji', id: 'Idul Adha', fr: 'Aïd al-Adha' },
-            desc: { en: 'The Festival of Sacrifice. Commemorates Prophet Ibrahim\'s willingness to sacrifice his son Ismail.', ar: 'عيد الأضحى. يحيي ذكرى استعداد النبي إبراهيم للتضحية بابنه إسماعيل.', bn: 'কুরবানির ঈদ। ইব্রাহিম (আ.) এর পুত্র ইসমাইলকে কুরবানির প্রস্তুতির স্মরণ।', ur: 'قربانی کی عید۔ ابراہیم علیہ السلام کی اپنے بیٹے اسماعیل کو قربان کرنے کی رضامندی کی یاد۔' }
+            name: {
+                en: 'Eid al-Adha', ar: 'عيد الأضحى', bn: 'ঈদুল আযহা', ur: 'عید الاضحیٰ', tr: 'Kurban Bayramı', ms: 'Hari Raya Haji', id: 'Idul Adha', fr: 'Aïd al-Adha',
+                hi: 'ईद-उल-अज़हा', te: 'బక్రీద్ (ఈద్ అల్-అధా)', ta: 'பக்ரீத் (ஈதுல் அதா)', ml: 'ബലി പെരുന്നാൾ'
+            },
+            desc: { en: 'Festival of Sacrifice.', ar: 'عيد التضحية.', bn: 'কুরবানির ঈদ।', ur: 'قربانی کی عید۔' }
         },
         {
             month: 12, day: 11, category: 'eid', id: 'eid_adha_2',
-            name: { en: 'Eid al-Adha (Day 2) - Ayyam al-Tashreeq', ar: 'عيد الأضحى (اليوم الثاني) - أيام التشريق', bn: 'ঈদুল আযহা (দ্বিতীয় দিন)', ur: 'عید الاضحیٰ (دوسرا دن)', tr: 'Kurban Bayramı (2. Gün)', ms: 'Hari Raya Haji (Hari 2)', id: 'Idul Adha (Hari 2)', fr: 'Aïd al-Adha (Jour 2)' },
-            desc: { en: 'Second day of Eid al-Adha. Days of Tashreeq — fasting is prohibited.', ar: 'اليوم الثاني من عيد الأضحى. أيام التشريق — يحرم الصيام.', bn: 'ঈদুল আযহার দ্বিতীয় দিন। তাশরীকের দিন — রোজা নিষিদ্ধ।', ur: 'عید الاضحیٰ کا دوسرا دن۔ ایام تشریق — روزہ حرام ہے۔' }
+            name: {
+                en: 'Eid al-Adha (Day 2)', ar: 'اليوم الثاني', bn: 'দ্বিতীয় দিন', ur: 'دوسرا دن', tr: '2. Gün', ms: 'Hari 2', id: 'Hari 2', fr: 'Jour 2',
+                hi: 'ईद-उल-अज़हा (दूसरा दिन)', te: 'బక్రీద్ (2వ రోజు)', ta: 'பக்ரீத் (நாள் 2)', ml: 'ബലി പെരുന്നാൾ (ദിവസം 2)'
+            },
+            desc: { en: 'Tashreeq days.', ar: 'أيام التشريق.', bn: 'তাশরীকের দিন।', ur: 'ایام تشریق۔' }
         },
         {
             month: 12, day: 12, category: 'eid', id: 'eid_adha_3',
-            name: { en: 'Eid al-Adha (Day 3) - Ayyam al-Tashreeq', ar: 'عيد الأضحى (اليوم الثالث) - أيام التشريق', bn: 'ঈদুল আযহা (তৃতীয় দিন)', ur: 'عید الاضحیٰ (تیسرا دن)', tr: 'Kurban Bayramı (3. Gün)', ms: 'Hari Raya Haji (Hari 3)', id: 'Idul Adha (Hari 3)', fr: 'Aïd al-Adha (Jour 3)' },
-            desc: { en: 'Third day of Eid al-Adha and Ayyam al-Tashreeq.', ar: 'اليوم الثالث من عيد الأضحى وأيام التشريق.', bn: 'ঈদুল আযহার তৃতীয় দিন এবং আইয়ামে তাশরীক।', ur: 'عید الاضحیٰ کا تیسرا دن اور ایام تشریق۔' }
+            name: {
+                en: 'Eid al-Adha (Day 3)', ar: 'اليوم الثالث', bn: 'তৃতীয় দিন', ur: 'تیسرا دن', tr: '3. Gün', ms: 'Hari 3', id: 'Hari 3', fr: 'Jour 3',
+                hi: 'ईद-उल-अज़हा (तीसरा दिन)', te: 'బక్రీద్ (3వ రోజు)', ta: 'பக்ரீத் (நாள் 3)', ml: 'ബലി പെരുന്നാൾ (ദിവസം 3)'
+            },
+            desc: { en: 'Tashreeq days.', ar: 'أيام التشريق.', bn: 'তাশরীকের দিন।', ur: 'ایام تشریق۔' }
         },
         {
             month: 12, day: 13, category: 'hajj', id: 'tashreeq_3',
-            name: { en: 'Last Day of Tashreeq', ar: 'آخر أيام التشريق', bn: 'তাশরীকের শেষ দিন', ur: 'ایام تشریق کا آخری دن', tr: 'Teşrik Günlerinin Sonu', ms: 'Hari Terakhir Tasyriq', id: 'Hari Terakhir Tasyrik', fr: 'Dernier jour de Tachrik' },
-            desc: { en: 'End of the Days of Tashreeq and Hajj season.', ar: 'نهاية أيام التشريق وموسم الحج.', bn: 'তাশরীকের দিন এবং হজের মৌসুম শেষ।', ur: 'ایام تشریق اور حج کے موسم کا اختتام۔' }
-        },
-        {
-            month: 12, day: 18, category: 'historical', id: 'ghadir_khumm',
-            name: { en: 'Event of Ghadir Khumm', ar: 'حادثة غدير خم', bn: 'গাদীর খুমের ঘটনা', ur: 'واقعہ غدیر خم', tr: 'Gadir Hum Olayı', ms: 'Peristiwa Ghadir Khumm', id: 'Peristiwa Ghadir Khumm', fr: 'Événement de Ghadîr Khumm' },
-            desc: { en: 'Commemoration of the Prophet\'s ﷺ sermon at Ghadir Khumm during the Farewell Pilgrimage.', ar: 'ذكرى خطبة النبي ﷺ في غدير خم أثناء حجة الوداع.', bn: 'বিদায় হজের সময় গাদীর খুমে নবী ﷺ এর ভাষণের স্মরণ।', ur: 'حجۃ الوداع کے دوران غدیر خم میں نبی ﷺ کے خطبے کی یاد۔' }
+            name: {
+                en: 'Last Day of Hajj', ar: 'آخر أيام الحج', bn: 'হজের শেষ দিন', ur: 'حج کا آخری دن', tr: 'Haccın Sonu', ms: 'Hari Terakhir Haji', id: 'Hari Terakhir Haji', fr: 'Fin du Hajj',
+                hi: 'हज का आखिरी दिन', te: 'హజ్ చివరి రోజు', ta: 'ஹஜ்ஜின் கடைசி நாள்', ml: 'ഹജ്ജ് അവസാന ദിനം'
+            },
+            desc: { en: 'End of Hajj season.', ar: 'نهاية الموسم.', bn: 'হজ মৌসুম শেষ।', ur: 'حج کا موسم ختم۔' }
         },
 
         // ── RECURRING MONTHLY EVENTS ──
         {
             month: 0, day: 13, category: 'fasting', id: 'ayyam_beed_1', recurring: true,
-            name: { en: 'Ayyam al-Beed (White Days Fast - Day 1)', ar: 'أيام البيض (اليوم الأول)', bn: 'আইয়ামুল বীজ (১ম দিন)', ur: 'ایام البیض (پہلا دن)', tr: 'Eyyâm-ı Bîd (1. Gün)', ms: 'Ayyamul Bidh (Hari 1)', id: 'Ayyamul Bidh (Hari 1)', fr: 'Ayyam al-Bid (Jour 1)' },
-            desc: { en: 'Sunnah fasting on the 13th of each Hijri month (White Days).', ar: 'صيام سنة في 13 من كل شهر هجري (أيام البيض).', bn: 'প্রতি হিজরি মাসের ১৩ তারিখে সুন্নত রোজা।', ur: 'ہر ہجری مہینے کی 13 تاریخ کو سنت روزہ۔' }
+            name: {
+                en: 'White Days (Day 1)', ar: 'أيام البيض (1)', bn: 'আইয়ামুল বীজ (১)', ur: 'ایام البیض (1)', tr: 'Eyyâm-ı Bîd (1)', ms: 'Ayyamul Bidh (1)', id: 'Ayyamul Bidh (1)', fr: 'Ayyam al-Bid (1)',
+                hi: 'सफेद दिन (1)', te: 'తెల్లని రోజులు (1)', ta: 'வெள்ளை நாட்கள் (1)', ml: 'വെളുത്ത ദിനങ്ങൾ (1)'
+            },
+            desc: { en: 'Sunnah fasting.', ar: 'صيام سنة.', bn: 'সুন্নত রোজা।', ur: 'سنت روزہ۔' }
         },
         {
             month: 0, day: 14, category: 'fasting', id: 'ayyam_beed_2', recurring: true,
-            name: { en: 'Ayyam al-Beed (White Days Fast - Day 2)', ar: 'أيام البيض (اليوم الثاني)', bn: 'আইয়ামুল বীজ (২য় দিন)', ur: 'ایام البیض (دوسرا دن)', tr: 'Eyyâm-ı Bîd (2. Gün)', ms: 'Ayyamul Bidh (Hari 2)', id: 'Ayyamul Bidh (Hari 2)', fr: 'Ayyam al-Bid (Jour 2)' },
-            desc: { en: 'Sunnah fasting on the 14th of each Hijri month (White Days).', ar: 'صيام سنة في 14 من كل شهر هجري.', bn: 'প্রতি হিজরি মাসের ১৪ তারিখে সুন্নত রোজা।', ur: 'ہر ہجری مہینے کی 14 تاریخ کو سنت روزہ۔' }
+            name: {
+                en: 'White Days (Day 2)', ar: 'أيام البيض (2)', bn: 'আইয়ামুল বীজ (২)', ur: 'ایام البیض (2)', tr: 'Eyyâm-ı Bîd (2)', ms: 'Ayyamul Bidh (2)', id: 'Ayyamul Bidh (2)', fr: 'Ayyam al-Bid (2)',
+                hi: 'सफेद दिन (2)', te: 'తెల్లని రోజులు (2)', ta: 'வெள்ளை நாட்கள் (2)', ml: 'വെളുത്ത ദിനങ്ങൾ (2)'
+            },
+            desc: { en: 'Sunnah fasting.', ar: 'صيام سنة.', bn: 'সুন্নত রোজা।', ur: 'سنت روزہ۔' }
         },
         {
             month: 0, day: 15, category: 'fasting', id: 'ayyam_beed_3', recurring: true,
-            name: { en: 'Ayyam al-Beed (White Days Fast - Day 3)', ar: 'أيام البيض (اليوم الثالث)', bn: 'আইয়ামুল বীজ (৩য় দিন)', ur: 'ایام البیض (تیسرا دن)', tr: 'Eyyâm-ı Bîd (3. Gün)', ms: 'Ayyamul Bidh (Hari 3)', id: 'Ayyamul Bidh (Hari 3)', fr: 'Ayyam al-Bid (Jour 3)' },
-            desc: { en: 'Sunnah fasting on the 15th of each Hijri month (White Days).', ar: 'صيام سنة في 15 من كل شهر هجري.', bn: 'প্রতি হিজরি মাসের ১৫ তারিখে সুন্নত রোজা।', ur: 'ہر ہجری مہینے کی 15 تاریخ کو سنت روزہ۔' }
+            name: {
+                en: 'White Days (Day 3)', ar: 'أيام البيض (3)', bn: 'আইয়ামুল বীজ (৩)', ur: 'ایام البیض (3)', tr: 'Eyyâm-ı Bîd (3)', ms: 'Ayyamul Bidh (3)', id: 'Ayyamul Bidh (3)', fr: 'Ayyam al-Bid (3)',
+                hi: 'सफेद दिन (3)', te: 'తెల్లని రోజులు (3)', ta: 'வெள்ளை நாட்கள் (3)', ml: 'വെളുത്ത ദിനങ്ങൾ (3)'
+            },
+            desc: { en: 'Sunnah fasting.', ar: 'صيام سنة.', bn: 'সুন্নত রোজা।', ur: 'سنت روزہ۔' }
         }
     ];
 
     // Category configs
     const CATEGORIES = {
-        eid: { color: '#FFD700', bg: 'rgba(255,215,0,0.15)', icon: '🌙', label: { en: 'Eid', ar: 'عيد', bn: 'ঈদ', ur: 'عید', tr: 'Bayram', ms: 'Hari Raya', id: 'Hari Raya', fr: 'Fête' } },
-        holy: { color: '#00E676', bg: 'rgba(0,230,118,0.15)', icon: '🕌', label: { en: 'Holy', ar: 'مقدس', bn: 'পবিত্র', ur: 'مقدس', tr: 'Kutsal', ms: 'Suci', id: 'Suci', fr: 'Sacré' } },
-        fasting: { color: '#42A5F5', bg: 'rgba(66,165,245,0.15)', icon: '🤲', label: { en: 'Fasting', ar: 'صيام', bn: 'রোজা', ur: 'روزہ', tr: 'Oruç', ms: 'Puasa', id: 'Puasa', fr: 'Jeûne' } },
-        hajj: { color: '#AB47BC', bg: 'rgba(171,71,188,0.15)', icon: '🕋', label: { en: 'Hajj', ar: 'حج', bn: 'হজ', ur: 'حج', tr: 'Hac', ms: 'Haji', id: 'Haji', fr: 'Hajj' } },
-        historical: { color: '#FF7043', bg: 'rgba(255,112,67,0.15)', icon: '📜', label: { en: 'Historical', ar: 'تاريخي', bn: 'ঐতিহাসিক', ur: 'تاریخی', tr: 'Tarihî', ms: 'Sejarah', id: 'Sejarah', fr: 'Historique' } }
+        eid: {
+            color: '#FFD700', bg: 'rgba(255,215,0,0.15)', icon: '🌙',
+            label: {
+                en: 'Eid', ar: 'عيد', bn: 'ঈদ', ur: 'عید', tr: 'Bayram', ms: 'Hari Raya', id: 'Hari Raya', fr: 'Fête',
+                hi: 'ईद', te: 'ఈద్', ta: 'ஈத்', ml: 'ഈദ്'
+            }
+        },
+        holy: {
+            color: '#00E676', bg: 'rgba(0,230,118,0.15)', icon: '🕌',
+            label: {
+                en: 'Holy', ar: 'مقدس', bn: 'পবিত্র', ur: 'مقدس', tr: 'Kutsal', ms: 'Suci', id: 'Suci', fr: 'Sacré',
+                hi: 'पवित्र', te: 'పవిత్ర', ta: 'புனித', ml: 'പുണ്യം'
+            }
+        },
+        fasting: {
+            color: '#42A5F5', bg: 'rgba(66,165,245,0.15)', icon: '🤲',
+            label: {
+                en: 'Fasting', ar: 'صيام', bn: 'রোজা', ur: 'روزہ', tr: 'Oruç', ms: 'Puasa', id: 'Puasa', fr: 'Jeûne',
+                hi: 'रोज़ा', te: 'ఉపవాసం', ta: 'நோன்பு', ml: 'നോമ്പ്'
+            }
+        },
+        hajj: {
+            color: '#AB47BC', bg: 'rgba(171,71,188,0.15)', icon: '🕋',
+            label: {
+                en: 'Hajj', ar: 'حج', bn: 'হজ', ur: 'حج', tr: 'Hac', ms: 'Haji', id: 'Haji', fr: 'Hajj',
+                hi: 'हज', te: 'హజ్', ta: 'ஹஜ்', ml: 'ഹജ്ജ്'
+            }
+        },
+        historical: {
+            color: '#FF7043', bg: 'rgba(255,112,67,0.15)', icon: '📜',
+            label: {
+                en: 'Historical', ar: 'تاريخي', bn: 'ঐতিহাসিক', ur: 'تاریخی', tr: 'Tarihî', ms: 'Sejarah', id: 'Sejarah', fr: 'Historique',
+                hi: 'ऐतिहासिक', te: 'చారిత్రక', ta: 'வரலாற்று', ml: 'ചരിത്രപരം'
+            }
+        }
     };
 
     function getEventsForDate(month, day) {
