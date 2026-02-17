@@ -57,8 +57,8 @@
 }
 
 html {
-    font-size: 17px;
-    /* Increased from 16px */
+    font-size: 18px;
+    /* Increased to 18px */
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
     overscroll-behavior-y: contain;
@@ -313,8 +313,8 @@ body::before {
     cursor: pointer;
     transition: all 0.2s var(--ease);
     overflow: hidden;
-    min-height: 56px;
-    /* Increased from 52px */
+    min-height: 60px;
+    /* Increased to 60px */
 }
 
 .day-cell:hover {
