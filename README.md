@@ -28,7 +28,7 @@ Then open `http://localhost:8080`.
 - **Hijri Adjustment:** If the Hijri date is off by a day, you can adjust it in the settings menu.
 
 ## Testing
-Test scripts are located in the `test-file` directory.
+Test scripts are located in the `test-files` directory.
 - `verify_fix.js`: Verifies app initialization logic.
 - `test_hijri_adjustment.js`: Verifies the core Hijri engine's adjustment logic.
 - `test_consistency.js`: Checks for internal consistency.
