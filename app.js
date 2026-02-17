@@ -7,6 +7,7 @@ const App = (() => {
     let currentLang = localStorage.getItem('ic-lang') || 'en';
     let currentHijriYear = 0;
     let currentHijriMonth = 0;
+    let currentHijriAdj = localStorage.getItem('ic-adj') === null ? -1 : parseInt(localStorage.getItem('ic-adj'));
 
     // Location & Prayer state
     let currentCity = null;
@@ -55,6 +56,7 @@ const App = (() => {
 
     // ── Init ──
     function init() {
+        HijriEngine.setAdjustment(currentHijriAdj);
         bindEvents();
         loadLocation();
         setLanguage(currentLang);

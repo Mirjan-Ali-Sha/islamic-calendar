@@ -111,6 +111,9 @@ const HijriEngine = (() => {
             'ജൂലൈ', 'ഓഗസ്റ്റ്', 'സെപ്റ്റംബർ', 'ഒക്ടോബർ', 'നവംബർ', 'ഡിസംബർ']
     };
 
+    // Adjustment for Hijri date (days to add/subtract)
+    let adjustment = 0;
+
     // Intercalary years in a 30-year cycle (civil tabular calendar)
     const INTERCALARY = [2, 5, 7, 10, 13, 16, 18, 21, 24, 26, 29];
 
@@ -195,12 +198,14 @@ const HijriEngine = (() => {
 
     // ── High-level conversion helpers ──
     function gregorianToHijri(gYear, gMonth, gDay) {
-        const jd = gregorianToJD(gYear, gMonth, gDay);
+        let jd = gregorianToJD(gYear, gMonth, gDay);
+        jd += adjustment; // Apply adjustment
         return jdToHijri(jd);
     }
 
     function hijriToGregorian(hYear, hMonth, hDay) {
-        const jd = hijriToJD(hYear, hMonth, hDay);
+        let jd = hijriToJD(hYear, hMonth, hDay);
+        jd -= adjustment; // Reverse adjustment
         return jdToGregorian(jd);
     }
 
@@ -219,7 +224,8 @@ const HijriEngine = (() => {
     }
 
     function getDayOfWeek(hYear, hMonth, hDay) {
-        const jd = hijriToJD(hYear, hMonth, hDay);
+        let jd = hijriToJD(hYear, hMonth, hDay);
+        jd -= adjustment; // Reverse adjustment
         return Math.floor(jd + 1.5) % 7; // 0=Sun, 1=Mon, ..., 6=Sat
     }
 
@@ -228,7 +234,12 @@ const HijriEngine = (() => {
         return gregorianToHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
     }
 
+    function setAdjustment(adj) {
+        adjustment = parseInt(adj) || 0;
+    }
+
     return {
+        setAdjustment,
         gregorianToHijri,
         hijriToGregorian,
         hijriMonthLength,
