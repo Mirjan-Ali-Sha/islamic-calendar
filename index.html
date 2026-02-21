@@ -29,6 +29,8 @@
 
     <!-- SPLASH SCREEN -->
     <div id="splash-screen">
+        <div class="splash-geo-star splash-geo-star--tl"></div>
+        <div class="splash-geo-star splash-geo-star--br"></div>
         <div class="splash-content">
             <div class="splash-logo">☪️</div>
             <h1 class="splash-title">Islamic Calendar</h1>
@@ -83,6 +85,20 @@
                 <button id="btn-zakat" class="icon-btn" title="Zakat Calculator" aria-label="Zakat Calculator">
                     <span style="font-size: 1.2rem;">💰</span>
                 </button>
+                <button id="btn-tasbih" class="icon-btn" title="Tasbih Counter" aria-label="Tasbih Counter">
+                    <span style="font-size: 1.2rem;">📿</span>
+                </button>
+                <button id="btn-names" class="icon-btn" title="99 Names of Allah" aria-label="99 Names of Allah">
+                    <span style="font-size: 1.2rem;">☪</span>
+                </button>
+                <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -91,6 +107,22 @@
             <div class="today-hijri" id="today-hijri-date"></div>
             <div class="today-greg" id="today-greg-date"></div>
             <div class="today-event" id="today-event"></div>
+            <div class="hijri-adj-stepper" id="hijri-adj-stepper">
+                <button class="adj-btn" id="hijri-adj-minus" title="-1 day">−</button>
+                <span class="adj-label" id="hijri-adj-label">Adj: 0</span>
+                <button class="adj-btn" id="hijri-adj-plus" title="+1 day">+</button>
+            </div>
+            <div class="hero-countdown" id="hero-countdown" style="display:none;">
+                <svg viewBox="0 0 36 36">
+                    <circle class="countdown-ring-bg" cx="18" cy="18" r="15.5"></circle>
+                    <circle class="countdown-ring-fill" id="countdown-ring" cx="18" cy="18" r="15.5"
+                        stroke-dasharray="97.4" stroke-dashoffset="0"></circle>
+                </svg>
+                <div class="hero-countdown-text">
+                    <span class="hero-countdown-label" id="hero-countdown-label">Next Prayer</span>
+                    <span class="hero-countdown-time" id="hero-countdown-time">--:--:--</span>
+                </div>
+            </div>
         </div>
 
         <!-- Location Bar -->
@@ -151,6 +183,23 @@
             <div class="calendar-grid" id="calendar-grid"></div>
         </div>
 
+        <!-- Ramadan Banner (shown only during Ramadan) -->
+        <div class="ramadan-banner" id="ramadan-banner">
+            <div class="ramadan-label">🌙 Ramadan Mubarak</div>
+            <div class="ramadan-times">
+                <div class="ramadan-time-block">
+                    <span class="ramadan-time-label">Suhoor ends</span>
+                    <span class="ramadan-time-value" id="ramadan-suhoor">--:--</span>
+                </div>
+                <div class="ramadan-divider"></div>
+                <div class="ramadan-time-block">
+                    <span class="ramadan-time-label">Iftar</span>
+                    <span class="ramadan-time-value" id="ramadan-iftar">--:--</span>
+                </div>
+            </div>
+            <div class="ramadan-countdown" id="ramadan-countdown"></div>
+        </div>
+
         <!-- Prayer Times Section -->
         <section class="prayer-section" id="prayer-section">
             <div class="prayer-header">
@@ -167,8 +216,30 @@
                     <span class="countdown-timer" id="countdown-timer"></span>
                 </div>
             </div>
+            <div class="prayer-progress-bar" id="prayer-progress-bar">
+                <div class="prayer-progress-fill" id="prayer-progress-fill" style="width: 0%"></div>
+            </div>
             <div class="prayer-grid" id="prayer-grid"></div>
             <div class="prayer-method-note" id="prayer-method-note"></div>
+        </section>
+
+        <!-- Daily Dua / Hadith -->
+        <section class="dua-section" id="dua-section">
+            <div class="dua-card" id="dua-card">
+                <div class="dua-type" id="dua-type-label">📖 Dua of the Day</div>
+                <div class="dua-arabic" id="dua-arabic"></div>
+                <div class="dua-pronunciation" id="dua-pronunciation"></div>
+                <div class="dua-english" id="dua-english"></div>
+                <div class="dua-ref" id="dua-ref"></div>
+                <button class="share-btn" id="btn-share-dua" title="Share">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                        <polyline points="16 6 12 2 8 6" />
+                        <line x1="12" y1="2" x2="12" y2="15" />
+                    </svg>
+                    Share
+                </button>
+            </div>
         </section>
 
         <!-- Events List for Current Month -->
@@ -212,6 +283,37 @@
         <p class="footer-note" id="footer-note">Dates are based on the tabular Islamic calendar (arithmetic
             approximation). Actual dates may vary by 1-2 days based on moon sighting.</p>
     </footer>
+
+    <!-- ========== TASBIH COUNTER VIEW ========== -->
+    <div id="tasbih-view" class="tasbih-view">
+        <div class="tasbih-header">
+            <button class="view-back-btn" id="tasbih-back-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <h2>📿 Tasbih Counter</h2>
+        </div>
+        <div class="tasbih-body">
+            <div class="tasbih-count" id="tasbih-count">0</div>
+            <div class="tasbih-target-label" id="tasbih-target-label">∞ Unlimited</div>
+            <div class="tasbih-progress">
+                <div class="tasbih-progress-fill" id="tasbih-progress" style="width: 0%"></div>
+            </div>
+            <button class="tasbih-tap-btn" id="tasbih-tap-btn">☝️</button>
+            <div class="tasbih-controls">
+                <select id="tasbih-target-select">
+                    <option value="0" selected>∞ Unlimited</option>
+                    <option value="33">33</option>
+                    <option value="99">99</option>
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                </select>
+                <button id="tasbih-reset-btn">Reset</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ========== INSTALL PROMPT ========== -->
     <div id="install-banner" class="install-banner" style="display:none;">
@@ -386,10 +488,59 @@
         </div>
     </div>
 
+    <!-- ========== 99 NAMES VIEW ========== -->
+    <div id="names-view" class="full-screen-view" style="display:none;">
+        <div class="view-header">
+            <button class="view-back-btn" id="names-back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg>
+            </button>
+            <h2>☪ 99 Names of Allah</h2>
+        </div>
+        <div class="names-grid" id="names-grid"></div>
+    </div>
+
+    <!-- ========== SETTINGS MODAL ========== -->
+    <div id="settings-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-card settings-modal-card">
+            <button class="modal-close-btn" id="settings-modal-close">✕</button>
+            <h2>⚙️ Settings</h2>
+
+            <div class="settings-group">
+                <label class="settings-label">🎨 Theme</label>
+                <div class="theme-picker" id="theme-picker">
+                    <button class="theme-swatch active" data-theme="default"
+                        style="background: linear-gradient(135deg, #0a1628, #1e3a5f);" title="Default Dark"></button>
+                    <button class="theme-swatch" data-theme="emerald"
+                        style="background: linear-gradient(135deg, #0a1f1a, #0d3b2e);" title="Emerald"></button>
+                    <button class="theme-swatch" data-theme="royal"
+                        style="background: linear-gradient(135deg, #1a0a2e, #2d1b69);" title="Royal Purple"></button>
+                    <button class="theme-swatch" data-theme="desert"
+                        style="background: linear-gradient(135deg, #2a1a0a, #5c3a1e);" title="Desert Sand"></button>
+                    <button class="theme-swatch" data-theme="ocean"
+                        style="background: linear-gradient(135deg, #0a1a2e, #0c3547);" title="Ocean"></button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label class="settings-label">📅 Hijri Adjustment</label>
+                <div class="settings-adj-row">
+                    <button class="adj-btn" id="settings-adj-minus">−</button>
+                    <span class="adj-value" id="settings-adj-value">0</span>
+                    <button class="adj-btn" id="settings-adj-plus">+</button>
+                </div>
+                <p class="settings-note">Adjust Hijri date by ±2 days to match local sighting</p>
+            </div>
+        </div>
+    </div>
+
     <script src="hijri.js"></script>
     <script src="events.js"></script>
     <script src="prayer-times.js"></script>
     <script src="cities.js"></script>
+    <script src="islamic-content.js"></script>
 
     <script src="app.js"></script>
 </body>

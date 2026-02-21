@@ -13,6 +13,10 @@
     --border: rgba(255, 255, 255, 0.06);
     --border-glow: rgba(0, 200, 150, 0.25);
 
+    /* Main regions */
+    --bg-main: var(--bg-primary);
+    --bg-sidebar: var(--bg-secondary);
+
     /* Accent colors */
     --accent-primary: #00c896;
     --accent-primary-rgb: 0, 200, 150;
@@ -95,8 +99,20 @@ body::before {
     z-index: 100;
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
-    background: rgba(10, 22, 40, 0.88);
+    background: var(--header-tint, rgba(10, 22, 40, 0.88));
     border-bottom: 1px solid var(--border);
+    transition: background 2s ease;
+}
+
+#app-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--header-accent-line, transparent);
+    transition: background 2s ease;
 }
 
 .header-top {
@@ -160,35 +176,118 @@ body::before {
     box-shadow: 0 0 12px rgba(var(--accent-primary-rgb), 0.15);
 }
 
-/* Today Banner */
+/* Today Banner — Premium Hero Card */
 .today-banner {
-    padding: 10px 16px 14px;
+    padding: 20px 16px;
     max-width: 720px;
     margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 6px 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 200, 150, 0.06), rgba(245, 200, 66, 0.04));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.today-banner::before {
+    content: '✦';
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-size: 0.7rem;
+    color: rgba(245, 200, 66, 0.25);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.3) rotate(15deg);
+    }
 }
 
 .today-hijri {
     font-family: var(--font-arabic);
-    font-size: 1.05rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--accent-gold);
+    text-shadow: 0 0 20px rgba(245, 200, 66, 0.15);
+    text-align: center;
+    line-height: 1.3;
 }
 
 .today-greg {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
+    text-align: center;
 }
 
 .today-event {
-    width: 100%;
     font-size: 0.78rem;
     color: var(--accent-primary);
-    font-weight: 500;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 2px;
     animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Hero countdown ring */
+.hero-countdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: rgba(0, 200, 150, 0.06);
+    border: 1px solid rgba(0, 200, 150, 0.12);
+    border-radius: 24px;
+}
+
+.hero-countdown svg {
+    width: 36px;
+    height: 36px;
+    transform: rotate(-90deg);
+}
+
+.countdown-ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.06);
+    stroke-width: 3;
+}
+
+.countdown-ring-fill {
+    fill: none;
+    stroke: var(--accent-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.hero-countdown-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.hero-countdown-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.hero-countdown-time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    font-variant-numeric: tabular-nums;
 }
 
 @keyframes pulseGlow {
@@ -288,15 +387,83 @@ body::before {
     color: var(--accent-primary);
 }
 
+.calendar-container {
+    overflow: hidden;
+}
+
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 3px;
-    transition: opacity 0.25s var(--ease);
+    transition: opacity 0.2s var(--ease), transform 0.25s var(--ease);
 }
 
 .calendar-grid.fading {
     opacity: 0;
+}
+
+.calendar-grid.slide-left {
+    animation: slideOutLeft 0.22s var(--ease) forwards;
+}
+
+.calendar-grid.slide-right {
+    animation: slideOutRight 0.22s var(--ease) forwards;
+}
+
+.calendar-grid.slide-in-left {
+    animation: slideInLeft 0.22s var(--ease) forwards;
+}
+
+.calendar-grid.slide-in-right {
+    animation: slideInRight 0.22s var(--ease) forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Calendar Day Cell */
@@ -320,8 +487,43 @@ body::before {
 .day-cell:hover {
     background: var(--surface-hover);
     border-color: rgba(var(--accent-primary-rgb), 0.3);
-    transform: translateY(-1px);
+    transform: translateY(-1px) scale(1.04);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.day-cell:active {
+    transform: scale(0.96);
+    transition-duration: 0.06s;
+}
+
+/* Ripple effect on tap */
+.day-cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(0, 200, 150, 0.25), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.day-cell.ripple::after {
+    opacity: 1;
+    animation: rippleFade 0.5s ease forwards;
+}
+
+@keyframes rippleFade {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
 }
 
 .day-cell.empty {
@@ -493,7 +695,7 @@ body::before {
     border-radius: var(--radius-md);
     padding: 14px 16px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     cursor: pointer;
     transition: all 0.25s var(--ease);
@@ -548,8 +750,28 @@ body::before {
     letter-spacing: 0.06em;
     padding: 2px 8px;
     border-radius: 20px;
-    align-self: center;
     flex-shrink: 0;
+}
+
+.event-share-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 4px;
+    transition: all 0.2s var(--ease);
+    flex-shrink: 0;
+}
+
+.event-share-btn:hover {
+    background: rgba(var(--accent-primary-rgb), 0.1);
+    color: var(--accent-primary);
+    transform: scale(1.1);
 }
 
 .no-events {
@@ -954,10 +1176,41 @@ body::before {
     order: 1;
 }
 
-[dir="rtl"] .event-card::before {
-    left: auto;
-    right: 0;
-    border-radius: 2px 0 0 2px;
+.event-card-category {
+    font-size: 0.62rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+    font-weight: 500;
+}
+
+.event-share-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 6px;
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s var(--ease);
+}
+
+.event-share-btn:hover {
+    color: var(--accent-primary);
+    background: rgba(var(--accent-primary-rgb), 0.1);
+}
+
+[dir="rtl"] .event-card-category {
+    margin-left: initial;
+    margin-right: auto;
+}
+
+[dir="rtl"] .event-card-body {
+    padding-left: 0;
+    padding-right: 12px;
 }
 
 /* ================================================
@@ -1178,6 +1431,37 @@ body::before {
     color: var(--text-muted);
     text-align: center;
     opacity: 0.7;
+}
+
+/* Prayer Time Progress Bar */
+.prayer-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.prayer-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+    border-radius: 2px;
+    transition: width 1s linear;
+    position: relative;
+}
+
+.prayer-progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(245, 200, 66, 0.5);
 }
 
 /* ================================================
@@ -1601,18 +1885,29 @@ body::before {
     pointer-events: none;
 }
 
-/* Pattern - subtle dots twinkling */
+/* Pattern - animated Islamic geometric tessellation */
 #splash-screen::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -20%;
     background-image:
-        radial-gradient(rgba(255, 215, 0, 0.15) 1px, transparent 1px),
-        radial-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    background-position: 0 0, 25px 25px;
-    animation: twinkle 4s infinite alternate;
+        linear-gradient(0deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(45deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(-45deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 42px 42px, 42px 42px;
+    animation: geoRotate 60s linear infinite;
     z-index: 0;
+}
+
+@keyframes geoRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Vignette */
@@ -1625,15 +1920,46 @@ body::before {
     pointer-events: none;
 }
 
-@keyframes twinkle {
-    0% {
-        opacity: 0.3;
-        transform: scale(1);
+/* Geometric star decoration */
+.splash-geo-star {
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    height: 200px;
+    opacity: 0.06;
+    animation: starSpin 40s linear infinite;
+}
+
+.splash-geo-star::before,
+.splash-geo-star::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.splash-geo-star::before {
+    transform: rotate(45deg);
+}
+
+.splash-geo-star--tl {
+    top: 5%;
+    left: 5%;
+}
+
+.splash-geo-star--br {
+    bottom: 5%;
+    right: 5%;
+    animation-direction: reverse;
+}
+
+@keyframes starSpin {
+    from {
+        transform: rotate(0deg);
     }
 
-    100% {
-        opacity: 0.6;
-        transform: scale(1.05);
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -1731,10 +2057,14 @@ body::before {
     height: 100%;
     background: var(--bg-main);
     z-index: 1000;
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow-y: auto;
     animation: slideInBottom 0.3s ease-out;
+}
+
+.full-screen-view.active {
+    display: flex;
 }
 
 @keyframes slideInBottom {
@@ -2274,4 +2604,534 @@ body::before {
 
 .notif-btn.enabled:hover {
     background: rgba(251, 191, 36, 0.2);
+}
+
+/* ================================================
+   TASBIH COUNTER
+   ================================================ */
+.tasbih-view {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg-primary);
+    flex-direction: column;
+    align-items: center;
+}
+
+.tasbih-view.active {
+    display: flex;
+}
+
+.tasbih-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+}
+
+.tasbih-header h2 {
+    flex: 1;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.tasbih-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.tasbih-count {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-shadow: 0 0 30px rgba(245, 200, 66, 0.2);
+    font-variant-numeric: tabular-nums;
+    transition: transform 0.08s ease;
+}
+
+.tasbih-count.pulse {
+    transform: scale(1.08);
+}
+
+.tasbih-target-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.tasbih-progress {
+    width: 80%;
+    max-width: 280px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.tasbih-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+    border-radius: 2px;
+    transition: width 0.15s ease;
+}
+
+.tasbih-tap-btn {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 200, 150, 0.3);
+    background: radial-gradient(circle at center, rgba(0, 200, 150, 0.12), rgba(0, 200, 150, 0.03));
+    color: var(--accent-primary);
+    font-size: 3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.tasbih-tap-btn:active {
+    transform: scale(0.95);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 30px rgba(0, 200, 150, 0.2);
+}
+
+.tasbih-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.tasbih-controls select,
+.tasbih-controls button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+.tasbih-controls button:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+/* ================================================
+   RAMADAN MODE
+   ================================================ */
+.ramadan-banner {
+    max-width: 720px;
+    margin: 0 auto 8px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(171, 71, 188, 0.1), rgba(245, 200, 66, 0.08));
+    border: 1px solid rgba(171, 71, 188, 0.15);
+    border-radius: var(--radius-md);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.ramadan-banner.active {
+    display: flex;
+}
+
+.ramadan-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #AB47BC;
+    font-weight: 600;
+}
+
+.ramadan-times {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.ramadan-time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.ramadan-time-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.ramadan-time-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    font-variant-numeric: tabular-nums;
+}
+
+.ramadan-divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ramadan-countdown {
+    font-size: 0.78rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+/* ================================================
+   HIJRI DATE ADJUSTMENT STEPPER
+   ================================================ */
+.hijri-adj-stepper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    justify-content: center;
+}
+
+.adj-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s var(--ease);
+}
+
+.adj-btn:hover {
+    background: rgba(var(--accent-primary-rgb), 0.15);
+    border-color: var(--accent-primary);
+}
+
+.adj-label,
+.adj-value {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    min-width: 36px;
+    text-align: center;
+}
+
+/* ================================================
+   DAILY DUA / HADITH CARD
+   ================================================ */
+.dua-section {
+    max-width: 720px;
+    margin: 16px auto;
+    padding: 0 16px;
+}
+
+.dua-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dua-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold), var(--accent-primary));
+}
+
+.dua-type {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+}
+
+.dua-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    text-align: center;
+    direction: rtl;
+    line-height: 2;
+    margin-bottom: 12px;
+    text-shadow: 0 0 20px rgba(245, 200, 66, 0.1);
+}
+
+.dua-pronunciation {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 16px;
+    padding: 0 10px;
+    line-height: 1.4;
+}
+
+.dua-english {
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.dua-ref {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.3);
+    background: rgba(var(--accent-primary-rgb), 0.08);
+    color: var(--accent-primary);
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+    margin-top: 10px;
+}
+
+.share-btn:hover {
+    background: rgba(var(--accent-primary-rgb), 0.15);
+    border-color: var(--accent-primary);
+}
+
+/* ================================================
+   99 NAMES OF ALLAH
+   ================================================ */
+.names-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 16px;
+    padding-top: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+}
+
+.name-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 8px;
+    text-align: center;
+    transition: all 0.2s var(--ease);
+}
+
+.name-card:hover {
+    border-color: rgba(var(--accent-gold-rgb), 0.4);
+    transform: translateY(-1px);
+}
+
+.name-card-num {
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.name-card-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.name-card-en {
+    font-size: 0.62rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.name-card-meaning {
+    font-size: 0.58rem;
+    color: var(--text-muted);
+}
+
+/* ================================================
+   SETTINGS MODAL
+   ================================================ */
+.settings-modal-card {
+    max-width: 400px;
+    padding: 28px 24px;
+}
+
+.settings-modal-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.settings-group {
+    margin-bottom: 20px;
+}
+
+.settings-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.settings-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.settings-adj-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.theme-picker {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.theme-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+    position: relative;
+}
+
+.theme-swatch:hover {
+    transform: scale(1.1);
+}
+
+.theme-swatch.active {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 12px rgba(245, 200, 66, 0.3);
+}
+
+.theme-swatch.active::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* ================================================
+   THEME DEFINITIONS
+   ================================================ */
+
+/* Emerald */
+[data-theme="emerald"] {
+    --bg-primary: #0a1f1a;
+    --bg-secondary: #0d2e24;
+    --bg-main: var(--bg-primary);
+    --bg-sidebar: var(--bg-secondary);
+    --surface: rgba(13, 59, 46, 0.4);
+    --surface-hover: rgba(13, 59, 46, 0.6);
+    --bg-card: rgba(13, 59, 46, 0.3);
+    --border: rgba(16, 185, 129, 0.12);
+    --accent-primary: #34d399;
+    --accent-primary-rgb: 52, 211, 153;
+    --accent-gold: #fbbf24;
+    --accent-gold-rgb: 251, 191, 36;
+}
+
+/* Royal Purple */
+[data-theme="royal"] {
+    --bg-primary: #1a0a2e;
+    --bg-secondary: #231048;
+    --bg-main: var(--bg-primary);
+    --bg-sidebar: var(--bg-secondary);
+    --surface: rgba(45, 27, 105, 0.4);
+    --surface-hover: rgba(45, 27, 105, 0.6);
+    --bg-card: rgba(45, 27, 105, 0.3);
+    --border: rgba(167, 139, 250, 0.12);
+    --accent-primary: #a78bfa;
+    --accent-primary-rgb: 167, 139, 250;
+    --accent-gold: #fbbf24;
+    --accent-gold-rgb: 251, 191, 36;
+}
+
+/* Desert Sand */
+[data-theme="desert"] {
+    --bg-primary: #1a1008;
+    --bg-secondary: #2a1a0a;
+    --bg-main: var(--bg-primary);
+    --bg-sidebar: var(--bg-secondary);
+    --surface: rgba(92, 58, 30, 0.4);
+    --surface-hover: rgba(92, 58, 30, 0.6);
+    --bg-card: rgba(92, 58, 30, 0.25);
+    --border: rgba(217, 160, 90, 0.15);
+    --accent-primary: #d9a05a;
+    --accent-primary-rgb: 217, 160, 90;
+    --accent-gold: #fbbf24;
+    --accent-gold-rgb: 251, 191, 36;
+}
+
+/* Ocean */
+[data-theme="ocean"] {
+    --bg-primary: #0a1a2e;
+    --bg-secondary: #0c2a40;
+    --bg-main: var(--bg-primary);
+    --bg-sidebar: var(--bg-secondary);
+    --surface: rgba(12, 53, 71, 0.4);
+    --surface-hover: rgba(12, 53, 71, 0.6);
+    --bg-card: rgba(12, 53, 71, 0.3);
+    --border: rgba(56, 189, 248, 0.12);
+    --accent-primary: #38bdf8;
+    --accent-primary-rgb: 56, 189, 248;
+    --accent-gold: #fbbf24;
+    --accent-gold-rgb: 251, 191, 36;
+}
+
+/* Mobile: 99 names 2 columns */
+@media (max-width: 480px) {
+    .names-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

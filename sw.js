@@ -8,7 +8,7 @@
  * ║  Change this whenever you update APP_VERSION         ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const SW_VERSION = '1.1.1';
+const SW_VERSION = '1.4.0';
 const CACHE_NAME = `islamic-calendar-v${SW_VERSION}`;
 const ASSETS = [
     './',
@@ -18,6 +18,7 @@ const ASSETS = [
     './events.js',
     './prayer-times.js',
     './cities.js',
+    './islamic-content.js',
     './app.js',
     './manifest.json',
     './icons/icon-192.svg',

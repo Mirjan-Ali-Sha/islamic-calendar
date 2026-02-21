@@ -2,19 +2,35 @@
  * Islamic Calendar PWA — Main Application Logic
  *
  * ╔══════════════════════════════════════════════════════╗
- * ║  APP VERSION — Change this to trigger app updates   ║
- * ║  Format: major.minor.micro                          ║
- * ║  Also update CACHE_NAME in sw.js to match!          ║
+ * ║  APP VERSION — Change this to trigger app updates    ║
+ * ║  Format: major.minor.micro                           ║
+ * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.1.1';
+const APP_VERSION = '1.4.0';
 
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
     let currentHijriYear = 0;
     let currentHijriMonth = 0;
-    let currentHijriAdj = localStorage.getItem('ic-adj') === null ? -1 : parseInt(localStorage.getItem('ic-adj'));
+
+    // Hijri Adjustment Map: {"Y-M": adjustment, "default": -1}
+    let hijriAdjustments = {};
+    try {
+        const savedMap = localStorage.getItem('ic-hijri-adj-map');
+        if (savedMap) {
+            hijriAdjustments = JSON.parse(savedMap);
+        } else {
+            // Migration from old single value
+            const oldAdj = localStorage.getItem('ic-adj');
+            const defaultAdj = oldAdj !== null ? parseInt(oldAdj) : -1;
+            hijriAdjustments = { "default": defaultAdj };
+        }
+    } catch (e) {
+        hijriAdjustments = { "default": -1 };
+    }
+    let currentHijriAdj = hijriAdjustments.default;
 
     // Location & Prayer state
     let currentCity = null;
@@ -69,16 +85,68 @@ const App = (() => {
     // ── DOM refs ──
     const $ = id => document.getElementById(id);
 
-    // ── Init ──
-    function init() {
+    // ── Helper: Hijri Adjustment Lookup ──
+    function getAdjustmentFor(year, month) {
+        // key format: "Y-M"
+        if (hijriAdjustments[`${year}-${month}`] !== undefined) {
+            return hijriAdjustments[`${year}-${month}`];
+        }
+        // Find most recent preceding adjustment
+        const keys = Object.keys(hijriAdjustments).filter(k => k !== 'default').sort((a, b) => {
+            const [y1, m1] = a.split('-').map(Number);
+            const [y2, m2] = b.split('-').map(Number);
+            return (y1 * 12 + m1) - (y2 * 12 + m2);
+        });
+
+        const targetVal = year * 12 + month;
+        let lastBest = hijriAdjustments.default;
+        for (const k of keys) {
+            const [y, m] = k.split('-').map(Number);
+            if (y * 12 + m <= targetVal) {
+                lastBest = hijriAdjustments[k];
+            } else {
+                break;
+            }
+        }
+        return lastBest;
+    }
+
+    function syncHijriEngine(year, month) {
+        currentHijriAdj = getAdjustmentFor(year, month);
         HijriEngine.setAdjustment(currentHijriAdj);
-        bindEvents();
-        loadLocation();
-        setLanguage(currentLang);
-        // Start by going to today's date
-        goToToday();
-        initPWA();
-        startPrayerCountdown();
+    }
+
+    function getNextMonth(y, m) {
+        let ny = y, nm = m + 1;
+        if (nm > 12) { nm = 1; ny++; }
+        return { year: ny, month: nm };
+    }
+
+    // ── Init ──
+    let initialized = false;
+    function init() {
+        if (initialized) return;
+        initialized = true;
+
+        console.log('App: Initializing...');
+        try {
+            // First sync for today
+            const todayRaw = HijriEngine.getToday();
+            syncHijriEngine(todayRaw.year, todayRaw.month);
+
+            bindEvents();
+            loadLocation();
+            setLanguage(currentLang);
+            // Start by going to today's date
+            goToToday();
+            initPWA();
+            startPrayerCountdown();
+            console.log('App: Initialization complete.');
+        } catch (error) {
+            console.error('App: Initialization failed:', error);
+            // Attempt to recover basic UI even if some features fail
+            try { render(); } catch (e) { }
+        }
         updateNotifUI();
     }
 
@@ -238,6 +306,70 @@ const App = (() => {
         // Notifications
         $('btn-notifications').addEventListener('click', toggleNotifications);
 
+        // Tasbih counter
+        $('btn-tasbih').addEventListener('click', () => {
+            $('tasbih-view').classList.add('active');
+        });
+        $('tasbih-back-btn').addEventListener('click', () => {
+            $('tasbih-view').classList.remove('active');
+        });
+
+        let tasbihCount = 0;
+        let tasbihTarget = 0; // 0 = unlimited
+
+        function updateTasbihUI() {
+            $('tasbih-count').textContent = tasbihCount;
+            if (tasbihTarget === 0) {
+                $('tasbih-target-label').textContent = '\u221e Unlimited';
+                $('tasbih-progress').style.width = '0%';
+            } else {
+                $('tasbih-target-label').textContent = `Target: ${tasbihTarget}`;
+                const pct = Math.min((tasbihCount / tasbihTarget) * 100, 100);
+                $('tasbih-progress').style.width = `${pct}%`;
+            }
+        }
+
+        $('tasbih-tap-btn').addEventListener('click', () => {
+            tasbihCount++;
+            updateTasbihUI();
+            // Pulse animation
+            const el = $('tasbih-count');
+            el.classList.add('pulse');
+            setTimeout(() => el.classList.remove('pulse'), 100);
+            // Haptic feedback
+            if (navigator.vibrate) navigator.vibrate(15);
+            // Notify when target reached (only if a target is set)
+            if (tasbihTarget > 0 && tasbihCount === tasbihTarget) {
+                if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            }
+        });
+
+        $('tasbih-target-select').addEventListener('change', e => {
+            tasbihTarget = parseInt(e.target.value);
+            updateTasbihUI();
+        });
+
+        $('tasbih-reset-btn').addEventListener('click', () => {
+            tasbihCount = 0;
+            updateTasbihUI();
+        });
+
+        // Day-cell ripple micro-animation
+        document.addEventListener('click', e => {
+            const cell = e.target.closest('.day-cell:not(.empty)');
+            if (!cell) return;
+            const rect = cell.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(0) + '%';
+            const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(0) + '%';
+            cell.style.setProperty('--ripple-x', x);
+            cell.style.setProperty('--ripple-y', y);
+            cell.classList.remove('ripple');
+            // Force reflow
+            void cell.offsetWidth;
+            cell.classList.add('ripple');
+            setTimeout(() => cell.classList.remove('ripple'), 500);
+        });
+
         // Touch swipe (calendar grid + month heading area)
         let touchStartX = 0;
         const swipeHandler = {
@@ -253,12 +385,112 @@ const App = (() => {
             el.addEventListener('touchstart', swipeHandler.start, { passive: true });
             el.addEventListener('touchend', swipeHandler.end, { passive: true });
         });
+
+        // ── Hijri Adjustment Stepper ──
+        function syncHijriAdjUI() {
+            const label = $('hijri-adj-label');
+            const settingsVal = $('settings-adj-value');
+
+            // Show duration delta: -(Adj(M+1) - Adj(M))
+            const next = getNextMonth(currentHijriYear, currentHijriMonth);
+            const adjM = getAdjustmentFor(currentHijriYear, currentHijriMonth);
+            const adjNext = getAdjustmentFor(next.year, next.month);
+            const durDelta = -(adjNext - adjM);
+
+            const sign = durDelta > 0 ? '+' : (durDelta < 0 ? '' : '');
+            const text = `Len: ${sign}${durDelta}`;
+
+            if (label) label.textContent = text;
+            if (settingsVal) settingsVal.textContent = text;
+        }
+
+        function changeHijriAdj(delta) {
+            // "End of month" logic: clicking +/- affects the NEXT month's start
+            const next = getNextMonth(currentHijriYear, currentHijriMonth);
+            const currentNextAdj = getAdjustmentFor(next.year, next.month);
+
+            // User clicks [-] (Shorter) -> delta is -1. 
+            // We want durDelta to decrease. durDelta = -(adjNext - adjM).
+            // So adjNext should INCREASE.
+            // clicks [+] (Longer) -> delta is +1. durDelta increases.
+            // So adjNext should DECREASE.
+
+            let newNextAdj = currentNextAdj - delta;
+
+            // Hard limit: absolute adjustment must be within [-2, 2]
+            newNextAdj = Math.max(-2, Math.min(2, newNextAdj));
+
+            hijriAdjustments[`${next.year}-${next.month}`] = newNextAdj;
+            localStorage.setItem('ic-hijri-adj-map', JSON.stringify(hijriAdjustments));
+
+            syncHijriEngine(currentHijriYear, currentHijriMonth); // Keep current month view's start point
+            syncHijriAdjUI();
+            render();
+        }
+
+        $('hijri-adj-minus').addEventListener('click', () => changeHijriAdj(-1));
+        $('hijri-adj-plus').addEventListener('click', () => changeHijriAdj(1));
+        $('settings-adj-minus').addEventListener('click', () => changeHijriAdj(-1));
+        $('settings-adj-plus').addEventListener('click', () => changeHijriAdj(1));
+        syncHijriAdjUI();
+
+        // ── Settings Modal ──
+        $('btn-settings').addEventListener('click', () => toggleModal('settings-modal', true));
+        $('settings-modal-close').addEventListener('click', () => toggleModal('settings-modal', false));
+        $('settings-modal').addEventListener('click', e => {
+            if (e.target === $('settings-modal')) toggleModal('settings-modal', false);
+        });
+
+        // ── Theme Picker ──
+        const savedTheme = localStorage.getItem('ic-theme') || 'default';
+        setTheme(savedTheme);
+
+        $('theme-picker').addEventListener('click', e => {
+            const swatch = e.target.closest('.theme-swatch');
+            if (!swatch) return;
+            const theme = swatch.dataset.theme;
+            setTheme(theme);
+        });
+
+        // ── 99 Names View ──
+        $('btn-names').addEventListener('click', () => {
+            $('names-view').classList.add('active');
+            renderNames();
+        });
+        $('names-back-btn').addEventListener('click', () => {
+            $('names-view').classList.remove('active');
+        });
+
+        // ── Share Daily Dua/Hadith ──
+        $('btn-share-dua').addEventListener('click', () => {
+            const content = IslamicContent.getDailyContent();
+            const typeLabel = content.type === 'dua' ? 'Dua' : 'Hadith';
+            const translation = (content.translations && content.translations[currentLang]) || (content.translations && content.translations.en) || content.en || '';
+            const text = `📖 ${typeLabel} of the Day\n\n${content.ar}\n\n"${translation}"\n\n— ${content.ref}\n\nShared from Islamic Calendar App`;
+            shareText(text);
+        });
+
+        // ── Share Event Cards ──
+        document.addEventListener('click', e => {
+            const shareBtn = e.target.closest('.event-share-btn');
+            if (!shareBtn) return;
+            const card = shareBtn.closest('.event-card');
+            if (!card) return;
+            const name = card.querySelector('.event-card-name')?.textContent || '';
+            const date = card.querySelector('.event-card-date')?.textContent || '';
+            const text = `🌙 ${name}\n📅 ${date}\n\nShared from Islamic Calendar App`;
+            shareText(text);
+        });
     }
 
     // ── Navigation ──
     function navigateMonth(delta) {
         const grid = $('calendar-grid');
-        grid.classList.add('fading');
+        // Slide out animation based on direction
+        const slideOut = delta > 0 ? 'slide-left' : 'slide-right';
+        const slideIn = delta > 0 ? 'slide-in-left' : 'slide-in-right';
+
+        grid.classList.add(slideOut);
 
         setTimeout(() => {
             try {
@@ -274,9 +506,11 @@ const App = (() => {
             } catch (err) {
                 console.error('Render error:', err);
             } finally {
-                grid.classList.remove('fading');
+                grid.classList.remove(slideOut);
+                grid.classList.add(slideIn);
+                setTimeout(() => grid.classList.remove(slideIn), 250);
             }
-        }, 150);
+        }, 220);
     }
 
     function goToToday() {
@@ -323,11 +557,16 @@ const App = (() => {
 
     // ── Main render ──
     function render() {
+        // Ensure engine is synced for the month we are about to render
+        syncHijriEngine(currentHijriYear, currentHijriMonth);
+
         renderTodayBanner();
         renderMonthTitle();
         renderWeekdays();
         renderCalendarGrid();
         renderPrayerTimes();
+        renderRamadan();
+        renderDua();
         renderEventsList();
         renderLegend();
         renderFooterYear();
@@ -763,8 +1002,8 @@ const App = (() => {
 
         // Compute the Gregorian range for this Hijri month
         const firstGreg = HijriEngine.hijriToGregorian(currentHijriYear, currentHijriMonth, 1);
-        const monthLen = HijriEngine.hijriMonthLength(currentHijriYear, currentHijriMonth);
-        const lastGreg = HijriEngine.hijriToGregorian(currentHijriYear, currentHijriMonth, monthLen);
+        const displayedLen = getDisplayedMonthLen(currentHijriYear, currentHijriMonth);
+        const lastGreg = HijriEngine.hijriToGregorian(currentHijriYear, currentHijriMonth, displayedLen);
 
         let gregRange;
         if (firstGreg.month === lastGreg.month && firstGreg.year === lastGreg.year) {
@@ -777,6 +1016,14 @@ const App = (() => {
         $('month-title-greg').textContent = gregRange;
     }
 
+    function getDisplayedMonthLen(y, m) {
+        const tabularLen = HijriEngine.hijriMonthLength(y, m);
+        const next = getNextMonth(y, m);
+        const adjM = getAdjustmentFor(y, m);
+        const adjNext = getAdjustmentFor(next.year, next.month);
+        return tabularLen - (adjNext - adjM);
+    }
+
     function renderWeekdays() {
         const dayNames = HijriEngine.getDayNames(currentLang);
         const container = $('calendar-weekdays');
@@ -787,7 +1034,6 @@ const App = (() => {
 
     function renderCalendarGrid() {
         const today = HijriEngine.getToday();
-        const monthLen = HijriEngine.hijriMonthLength(currentHijriYear, currentHijriMonth);
         const firstDayOfWeek = HijriEngine.getDayOfWeek(currentHijriYear, currentHijriMonth, 1);
 
         let cells = '';
@@ -798,7 +1044,8 @@ const App = (() => {
         }
 
         // Day cells
-        for (let day = 1; day <= monthLen; day++) {
+        const displayedLen = getDisplayedMonthLen(currentHijriYear, currentHijriMonth);
+        for (let day = 1; day <= displayedLen; day++) {
             const greg = HijriEngine.hijriToGregorian(currentHijriYear, currentHijriMonth, day);
             const isToday = (day === today.day && currentHijriMonth === today.month && currentHijriYear === today.year);
             const dayOfWeek = (firstDayOfWeek + day - 1) % 7;
@@ -845,11 +1092,7 @@ const App = (() => {
         }
 
         // Sort by day
-        const sorted = [...events].sort((a, b) => {
-            const dayA = a.recurring ? a.day : a.day;
-            const dayB = b.recurring ? b.day : b.day;
-            return dayA - dayB;
-        });
+        const sorted = [...events].sort((a, b) => a.day - b.day);
 
         container.innerHTML = sorted.map(event => {
             const cat = IslamicEvents.getCategoryInfo(event.category);
@@ -867,6 +1110,9 @@ const App = (() => {
                         <div class="event-card-date">${dateStr}</div>
                     </div>
                     <span class="event-card-category" style="color:${cat.color};background:${cat.bg}">${catLabel}</span>
+                    <button class="event-share-btn" title="Share">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                    </button>
                 </div>`;
         }).join('');
 
@@ -899,6 +1145,171 @@ const App = (() => {
             vEl.className = 'footer-note';
             vEl.textContent = `v${APP_VERSION}`;
             footerEl.appendChild(vEl);
+        }
+    }
+
+    // ── Daily Dua / Hadith ──
+    function renderDua() {
+        if (typeof IslamicContent === 'undefined') return;
+        const content = IslamicContent.getDailyContent();
+
+        // Multi-language type labels
+        const typeLabels = {
+            dua: {
+                en: '📖 Dua of the Day',
+                ar: '📖 دعاء اليوم',
+                bn: '📖 আজকের দুয়া',
+                ur: '📖 آج کی دعا',
+                tr: '📖 Günün Duası',
+                ms: '📖 Doa Hari Ini',
+                id: '📖 Doa Hari Ini',
+                fr: '📖 Doua du jour',
+                hi: '📖 आज की दुआ',
+                te: '📖 నేటి దువా',
+                ta: '📖 இன்றைய துஆ',
+                ml: '📖 ഇന്നത്തെ ദുആ'
+            },
+            hadith: {
+                en: '📜 Hadith of the Day',
+                ar: '📜 حديث اليوم',
+                bn: '📜 আজকের হাদিস',
+                ur: '📜 آج کی حدیث',
+                tr: '📜 Günün Hadisi',
+                ms: '📜 Hadis Hari Ini',
+                id: '📜 Hadis Hari Ini',
+                fr: '📜 Hadith du jour',
+                hi: '📜 आज की हदीस',
+                te: '📜 నేటి హదీస్',
+                ta: '📜 இன்றைய ஹதீ‌സ്',
+                ml: '📜 ഇന്നത്തെ ഹദീസ്'
+            }
+        };
+
+        const typeInfo = typeLabels[content.type] || typeLabels.dua;
+        const typeLabel = typeInfo[currentLang] || typeInfo.en;
+
+        $('dua-type-label').textContent = typeLabel;
+        $('dua-arabic').textContent = content.ar;
+
+        // Pronunciation (Transliteration)
+        const pronEl = $('dua-pronunciation');
+        if (pronEl) {
+            pronEl.textContent = content.tr || '';
+            pronEl.style.display = content.tr ? 'block' : 'none';
+        }
+
+        // Translation
+        const translation = (content.translations && content.translations[currentLang]) || (content.translations && content.translations.en) || content.en || '';
+        $('dua-english').textContent = translation ? `"${translation}"` : '';
+
+        $('dua-ref').textContent = `— ${content.ref}`;
+    }
+
+    // ── 99 Names of Allah ──
+    function renderNames() {
+        if (typeof IslamicContent === 'undefined') return;
+        const grid = $('names-grid');
+        if (grid.children.length > 0) return; // already rendered
+        const names = IslamicContent.getAllNames();
+        grid.innerHTML = names.map(n => `
+            <div class="name-card">
+                <div class="name-card-num">${n.num}</div>
+                <div class="name-card-ar">${n.ar}</div>
+                <div class="name-card-en">${n.en}</div>
+                <div class="name-card-meaning">${n.meaning}</div>
+            </div>
+        `).join('');
+    }
+
+    // ── Theme ──
+    function setTheme(theme) {
+        if (theme === 'default') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        localStorage.setItem('ic-theme', theme);
+        // Update swatch UI
+        document.querySelectorAll('.theme-swatch').forEach(s => {
+            s.classList.toggle('active', s.dataset.theme === theme);
+        });
+    }
+
+    // ── Share helper ──
+    function shareText(text) {
+        if (navigator.share) {
+            navigator.share({ text }).catch(() => { });
+        } else {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(() => {
+                // Final fallback
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                alert('Copied to clipboard!');
+            });
+        }
+    }
+
+    // ── Ramadan Mode ──
+    function renderRamadan() {
+        const today = HijriEngine.getToday();
+        const banner = $('ramadan-banner');
+
+        // Ramadan is Hijri month 9
+        if (today.month !== 9) {
+            banner.classList.remove('active');
+            return;
+        }
+
+        if (!currentCity) {
+            banner.classList.remove('active');
+            return;
+        }
+
+        banner.classList.add('active');
+
+        const now = new Date();
+        let times = PrayerTimes.calculate(
+            now,
+            currentCity.lat,
+            currentCity.lng,
+            currentCity.tz,
+            calcMethod,
+            asrSchool
+        );
+        times = applyTimeAdjustment(times);
+
+        // Suhoor ends = Fajr time (some communities subtract 10 min)
+        const suhoorHrs = times._raw.fajr;
+        const suhoorEnd = formatAdjustedTime(suhoorHrs - 10 / 60);
+        $('ramadan-suhoor').textContent = suhoorEnd.h12;
+
+        // Iftar = Maghrib
+        $('ramadan-iftar').textContent = times.maghrib.h12;
+
+        // Countdown to Iftar or Suhoor
+        const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
+        const maghribHrs = times._raw.maghrib;
+        const fajrHrs = suhoorHrs - 10 / 60;
+
+        if (currentHrs < maghribHrs && currentHrs >= fajrHrs) {
+            // During fasting — countdown to Iftar
+            const diff = maghribHrs - currentHrs;
+            const h = Math.floor(diff);
+            const m = Math.floor((diff - h) * 60);
+            $('ramadan-countdown').textContent = `🍽️ Iftar in ${h}h ${m}m`;
+        } else {
+            // After Iftar or before Suhoor — countdown to Suhoor
+            let diff = fajrHrs - currentHrs;
+            if (diff < 0) diff += 24;
+            const h = Math.floor(diff);
+            const m = Math.floor((diff - h) * 60);
+            $('ramadan-countdown').textContent = `🌙 Suhoor ends in ${h}h ${m}m`;
         }
     }
 
@@ -1045,7 +1456,11 @@ const App = (() => {
     }
 
     // ── Boot ──
-    document.addEventListener('DOMContentLoaded', init);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
 
 
@@ -1301,8 +1716,52 @@ const App = (() => {
         toggleModal('date-prayer-modal', true);
     }
 
+    // ── Day/Night Header Gradient ──
+    function updateHeaderGradient(times, currentHrs) {
+        const header = $('app-header');
+        if (!header || !times._raw) return;
+
+        const raw = times._raw;
+        let tint, accentLine;
+
+        if (currentHrs < raw.fajr) {
+            // Late night / pre-Fajr — deep navy
+            tint = 'rgba(6, 12, 28, 0.92)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(100, 120, 180, 0.3), transparent)';
+        } else if (currentHrs < raw.sunrise) {
+            // Fajr to Sunrise — dawn amber
+            tint = 'rgba(40, 22, 10, 0.88)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(245, 180, 80, 0.5), transparent)';
+        } else if (currentHrs < raw.dhuhr) {
+            // Morning — warm blue
+            tint = 'rgba(12, 28, 50, 0.85)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(80, 180, 220, 0.4), transparent)';
+        } else if (currentHrs < raw.asr) {
+            // Afternoon — golden
+            tint = 'rgba(20, 16, 8, 0.88)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(245, 200, 66, 0.4), transparent)';
+        } else if (currentHrs < raw.maghrib) {
+            // Late afternoon — sunset orange
+            tint = 'rgba(35, 15, 8, 0.88)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(230, 120, 50, 0.5), transparent)';
+        } else if (currentHrs < raw.isha) {
+            // Maghrib to Isha — twilight purple
+            tint = 'rgba(20, 10, 35, 0.90)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(160, 100, 220, 0.4), transparent)';
+        } else {
+            // Night — deep indigo
+            tint = 'rgba(8, 8, 25, 0.92)';
+            accentLine = 'linear-gradient(90deg, transparent, rgba(60, 80, 160, 0.3), transparent)';
+        }
+
+        header.style.setProperty('--header-tint', tint);
+        header.style.setProperty('--header-accent-line', accentLine);
+    }
+
     function startPrayerCountdown() {
         if (prayerCountdownInterval) clearInterval(prayerCountdownInterval);
+
+        const CIRC = 2 * Math.PI * 15.5; // ~97.4 circumference of SVG ring
 
         function tick() {
             if (!currentCity) return;
@@ -1313,6 +1772,46 @@ const App = (() => {
             const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
             const next = PrayerTimes.getNextPrayer(times, currentHrs);
             $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+
+            // ── Hero countdown ring ──
+            const heroEl = $('hero-countdown');
+            if (heroEl) {
+                heroEl.style.display = 'flex';
+                const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
+                $('hero-countdown-label').textContent = names[next.name] || 'Next';
+                $('hero-countdown-time').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+
+                // Calculate progress through current prayer interval
+                const order = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+                const idx = order.indexOf(next.name);
+                let prevTime;
+                if (idx > 0 && !next.tomorrow) {
+                    const prevKey = order[idx - 1];
+                    prevTime = times[prevKey]?.decimal ?? times._raw?.[prevKey] ?? 0;
+                } else {
+                    prevTime = times.isha?.decimal ?? times._raw?.isha ?? 0;
+                }
+
+                let totalSpan = next.time - prevTime;
+                if (totalSpan <= 0) totalSpan += 24;
+                let elapsed = currentHrs - prevTime;
+                if (elapsed < 0) elapsed += 24;
+                const pct = Math.min(elapsed / totalSpan, 1);
+
+                const ring = $('countdown-ring');
+                if (ring) {
+                    ring.setAttribute('stroke-dashoffset', CIRC * (1 - pct));
+                }
+
+                // ── Prayer progress bar ──
+                const progressFill = $('prayer-progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = `${(pct * 100).toFixed(1)}%`;
+                }
+            }
+
+            // ── Day/Night header gradient ──
+            updateHeaderGradient(times, currentHrs);
 
             checkNotifications(times, currentHrs);
         }
