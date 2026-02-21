@@ -1,6 +1,13 @@
 /**
  * Islamic Calendar PWA — Main Application Logic
+ *
+ * ╔══════════════════════════════════════════════════════╗
+ * ║  APP VERSION — Change this to trigger app updates   ║
+ * ║  Format: major.minor.micro                          ║
+ * ║  Also update CACHE_NAME in sw.js to match!          ║
+ * ╚══════════════════════════════════════════════════════╝
  */
+const APP_VERSION = '1.0.0';
 
 const App = (() => {
     // ── State ──
@@ -14,6 +21,14 @@ const App = (() => {
     let calcMethod = localStorage.getItem('ic-method') || 'mwl';
     let asrSchool = localStorage.getItem('ic-asr') || 'shafii';
     let prayerCountdownInterval = null;
+
+    // Time adjustment state
+    let timeAdjustSign = localStorage.getItem('ic-time-adj-sign') || '+';
+    let timeAdjustMin = parseInt(localStorage.getItem('ic-time-adj-min')) || 0;
+    let timeAdjustSec = parseInt(localStorage.getItem('ic-time-adj-sec')) || 0;
+
+    // Service worker update state
+    let waitingWorker = null;
 
     // Qibla state
     let qiblaBearing = 0;
@@ -177,6 +192,26 @@ const App = (() => {
             localStorage.setItem('ic-asr', asrSchool);
             renderPrayerTimes();
             startPrayerCountdown(); // Force immediate timer update
+        });
+
+        // Time adjustment controls
+        $('time-adjust-sign').addEventListener('change', e => {
+            timeAdjustSign = e.target.value;
+            localStorage.setItem('ic-time-adj-sign', timeAdjustSign);
+            renderPrayerTimes();
+            startPrayerCountdown();
+        });
+        $('time-adjust-min').addEventListener('input', e => {
+            timeAdjustMin = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
+            localStorage.setItem('ic-time-adj-min', timeAdjustMin);
+            renderPrayerTimes();
+            startPrayerCountdown();
+        });
+        $('time-adjust-sec').addEventListener('input', e => {
+            timeAdjustSec = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
+            localStorage.setItem('ic-time-adj-sec', timeAdjustSec);
+            renderPrayerTimes();
+            startPrayerCountdown();
         });
 
         // Qibla
@@ -800,6 +835,15 @@ const App = (() => {
         const today = HijriEngine.getToday();
         const now = new Date();
         $('footer-year').textContent = `${today.year} AH / ${now.getFullYear()} CE`;
+        // Show app version in footer
+        const footerEl = $('app-footer');
+        if (footerEl && !$('app-version-label')) {
+            const vEl = document.createElement('p');
+            vEl.id = 'app-version-label';
+            vEl.className = 'footer-note';
+            vEl.textContent = `v${APP_VERSION}`;
+            footerEl.appendChild(vEl);
+        }
     }
 
     // ── Event detail modal ──
@@ -843,13 +887,82 @@ const App = (() => {
         document.body.style.overflow = show ? 'hidden' : '';
     }
 
+    // ── Time Adjustment helper ──
+    function getTimeAdjustmentHours() {
+        const sign = timeAdjustSign === '-' ? -1 : 1;
+        return sign * (timeAdjustMin / 60 + timeAdjustSec / 3600);
+    }
+
+    function applyTimeAdjustment(times) {
+        // Adjust all _raw values and reformat
+        const adj = getTimeAdjustmentHours();
+        if (adj === 0) return times;
+        const raw = { ...times._raw };
+        const adjusted = {};
+        for (const key of Object.keys(raw)) {
+            raw[key] = raw[key] + adj;
+            adjusted[key] = formatAdjustedTime(raw[key]);
+        }
+        adjusted._raw = raw;
+        return adjusted;
+    }
+
+    function formatAdjustedTime(hours) {
+        if (isNaN(hours)) return { h24: '--:--', h12: '--:-- AM', decimal: hours };
+        hours = ((hours % 24) + 24) % 24;
+        const h = Math.floor(hours);
+        const m = Math.round((hours - h) * 60);
+        const hh = h.toString().padStart(2, '0');
+        const mm = m.toString().padStart(2, '0');
+        const h12 = h === 0 ? 12 : (h > 12 ? h - 12 : h);
+        const ampm = h < 12 ? 'AM' : 'PM';
+        return { h24: `${hh}:${mm}`, h12: `${h12}:${mm} ${ampm}`, decimal: hours };
+    }
+
     // ── PWA Install ──
     let deferredPrompt = null;
     function initPWA() {
         // Register service worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(() => { });
+            navigator.serviceWorker.register('sw.js').then(registration => {
+                // Check for updates on registration
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    if (!newWorker) return;
+
+                    newWorker.addEventListener('statechange', () => {
+                        // New SW is installed & waiting, and there's already an active controller
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            waitingWorker = newWorker;
+                            $('update-banner-text').textContent = `🔄 v${APP_VERSION} → New version available!`;
+                            $('update-banner').style.display = 'flex';
+                        }
+                    });
+                });
+
+                // If there's already a waiting worker (page was refreshed while update is pending)
+                if (registration.waiting && navigator.serviceWorker.controller) {
+                    waitingWorker = registration.waiting;
+                    $('update-banner-text').textContent = `🔄 v${APP_VERSION} → New version available!`;
+                    $('update-banner').style.display = 'flex';
+                }
+            }).catch(() => { });
+
+            // Auto-reload when the new SW takes control
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                window.location.reload();
+            });
         }
+
+        // Update banner buttons
+        $('update-btn').addEventListener('click', () => {
+            if (waitingWorker) {
+                waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+            }
+        });
+        $('update-dismiss').addEventListener('click', () => {
+            $('update-banner').style.display = 'none';
+        });
 
         // Install prompt
         window.addEventListener('beforeinstallprompt', e => {
@@ -904,6 +1017,12 @@ const App = (() => {
         }
         $('calc-method').value = calcMethod;
         $('asr-school').value = asrSchool;
+
+        // Restore time adjustment UI
+        $('time-adjust-sign').value = timeAdjustSign;
+        $('time-adjust-min').value = timeAdjustMin;
+        $('time-adjust-sec').value = timeAdjustSec;
+
         updateLocationBar();
     }
 
@@ -1028,7 +1147,7 @@ const App = (() => {
         if (!currentCity) return;
 
         const now = new Date();
-        const times = PrayerTimes.calculate(
+        let times = PrayerTimes.calculate(
             now,
             currentCity.lat,
             currentCity.lng,
@@ -1036,6 +1155,9 @@ const App = (() => {
             calcMethod,
             asrSchool
         );
+
+        // Apply time adjustment
+        times = applyTimeAdjustment(times);
 
         const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
         const nextPrayer = PrayerTimes.getNextPrayer(times, currentHrs);
@@ -1061,7 +1183,8 @@ const App = (() => {
 
         // Method note
         const methodName = PrayerTimes.METHODS[calcMethod]?.name || 'MWL';
-        $('prayer-method-note').textContent = `Method: ${methodName}`;
+        const adjStr = getTimeAdjustmentHours() !== 0 ? ` | Adj: ${timeAdjustSign}${timeAdjustMin}m ${timeAdjustSec}s` : '';
+        $('prayer-method-note').textContent = `Method: ${methodName}${adjStr}`;
     }
 
     // ── Date-specific Prayer Times (clicked from calendar) ──
@@ -1074,11 +1197,14 @@ const App = (() => {
 
         // Convert Hijri date to Gregorian for calculation
         const greg = HijriEngine.hijriToGregorian(hYear, hMonth, hDay);
-        const times = PrayerTimes.calculateForDate(
+        let times = PrayerTimes.calculateForDate(
             greg.year, greg.month, greg.day,
             currentCity.lat, currentCity.lng, currentCity.tz,
             calcMethod, asrSchool
         );
+
+        // Apply time adjustment
+        times = applyTimeAdjustment(times);
 
         const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
         const icons = PrayerTimes.PRAYER_ICONS;
@@ -1125,7 +1251,9 @@ const App = (() => {
         function tick() {
             if (!currentCity) return;
             const now = new Date();
-            const times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
+            let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
+            // Apply time adjustment for countdown too
+            times = applyTimeAdjustment(times);
             const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
             const next = PrayerTimes.getNextPrayer(times, currentHrs);
             $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);

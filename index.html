@@ -220,6 +220,13 @@
         <button id="install-dismiss" class="install-dismiss">✕</button>
     </div>
 
+    <!-- ========== UPDATE AVAILABLE BANNER ========== -->
+    <div id="update-banner" class="update-banner" style="display:none;">
+        <span id="update-banner-text" class="update-banner-text">🔄 A new version is available!</span>
+        <button id="update-btn" class="update-btn">Update Now</button>
+        <button id="update-dismiss" class="update-dismiss">✕</button>
+    </div>
+
 
 
     <!-- ========== LOCATION SELECTION MODAL ========== -->
@@ -256,6 +263,22 @@
                     <option value="shafii">Shafi'i / Maliki / Hanbali</option>
                     <option value="hanafi">Hanafi</option>
                 </select>
+            </div>
+
+            <div class="location-method-row time-adjust-row">
+                <label class="method-label">⏱️ Time Adjustment:</label>
+                <div class="time-adjust-controls">
+                    <select id="time-adjust-sign" class="time-adjust-sign">
+                        <option value="+">+</option>
+                        <option value="-">−</option>
+                    </select>
+                    <input type="number" id="time-adjust-min" class="time-adjust-input" min="0" max="59" value="0"
+                        placeholder="0">
+                    <span class="time-adjust-label">min</span>
+                    <input type="number" id="time-adjust-sec" class="time-adjust-input" min="0" max="59" value="0"
+                        placeholder="0">
+                    <span class="time-adjust-label">sec</span>
+                </div>
             </div>
 
             <div class="city-list" id="city-list"></div>

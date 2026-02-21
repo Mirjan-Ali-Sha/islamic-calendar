@@ -1,9 +1,15 @@
 /**
  * Service Worker — Islamic Calendar PWA
  * Cache-first strategy for offline support.
+ * Supports controlled updates via client messaging.
+ *
+ * ╔══════════════════════════════════════════════════════╗
+ * ║  SW VERSION — Must match APP_VERSION in app.js      ║
+ * ║  Change this whenever you update APP_VERSION         ║
+ * ╚══════════════════════════════════════════════════════╝
  */
-
-const CACHE_NAME = 'islamic-calendar-v2';
+const SW_VERSION = '1.0.0';
+const CACHE_NAME = `islamic-calendar-v${SW_VERSION}`;
 const ASSETS = [
     './',
     './index.html',
@@ -18,12 +24,11 @@ const ASSETS = [
     './icons/icon-512.svg'
 ];
 
-// Install — cache all assets
+// Install — cache all assets (do NOT skipWaiting automatically)
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll(ASSETS))
-            .then(() => self.skipWaiting())
     );
 });
 
@@ -37,6 +42,13 @@ self.addEventListener('activate', event => {
             )
         ).then(() => self.clients.claim())
     );
+});
+
+// Listen for SKIP_WAITING message from the client
+self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
 
 // Fetch — cache-first, fallback to network
