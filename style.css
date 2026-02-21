@@ -119,9 +119,10 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 10px 12px;
     max-width: 720px;
     margin: 0 auto;
+    gap: 12px;
 }
 
 .header-brand {
@@ -152,6 +153,19 @@ body::before {
 .header-actions {
     display: flex;
     gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+    padding: 2px 0;
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+.header-actions::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
 }
 
 .icon-btn {
@@ -3133,5 +3147,52 @@ body::before {
 @media (max-width: 480px) {
     .names-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-brand h1 {
+        font-size: 1rem;
+    }
+
+    .brand-icon {
+        font-size: 1.4rem;
+    }
+
+    .today-banner {
+        padding: 16px 12px;
+    }
+
+    .today-hijri {
+        font-size: 1.15rem;
+    }
+
+    .today-greg,
+    .today-event {
+        font-size: 0.7rem;
+    }
+
+    .hero-countdown {
+        padding: 6px 12px;
+        gap: 8px;
+    }
+
+    .hero-countdown svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .hero-countdown-time {
+        font-size: 0.8rem;
+    }
+
+    .day-cell {
+        min-height: 52px;
+    }
+
+    .day-hijri {
+        font-size: 0.9rem;
+    }
+
+    .day-greg {
+        font-size: 0.52rem;
     }
 }

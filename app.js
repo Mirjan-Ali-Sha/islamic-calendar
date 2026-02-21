@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.4.0';
+const APP_VERSION = '1.4.1';
 
 const App = (() => {
     // ── State ──
@@ -314,8 +314,14 @@ const App = (() => {
             $('tasbih-view').classList.remove('active');
         });
 
-        let tasbihCount = 0;
-        let tasbihTarget = 0; // 0 = unlimited
+        // Restore tasbih state from localStorage
+        let tasbihCount = parseInt(localStorage.getItem('ic-tasbih-count')) || 0;
+        let tasbihTarget = parseInt(localStorage.getItem('ic-tasbih-target')) || 0; // 0 = unlimited
+
+        function saveTasbihState() {
+            localStorage.setItem('ic-tasbih-count', tasbihCount);
+            localStorage.setItem('ic-tasbih-target', tasbihTarget);
+        }
 
         function updateTasbihUI() {
             $('tasbih-count').textContent = tasbihCount;
@@ -329,8 +335,13 @@ const App = (() => {
             }
         }
 
+        // Restore the target dropdown to match saved state
+        $('tasbih-target-select').value = tasbihTarget;
+        updateTasbihUI();
+
         $('tasbih-tap-btn').addEventListener('click', () => {
             tasbihCount++;
+            saveTasbihState();
             updateTasbihUI();
             // Pulse animation
             const el = $('tasbih-count');
@@ -346,11 +357,13 @@ const App = (() => {
 
         $('tasbih-target-select').addEventListener('change', e => {
             tasbihTarget = parseInt(e.target.value);
+            saveTasbihState();
             updateTasbihUI();
         });
 
         $('tasbih-reset-btn').addEventListener('click', () => {
             tasbihCount = 0;
+            saveTasbihState();
             updateTasbihUI();
         });
 
