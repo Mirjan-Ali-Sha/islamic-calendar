@@ -88,8 +88,9 @@
                 <button id="btn-tasbih" class="icon-btn" title="Tasbih Counter" aria-label="Tasbih Counter">
                     <span style="font-size: 1.2rem;">📿</span>
                 </button>
-                <button id="btn-names" class="icon-btn" title="99 Names of Allah" aria-label="99 Names of Allah">
-                    <span style="font-size: 1.2rem;">☪</span>
+                <button id="btn-names" class="icon-btn" title="Islamic Tutorials & Duas"
+                    aria-label="Islamic Tutorials & Duas">
+                    <span style="font-size: 1.2rem;">📖</span>
                 </button>
                 <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Settings">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -310,6 +311,8 @@
                     <option value="500">500</option>
                     <option value="1000">1000</option>
                 </select>
+                <button id="tasbih-vibrate-btn" class="icon-btn active" title="Toggle Vibration"
+                    style="font-size: 1.1rem; padding: 0 10px; margin-right: 8px;">📳</button>
                 <button id="tasbih-reset-btn">Reset</button>
             </div>
         </div>
@@ -488,18 +491,39 @@
         </div>
     </div>
 
-    <!-- ========== 99 NAMES VIEW ========== -->
-    <div id="names-view" class="full-screen-view" style="display:none;">
-        <div class="view-header">
-            <button class="view-back-btn" id="names-back-btn">
+    <!-- ========== ISLAMIC TUTORIALS & DUAS VIEW ========== -->
+    <div id="islamic-hub-view" class="islamic-hub-view">
+        <div class="islamic-hub-header">
+            <button class="view-back-btn" id="islamic-hub-back-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5" />
                     <polyline points="12 19 5 12 12 5" />
                 </svg>
             </button>
-            <h2>☪ 99 Names of Allah</h2>
+            <h2>📖 Islamic Tutorials & Duas</h2>
         </div>
-        <div class="names-grid" id="names-grid"></div>
+
+        <!-- Tab Navigation -->
+        <div class="hub-tabs">
+            <button class="hub-tab active" data-tab="tab-names">☪ 99 Names</button>
+            <button class="hub-tab" data-tab="tab-duas">🤲 Duas & Hadiths</button>
+            <button class="hub-tab" data-tab="tab-tutorials">📚 Tutorials</button>
+        </div>
+
+        <!-- Tab Content: 99 Names -->
+        <div class="hub-tab-content active" id="tab-names">
+            <div class="names-grid" id="names-grid"></div>
+        </div>
+
+        <!-- Tab Content: Duas & Hadiths -->
+        <div class="hub-tab-content" id="tab-duas">
+            <div class="duas-list" id="duas-list"></div>
+        </div>
+
+        <!-- Tab Content: Tutorials -->
+        <div class="hub-tab-content" id="tab-tutorials">
+            <div class="tutorials-list" id="tutorials-list"></div>
+        </div>
     </div>
 
     <!-- ========== SETTINGS MODAL ========== -->

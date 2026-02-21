@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.4.1';
+const APP_VERSION = '1.4.9';
 
 const App = (() => {
     // ── State ──
@@ -317,10 +317,12 @@ const App = (() => {
         // Restore tasbih state from localStorage
         let tasbihCount = parseInt(localStorage.getItem('ic-tasbih-count')) || 0;
         let tasbihTarget = parseInt(localStorage.getItem('ic-tasbih-target')) || 0; // 0 = unlimited
+        let tasbihVibrate = localStorage.getItem('ic-tasbih-vibrate') !== 'false';
 
         function saveTasbihState() {
             localStorage.setItem('ic-tasbih-count', tasbihCount);
             localStorage.setItem('ic-tasbih-target', tasbihTarget);
+            localStorage.setItem('ic-tasbih-vibrate', tasbihVibrate);
         }
 
         function updateTasbihUI() {
@@ -333,11 +335,27 @@ const App = (() => {
                 const pct = Math.min((tasbihCount / tasbihTarget) * 100, 100);
                 $('tasbih-progress').style.width = `${pct}%`;
             }
+            const vibBtn = $('tasbih-vibrate-btn');
+            if (vibBtn) {
+                vibBtn.classList.toggle('active', tasbihVibrate);
+                vibBtn.style.opacity = tasbihVibrate ? '1' : '0.5';
+                vibBtn.textContent = tasbihVibrate ? '📳' : '📴';
+            }
         }
 
         // Restore the target dropdown to match saved state
         $('tasbih-target-select').value = tasbihTarget;
         updateTasbihUI();
+
+        const vibBtn = $('tasbih-vibrate-btn');
+        if (vibBtn) {
+            vibBtn.addEventListener('click', () => {
+                tasbihVibrate = !tasbihVibrate;
+                saveTasbihState();
+                updateTasbihUI();
+                if (tasbihVibrate && navigator.vibrate) navigator.vibrate(15);
+            });
+        }
 
         $('tasbih-tap-btn').addEventListener('click', () => {
             tasbihCount++;
@@ -348,10 +366,10 @@ const App = (() => {
             el.classList.add('pulse');
             setTimeout(() => el.classList.remove('pulse'), 100);
             // Haptic feedback
-            if (navigator.vibrate) navigator.vibrate(15);
+            if (tasbihVibrate && navigator.vibrate) navigator.vibrate(15);
             // Notify when target reached (only if a target is set)
             if (tasbihTarget > 0 && tasbihCount === tasbihTarget) {
-                if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+                if (tasbihVibrate && navigator.vibrate) navigator.vibrate([50, 30, 50]);
             }
         });
 
@@ -465,13 +483,28 @@ const App = (() => {
             setTheme(theme);
         });
 
-        // ── 99 Names View ──
+        // ── Islamic Tutorials & Duas Hub ──
         $('btn-names').addEventListener('click', () => {
-            $('names-view').classList.add('active');
+            $('islamic-hub-view').classList.add('active');
             renderNames();
+            renderDuasList();
+            renderTutorials();
         });
-        $('names-back-btn').addEventListener('click', () => {
-            $('names-view').classList.remove('active');
+        $('islamic-hub-back-btn').addEventListener('click', () => {
+            $('islamic-hub-view').classList.remove('active');
+        });
+
+        // Tab switching
+        document.querySelector('.hub-tabs').addEventListener('click', e => {
+            const tab = e.target.closest('.hub-tab');
+            if (!tab) return;
+            const targetId = tab.dataset.tab;
+            // Update tab buttons
+            document.querySelectorAll('.hub-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            // Update tab content
+            document.querySelectorAll('.hub-tab-content').forEach(c => c.classList.remove('active'));
+            $(targetId).classList.add('active');
         });
 
         // ── Share Daily Dua/Hadith ──
@@ -1222,16 +1255,90 @@ const App = (() => {
     function renderNames() {
         if (typeof IslamicContent === 'undefined') return;
         const grid = $('names-grid');
-        if (grid.children.length > 0) return; // already rendered
         const names = IslamicContent.getAllNames();
-        grid.innerHTML = names.map(n => `
-            <div class="name-card">
-                <div class="name-card-num">${n.num}</div>
-                <div class="name-card-ar">${n.ar}</div>
-                <div class="name-card-en">${n.en}</div>
-                <div class="name-card-meaning">${n.meaning}</div>
+        grid.innerHTML = names.map(n => {
+            const translation = (n.translations && (n.translations[currentLang] || n.translations.en)) || n.en || '';
+            const pronunciation = (n.en !== translation) ? n.en : '';
+            return `
+                <div class="name-card">
+                    <div class="name-card-num">${n.num}</div>
+                    <div class="name-card-ar">${n.ar}</div>
+                    <div class="name-card-en">${n.en}</div>
+                    ${pronunciation ? `<div class="name-card-pronunciation">🔊 ${pronunciation}</div>` : ''}
+                    <div class="name-card-meaning">${translation}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ── Duas & Hadiths List ──
+    function renderDuasList() {
+        if (typeof IslamicContent === 'undefined') return;
+        const list = $('duas-list');
+        const items = IslamicContent.DAILY_CONTENT;
+
+        const duas = items.filter(item => item.type === 'dua');
+        const hadiths = items.filter(item => item.type === 'hadith');
+
+        const renderItems = (itemsList) => itemsList.map((item) => {
+            const translation = (item.translations && (item.translations[currentLang] || item.translations.en)) || item.en || '';
+            const pronunciation = item.tr || '';
+            const itemTypeLabel = item.type === 'dua' ? '🤲 Dua' : '📜 Hadith';
+            return `
+                <div class="dua-list-card" style="margin-bottom: 8px;">
+                    <span class="dua-list-type ${item.type}">${itemTypeLabel}</span>
+                    <div class="dua-list-arabic">${item.ar}</div>
+                    ${pronunciation ? `<div class="dua-list-pronunciation">🔊 ${pronunciation}</div>` : ''}
+                    <div class="dua-list-translation">"${translation}"</div>
+                    <div class="dua-list-ref">— ${item.ref}</div>
+                </div>
+            `;
+        }).join('');
+
+        list.innerHTML = `
+            <div class="tutorial-card" style="margin-bottom: 12px;">
+                <div class="tutorial-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="tutorial-card-icon">🤲</span>
+                    <span class="tutorial-card-title">Daily Duas</span>
+                    <span class="tutorial-card-chevron">▼</span>
+                </div>
+                <div class="tutorial-card-body">
+                    ${renderItems(duas)}
+                </div>
             </div>
-        `).join('');
+            <div class="tutorial-card">
+                <div class="tutorial-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="tutorial-card-icon">📜</span>
+                    <span class="tutorial-card-title">Selected Hadiths</span>
+                    <span class="tutorial-card-chevron">▼</span>
+                </div>
+                <div class="tutorial-card-body">
+                    ${renderItems(hadiths)}
+                </div>
+            </div>
+        `;
+    }
+
+    // ── Islamic Tutorials ──
+    function renderTutorials() {
+        const list = $('tutorials-list');
+
+        const tutorials = IslamicContent.getTutorials ? IslamicContent.getTutorials() : [];
+        list.innerHTML = tutorials.map(t => {
+            const title = t.translations?.title?.[currentLang] || t.translations?.title?.en || t.title;
+            const body = t.translations?.body?.[currentLang] || t.translations?.body?.en || t.body;
+
+            return `
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="tutorial-card-icon">${t.icon}</span>
+                        <span class="tutorial-card-title">${title}</span>
+                        <span class="tutorial-card-chevron">▼</span>
+                    </div>
+                    <div class="tutorial-card-body">${body}</div>
+                </div>
+            `;
+        }).join('');
     }
 
     // ── Theme ──
