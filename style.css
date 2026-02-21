@@ -1901,8 +1901,6 @@ body::before {
     inset: 10px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    transition: transform 0.08s linear;
-    will-change: transform;
 }
 
 .direction {
@@ -1937,49 +1935,66 @@ body::before {
     transform: translateY(-50%);
 }
 
-/* Qibla direction marker on the compass ring */
-.qibla-marker {
+/* Rotating needle — points toward Qibla */
+.compass-needle {
     position: absolute;
-    font-size: 1.6rem;
-    filter: drop-shadow(0 0 8px gold) drop-shadow(0 0 2px rgba(255, 215, 0, 0.6));
-    z-index: 10;
-    /* Default: top center — JS sets transform-origin + rotation */
-    top: -8px;
+    width: 4px;
+    height: 220px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s linear;
+    will-change: transform;
+    z-index: 5;
 }
 
-/* Fixed aim line (always points up) */
-.compass-aim {
+/* 🕋 icon at the tip */
+.needle-tip {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.7rem;
+    filter: drop-shadow(0 0 8px gold) drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+    z-index: 10;
+}
+
+/* Golden shaft from center to tip */
+.needle-shaft {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(to top, rgba(245, 200, 66, 0.8), rgba(255, 215, 0, 0.3));
+    border-radius: 2px;
+}
+
+/* Center dot */
+.needle-center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 5;
-    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f5c842, #b8860b);
+    box-shadow: 0 0 6px rgba(245, 200, 66, 0.5);
+    z-index: 6;
 }
 
-.aim-arrow {
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 100px solid rgba(255, 255, 255, 0.35);
-    position: relative;
-    top: -50px;
-}
-
-.aim-arrow::after {
-    content: '';
+/* Faded tail (opposite side) */
+.needle-tail {
     position: absolute;
-    top: 100px;
-    left: -8px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 100px solid rgba(255, 255, 255, 0.12);
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 70px;
+    background: linear-gradient(to bottom, rgba(148, 163, 184, 0.3), transparent);
+    border-radius: 2px;
 }
 
 .qibla-info {
@@ -2228,7 +2243,7 @@ body::before {
     }
 }
 
-.compass-container.aligned .qibla-marker {
+.compass-container.aligned .needle-tip {
     animation: pulse-primary 1s infinite ease-in-out;
 }
 
