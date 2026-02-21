@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!          ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 
 const App = (() => {
     // ── State ──
@@ -238,11 +238,11 @@ const App = (() => {
         // Notifications
         $('btn-notifications').addEventListener('click', toggleNotifications);
 
-        // Touch swipe
+        // Touch swipe (only on calendar grid, not prayer/events areas)
         let touchStartX = 0;
-        const main = $('app-main');
-        main.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-        main.addEventListener('touchend', e => {
+        const calGrid = $('calendar-grid');
+        calGrid.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        calGrid.addEventListener('touchend', e => {
             const delta = e.changedTouches[0].screenX - touchStartX;
             if (Math.abs(delta) > 60) {
                 navigateMonth(delta > 0 ? -1 : 1);
