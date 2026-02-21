@@ -238,16 +238,21 @@ const App = (() => {
         // Notifications
         $('btn-notifications').addEventListener('click', toggleNotifications);
 
-        // Touch swipe (only on calendar grid, not prayer/events areas)
+        // Touch swipe (calendar grid + month heading area)
         let touchStartX = 0;
-        const calGrid = $('calendar-grid');
-        calGrid.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-        calGrid.addEventListener('touchend', e => {
-            const delta = e.changedTouches[0].screenX - touchStartX;
-            if (Math.abs(delta) > 60) {
-                navigateMonth(delta > 0 ? -1 : 1);
+        const swipeHandler = {
+            start: e => { touchStartX = e.changedTouches[0].screenX; },
+            end: e => {
+                const delta = e.changedTouches[0].screenX - touchStartX;
+                if (Math.abs(delta) > 60) {
+                    navigateMonth(delta > 0 ? -1 : 1);
+                }
             }
-        }, { passive: true });
+        };
+        [$('calendar-grid'), $('month-nav')].forEach(el => {
+            el.addEventListener('touchstart', swipeHandler.start, { passive: true });
+            el.addEventListener('touchend', swipeHandler.end, { passive: true });
+        });
     }
 
     // ── Navigation ──
