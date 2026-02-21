@@ -343,6 +343,19 @@ const App = (() => {
 
 
     // ── Qibla Compass ──
+    function positionQiblaMarker() {
+        // Position 🕋 at the bearing angle on the compass (N=top, clockwise)
+        const marker = $('qibla-marker');
+        if (!marker) return;
+        const radius = 108; // ~distance from center to near edge of ring
+        const rad = qiblaBearing * Math.PI / 180;
+        const x = Math.sin(rad) * radius; // positive = right
+        const y = -Math.cos(rad) * radius; // negative = up
+        // compass-container is 280x280, center is 140,140
+        marker.style.left = `${140 + x - 16}px`;  // 16 = half of 32px marker
+        marker.style.top = `${140 + y - 16}px`;
+    }
+
     async function initQibla() {
         compassActive = true;
         isCalibrating = false;
@@ -350,17 +363,20 @@ const App = (() => {
 
         const badge = $('qibla-accuracy-badge');
         $('compass-needle').style.opacity = '0';
+        $('qibla-marker').style.opacity = '0';
         $('qibla-bearing').style.opacity = '0';
 
         // Start with city-based bearing immediately (before GPS resolves)
         if (currentCity) {
             qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+            positionQiblaMarker();
             $('compass-needle').style.opacity = '1';
+            $('qibla-marker').style.opacity = '1';
             $('qibla-bearing').style.opacity = '1';
             $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
             badge.textContent = 'City-based (Approximate)';
             badge.className = 'qibla-accuracy-badge';
-            $('qibla-status').textContent = 'Point your device — needle shows Qibla';
+            $('qibla-status').textContent = 'Turn until the red needle points at 🕋';
         } else {
             badge.textContent = 'Waiting for GPS...';
             badge.className = 'qibla-accuracy-badge';
@@ -432,15 +448,17 @@ const App = (() => {
                 const accuracy = pos.coords.accuracy;
 
                 qiblaBearing = calculateQiblaBearing(lat, lng);
+                positionQiblaMarker();
 
                 overlay.style.display = 'none';
                 $('compass-needle').style.opacity = '1';
+                $('qibla-marker').style.opacity = '1';
                 $('qibla-bearing').style.opacity = '1';
 
                 badge.textContent = accuracy < 100 ? 'High Accuracy (GPS)' : 'Good Accuracy (GPS)';
                 badge.className = 'qibla-accuracy-badge high';
                 $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-                $('qibla-status').textContent = 'Point your device — needle shows Qibla';
+                $('qibla-status').textContent = 'Turn until the red needle points at 🕋';
 
                 const refreshBtn = $('qibla-refresh-gps');
                 if (refreshBtn) refreshBtn.style.animation = '';
@@ -478,6 +496,7 @@ const App = (() => {
         if (!currentCity) return;
 
         qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+        positionQiblaMarker();
 
         const overlay = $('qibla-gps-overlay');
         const badge = $('qibla-accuracy-badge');
@@ -485,12 +504,13 @@ const App = (() => {
 
         overlay.style.display = 'none';
         $('compass-needle').style.opacity = '1';
+        $('qibla-marker').style.opacity = '1';
         $('qibla-bearing').style.opacity = '1';
 
         badge.textContent = `City-based: ${currentCity.name}`;
         badge.className = 'qibla-accuracy-badge';
         $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-        $('qibla-status').textContent = 'Point your device — needle shows Qibla';
+        $('qibla-status').textContent = 'Turn until the red needle points at 🕋';
 
         errEl.textContent = reason;
         errEl.style.display = 'block';
@@ -538,7 +558,7 @@ const App = (() => {
     }
 
     function updateQiblaBearingDisplay() {
-        // Placeholder — city fallback is now handled in initQibla and useCityFallback
+        // City fallback is handled in initQibla and useCityFallback
     }
 
     function stopQibla() {
@@ -552,9 +572,10 @@ const App = (() => {
 
         window.removeEventListener('deviceorientation', handleOrientation);
         window.removeEventListener('deviceorientationabsolute', handleOrientation);
-        $('compass-needle').style.transform = '';
-        $('qibla-status').textContent = 'Point your device — needle shows Qibla';
-        $('compass-needle').closest('.compass-container').classList.remove('aligned');
+        $('compass-needle').style.transform = 'translate(-50%, -50%)';
+        $('qibla-status').textContent = 'Turn until the red needle points at 🕋';
+        const container = $('compass-needle').closest('.compass-container');
+        if (container) container.classList.remove('aligned');
 
         const refreshBtn = $('qibla-refresh-gps');
         if (refreshBtn) refreshBtn.style.animation = '';
@@ -565,20 +586,17 @@ const App = (() => {
 
         let heading = null;
 
-        // Try to get heading from various sensor events
         if (e.webkitCompassHeading !== undefined) {
-            // iOS
-            heading = e.webkitCompassHeading;
+            heading = e.webkitCompassHeading; // iOS
         } else if (e.alpha !== null) {
-            // Android / Generic
             if (e.absolute || e.webkitCompassHeading === undefined) {
-                heading = 360 - e.alpha;
+                heading = 360 - e.alpha; // Android
             }
         }
 
         if (heading === null) return;
 
-        // Smoothing (Exponential Moving Average)
+        // Smoothing
         if (lastHeading === null) {
             lastHeading = heading;
         } else {
@@ -590,21 +608,21 @@ const App = (() => {
 
         const currentHeading = lastHeading;
 
-        // Rotate needle to point toward Qibla
-        // rotation = bearing - heading: when device faces Qibla, rotation = 0 (needle up)
-        let rotation = (qiblaBearing - currentHeading + 360) % 360;
-        $('compass-needle').style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        // Rotate needle to show where the device is pointing on the compass
+        // heading = compass direction the device top faces
+        // On the fixed dial: 0° = North (up), 90° = East (right), etc.
+        $('compass-needle').style.transform = `translate(-50%, -50%) rotate(${currentHeading}deg)`;
 
-        // Check alignment
-        let turnDiff = rotation;
-        if (turnDiff > 180) turnDiff -= 360;
-        const absDiff = Math.round(Math.abs(turnDiff));
+        // Alignment check: device faces Qibla when heading ≈ qiblaBearing
+        let diff = (currentHeading - qiblaBearing + 360) % 360;
+        if (diff > 180) diff -= 360;
+        const absDiff = Math.round(Math.abs(diff));
 
         const guidEl = $('qibla-guide');
         const statusEl = $('qibla-status');
         const container = $('compass-needle').closest('.compass-container');
 
-        if (absDiff < 3) {
+        if (absDiff < 5) {
             statusEl.textContent = '🎯 ALIGNED WITH QIBLA';
             guidEl.textContent = '🕋';
             guidEl.style.animation = 'pulse-primary 1s infinite ease-in-out';
@@ -613,12 +631,12 @@ const App = (() => {
             guidEl.style.animation = '';
             if (container) container.classList.remove('aligned');
 
-            if (turnDiff > 0) {
-                statusEl.textContent = `Turn ${absDiff}° RIGHT`;
-                guidEl.textContent = '➡️';
-            } else {
+            if (diff > 0) {
                 statusEl.textContent = `Turn ${absDiff}° LEFT`;
                 guidEl.textContent = '⬅️';
+            } else {
+                statusEl.textContent = `Turn ${absDiff}° RIGHT`;
+                guidEl.textContent = '➡️';
             }
         }
     }

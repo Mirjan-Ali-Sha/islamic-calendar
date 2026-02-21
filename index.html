@@ -322,13 +322,14 @@
                     <span class="direction s">S</span>
                     <span class="direction w">W</span>
                 </div>
-                <!-- Needle rotates to point toward Qibla -->
+                <!-- Fixed Qibla marker — JS positions at bearing angle -->
+                <div class="qibla-marker" id="qibla-marker">🕋</div>
+                <!-- Compass needle — rotates with device heading -->
                 <div class="compass-needle" id="compass-needle">
-                    <div class="needle-tip">🕋</div>
-                    <div class="needle-shaft"></div>
-                    <div class="needle-center"></div>
-                    <div class="needle-tail"></div>
+                    <div class="needle-north"></div>
+                    <div class="needle-south"></div>
                 </div>
+                <div class="needle-center-dot"></div>
             </div>
             <div class="qibla-info">
                 <div id="qibla-guide" class="qibla-guide-arrow"></div>
