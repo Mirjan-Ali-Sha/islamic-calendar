@@ -316,16 +316,17 @@
 
             <div class="compass-container">
                 <div class="alignment-glow" id="alignment-glow"></div>
-                <div class="compass-ring">
+                <div class="compass-ring" id="compass-ring">
                     <span class="direction n">N</span>
                     <span class="direction e">E</span>
                     <span class="direction s">S</span>
                     <span class="direction w">W</span>
+                    <!-- Qibla direction marker — positioned at the bearing angle -->
+                    <div class="qibla-marker" id="qibla-marker">🕋</div>
                 </div>
-                <div class="compass-needle" id="compass-needle">
-                    <div class="needle-north"></div>
-                    <div class="needle-south"></div>
-                    <div class="mecca-icon">🕋</div>
+                <!-- Fixed aim line (always points up) -->
+                <div class="compass-aim" id="compass-aim">
+                    <div class="aim-arrow"></div>
                 </div>
             </div>
             <div class="qibla-info">

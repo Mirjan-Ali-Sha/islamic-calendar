@@ -1901,6 +1901,8 @@ body::before {
     inset: 10px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    transition: transform 0.08s linear;
+    will-change: transform;
 }
 
 .direction {
@@ -1935,41 +1937,49 @@ body::before {
     transform: translateY(-50%);
 }
 
-.compass-needle {
-    position: relative;
-    width: 6px;
-    height: 200px;
-    background: transparent;
-    transition: transform 0.05s linear;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    will-change: transform;
-}
-
-.needle-north {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 90px solid #ef4444;
-}
-
-.needle-south {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 90px solid #94a3b8;
-}
-
-.mecca-icon {
+/* Qibla direction marker on the compass ring */
+.qibla-marker {
     position: absolute;
-    top: -35px;
+    font-size: 1.6rem;
+    filter: drop-shadow(0 0 8px gold) drop-shadow(0 0 2px rgba(255, 215, 0, 0.6));
+    z-index: 10;
+    /* Default: top center — JS sets transform-origin + rotation */
+    top: -8px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 5px gold);
+    transition: opacity 0.3s ease;
+}
+
+/* Fixed aim line (always points up) */
+.compass-aim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.aim-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 100px solid rgba(255, 255, 255, 0.35);
+    position: relative;
+    top: -50px;
+}
+
+.aim-arrow::after {
+    content: '';
+    position: absolute;
+    top: 100px;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 100px solid rgba(255, 255, 255, 0.12);
 }
 
 .qibla-info {
@@ -2218,7 +2228,7 @@ body::before {
     }
 }
 
-.compass-container.aligned .mecca-icon {
+.compass-container.aligned .qibla-marker {
     animation: pulse-primary 1s infinite ease-in-out;
 }
 

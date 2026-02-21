@@ -4,11 +4,11 @@
  * Supports controlled updates via client messaging.
  *
  * ╔══════════════════════════════════════════════════════╗
- * ║  SW VERSION — Must match APP_VERSION in app.js      ║
+ * ║  SW VERSION — Must match APP_VERSION in app.js       ║
  * ║  Change this whenever you update APP_VERSION         ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const SW_VERSION = '1.0.1';
+const SW_VERSION = '1.1.0';
 const CACHE_NAME = `islamic-calendar-v${SW_VERSION}`;
 const ASSETS = [
     './',

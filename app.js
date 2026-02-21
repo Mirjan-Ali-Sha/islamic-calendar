@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!          ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.0.1';
+const APP_VERSION = '1.1.0';
 
 const App = (() => {
     // ── State ──
@@ -348,15 +348,25 @@ const App = (() => {
         isCalibrating = false;
         calibratedBearingOffset = 0;
 
-        // Show initial loading state or prompt
         const badge = $('qibla-accuracy-badge');
-        badge.textContent = 'Waiting for GPS...';
-        badge.className = 'qibla-accuracy-badge';
-
-        // Hide compass initially until GPS is fixed
-        $('compass-needle').style.opacity = '0';
+        $('qibla-marker').style.opacity = '0';
         $('qibla-bearing').style.opacity = '0';
-        $('qibla-status').textContent = 'Searching for satellites...';
+
+        // Start with city-based bearing immediately (before GPS resolves)
+        if (currentCity) {
+            qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+            updateQiblaMarkerPosition();
+            $('qibla-marker').style.opacity = '1';
+            $('qibla-bearing').style.opacity = '1';
+            $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+            badge.textContent = 'City-based (Approximate)';
+            badge.className = 'qibla-accuracy-badge';
+            $('qibla-status').textContent = 'Align the 🕋 marker to the top';
+        } else {
+            badge.textContent = 'Waiting for GPS...';
+            badge.className = 'qibla-accuracy-badge';
+            $('qibla-status').textContent = 'Searching for satellites...';
+        }
 
         // Bind refresh and grant buttons
         const refreshBtn = $('qibla-refresh-gps');
@@ -378,7 +388,7 @@ const App = (() => {
             calibrateBtn.onclick = startCalibration;
         }
 
-        // Automatically request GPS
+        // Try GPS for higher accuracy
         requestQiblaGPS();
 
         // Request Orientation Permission
@@ -401,7 +411,8 @@ const App = (() => {
 
     function requestQiblaGPS() {
         if (!navigator.geolocation) {
-            alert('Your device does not support GPS.');
+            // No GPS — use city fallback
+            useCityFallback('GPS not available on this device');
             return;
         }
 
@@ -422,37 +433,70 @@ const App = (() => {
                 const accuracy = pos.coords.accuracy;
 
                 qiblaBearing = calculateQiblaBearing(lat, lng);
+                updateQiblaMarkerPosition();
 
                 overlay.style.display = 'none';
-                $('compass-needle').style.opacity = '1';
+                $('qibla-marker').style.opacity = '1';
                 $('qibla-bearing').style.opacity = '1';
 
                 badge.textContent = accuracy < 100 ? 'High Accuracy (GPS)' : 'Good Accuracy (GPS)';
                 badge.className = 'qibla-accuracy-badge high';
                 $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
-                $('qibla-status').textContent = 'Align your device';
+                $('qibla-status').textContent = 'Align the 🕋 marker to the top';
 
                 const refreshBtn = $('qibla-refresh-gps');
                 if (refreshBtn) refreshBtn.style.animation = '';
             },
             err => {
                 console.warn('GPS Error:', err);
-                overlay.style.display = 'flex';
-                badge.textContent = 'GPS Required';
-                badge.className = 'qibla-accuracy-badge low';
 
-                if (err.code === 1) { // PERMISSION_DENIED
-                    errEl.textContent = 'Location access was denied. Please allow location in your browser settings.';
+                // Fall back to selected city
+                if (currentCity) {
+                    const msg = err.code === 1
+                        ? 'Location denied — using city location'
+                        : 'GPS unavailable — using city location';
+                    useCityFallback(msg);
                 } else {
-                    errEl.textContent = 'Could not get a GPS fix. Ensure you are outdoors or near a window.';
+                    overlay.style.display = 'flex';
+                    badge.textContent = 'GPS Required';
+                    badge.className = 'qibla-accuracy-badge low';
+
+                    if (err.code === 1) {
+                        errEl.textContent = 'Location access was denied. Please select a city or enable GPS.';
+                    } else {
+                        errEl.textContent = 'Could not get GPS fix. Please select a city or try again.';
+                    }
+                    errEl.style.display = 'block';
                 }
-                errEl.style.display = 'block';
 
                 const refreshBtn = $('qibla-refresh-gps');
                 if (refreshBtn) refreshBtn.style.animation = '';
             },
             { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
         );
+    }
+
+    function useCityFallback(reason) {
+        if (!currentCity) return;
+
+        qiblaBearing = calculateQiblaBearing(currentCity.lat, currentCity.lng);
+        updateQiblaMarkerPosition();
+
+        const overlay = $('qibla-gps-overlay');
+        const badge = $('qibla-accuracy-badge');
+        const errEl = $('qibla-gps-error');
+
+        overlay.style.display = 'none';
+        $('qibla-marker').style.opacity = '1';
+        $('qibla-bearing').style.opacity = '1';
+
+        badge.textContent = `City-based: ${currentCity.name}`;
+        badge.className = 'qibla-accuracy-badge';
+        $('qibla-bearing').textContent = `Bearing: ${Math.round(qiblaBearing)}°`;
+        $('qibla-status').textContent = 'Align the 🕋 marker to the top';
+
+        errEl.textContent = reason;
+        errEl.style.display = 'block';
     }
 
     function startCalibration() {
@@ -496,12 +540,23 @@ const App = (() => {
         }
     }
 
-    function updateQiblaBearingDisplay() {
-        // City fallback removed as per mandatory GPS requirement
-        // But we can show a placeholder or last known state
-        const badge = $('qibla-accuracy-badge');
-        badge.textContent = 'GPS Mandatory';
-        badge.className = 'qibla-accuracy-badge low';
+    function updateQiblaMarkerPosition() {
+        // Position the 🕋 marker on the compass ring at the qibla bearing angle
+        const marker = $('qibla-marker');
+        if (!marker) return;
+        const ring = $('compass-ring');
+        if (!ring) return;
+
+        // Ring dimensions (half of compass-ring = ~130px inset 10px = ~120px radius)
+        const ringRect = ring.getBoundingClientRect();
+        const radius = ringRect.width / 2;
+        const angleRad = (qiblaBearing - 90) * Math.PI / 180; // -90 because 0° is North (top)
+        const x = radius + radius * 0.85 * Math.cos(angleRad);
+        const y = radius + radius * 0.85 * Math.sin(angleRad);
+
+        marker.style.top = `${y - 14}px`; // offset for emoji size
+        marker.style.left = `${x - 14}px`;
+        marker.style.transform = 'none';
     }
 
     function stopQibla() {
@@ -515,9 +570,10 @@ const App = (() => {
 
         window.removeEventListener('deviceorientation', handleOrientation);
         window.removeEventListener('deviceorientationabsolute', handleOrientation);
-        $('compass-needle').style.transform = '';
-        $('qibla-status').textContent = 'Align your device';
-        $('compass-needle').parentElement.classList.remove('aligned');
+        $('compass-ring').style.transform = '';
+        $('qibla-status').textContent = 'Align the 🕋 marker to the top';
+        const container = $('compass-ring').closest('.compass-container');
+        if (container) container.classList.remove('aligned');
 
         const refreshBtn = $('qibla-refresh-gps');
         if (refreshBtn) refreshBtn.style.animation = '';
@@ -545,42 +601,39 @@ const App = (() => {
         if (lastHeading === null) {
             lastHeading = heading;
         } else {
-            // Adjust for 360-degree wrap-around during smoothing
             let diff = heading - lastHeading;
             if (diff > 180) diff -= 360;
             if (diff < -180) diff += 360;
-
             lastHeading = (lastHeading + diff * SMOOTHING_FACTOR + 360) % 360;
         }
 
         const currentHeading = lastHeading;
 
-        // Directional delta (where to turn)
-        let rotation = (qiblaBearing - currentHeading + 360) % 360;
+        // Rotate the entire compass ring so N/E/S/W show real directions
+        // The Qibla marker (positioned at the bearing angle on the ring) naturally follows
+        $('compass-ring').style.transform = `rotate(${-currentHeading}deg)`;
 
-        // Apply rotation to needle (it points to Mecca relative to the device's North)
-        $('compass-needle').style.transform = `rotate(${rotation}deg)`;
+        // Check alignment: the Qibla marker is at qiblaBearing on the ring.
+        // When the ring rotates by -heading, the marker's visual angle = qiblaBearing - heading.
+        // Alignment = marker at top (0°), so check if (qiblaBearing - heading) ≈ 0
+        let alignDiff = (qiblaBearing - currentHeading + 360) % 360;
+        if (alignDiff > 180) alignDiff -= 360;
 
-        // Visual Guidance
+        const absDiff = Math.round(Math.abs(alignDiff));
         const guidEl = $('qibla-guide');
         const statusEl = $('qibla-status');
-
-        // Normalize rotation to -180 to 180 for easy direction check
-        let turnDiff = rotation;
-        if (turnDiff > 180) turnDiff -= 360;
-
-        const absDiff = Math.round(Math.abs(turnDiff));
+        const container = $('compass-ring').closest('.compass-container');
 
         if (absDiff < 3) {
             statusEl.textContent = '🎯 ALIGNED WITH QIBLA';
             guidEl.textContent = '🕋';
             guidEl.style.animation = 'pulse-primary 1s infinite ease-in-out';
-            $('compass-needle').parentElement.classList.add('aligned');
+            if (container) container.classList.add('aligned');
         } else {
             guidEl.style.animation = '';
-            $('compass-needle').parentElement.classList.remove('aligned');
+            if (container) container.classList.remove('aligned');
 
-            if (turnDiff > 0) {
+            if (alignDiff > 0) {
                 statusEl.textContent = `Turn ${absDiff}° RIGHT`;
                 guidEl.textContent = '➡️';
             } else {
