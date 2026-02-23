@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.4.9';
+const APP_VERSION = '1.5.3';
 
 const App = (() => {
     // ── State ──

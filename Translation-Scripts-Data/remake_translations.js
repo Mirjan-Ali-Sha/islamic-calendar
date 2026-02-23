@@ -102,7 +102,7 @@ async function run() {
         console.log(` (done)`);
     }
 
-    const contentJsPath = path.join(__dirname, 'islamic-content.js');
+    const contentJsPath = path.join(__dirname, '../islamic-content.js');
     let contentJs = fs.readFileSync(contentJsPath, 'utf8');
     const regex = /const TUTORIALS = (\[[\s\S]*?\]);\s+function getTutorials\(\)/m;
 

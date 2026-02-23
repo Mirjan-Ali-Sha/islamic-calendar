@@ -3473,3 +3473,53 @@ body::before {
         font-size: 0.52rem;
     }
 }
+
+/* Salah Tutorials Table Styles */
+.salah-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    min-width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.salah-table thead tr {
+    background: linear-gradient(135deg, var(--surface-hover), var(--surface));
+    text-align: left;
+    border-bottom: 2px solid var(--accent-primary);
+}
+
+.salah-table th {
+    font-weight: 600;
+    padding: 12px 15px;
+    color: var(--text-primary);
+}
+
+.salah-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.salah-table tbody tr {
+    transition: background 0.2s var(--ease);
+}
+
+.salah-table tbody tr:nth-of-type(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.salah-table tbody tr:hover {
+    background-color: rgba(var(--accent-primary-rgb), 0.05);
+}
+
+.salah-table tbody tr:last-of-type {
+    border-bottom: none;
+}
