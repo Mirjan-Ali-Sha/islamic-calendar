@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.5.3';
+const APP_VERSION = '1.5.8';
 
 const App = (() => {
     // ── State ──
@@ -489,6 +489,7 @@ const App = (() => {
             renderNames();
             renderDuasList();
             renderTutorials();
+            renderSurahs();
         });
         $('islamic-hub-back-btn').addEventListener('click', () => {
             $('islamic-hub-view').classList.remove('active');
@@ -1332,6 +1333,29 @@ const App = (() => {
                 <div class="tutorial-card">
                     <div class="tutorial-card-header" onclick="this.parentElement.classList.toggle('open')">
                         <span class="tutorial-card-icon">${t.icon}</span>
+                        <span class="tutorial-card-title">${title}</span>
+                        <span class="tutorial-card-chevron">▼</span>
+                    </div>
+                    <div class="tutorial-card-body">${body}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ── Small Surahs ──
+    function renderSurahs() {
+        const list = $('surahs-list');
+        if (!list) return;
+
+        const surahs = IslamicContent.getSurahs ? IslamicContent.getSurahs() : [];
+        list.innerHTML = surahs.map(s => {
+            const title = s.translations?.title?.[currentLang] || s.translations?.title?.en || s.title;
+            const body = s.translations?.body?.[currentLang] || s.translations?.body?.en || s.body;
+
+            return `
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="tutorial-card-icon">${s.icon}</span>
                         <span class="tutorial-card-title">${title}</span>
                         <span class="tutorial-card-chevron">▼</span>
                     </div>
