@@ -683,14 +683,12 @@ const App = (() => {
         const yearSel = $('settings-year-select');
         if (!monthSel || !yearSel) return;
 
-        // Populate months if empty
-        if (monthSel.options.length === 0) {
-            let html = '';
-            for (let i = 1; i <= 12; i++) {
-                html += `<option value="${i}">${HijriEngine.getMonthName(i, currentLang)}</option>`;
-            }
-            monthSel.innerHTML = html;
+        // Re-populate months to ensure correct language
+        let html = '';
+        for (let i = 1; i <= 12; i++) {
+            html += `<option value="${i}">${HijriEngine.getMonthName(i, currentLang)}</option>`;
         }
+        monthSel.innerHTML = html;
         monthSel.value = currentHijriMonth;
 
         // Populate years around current
@@ -2037,7 +2035,7 @@ const App = (() => {
                     const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
                     const prayerDisplayName = names[next.name] || 'Next';
                     const icon = PrayerTimes.PRAYER_ICONS[next.name] || '';
-                    
+
                     $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
                     $('countdown-label').textContent = `${icon} ${prayerDisplayName}`;
 

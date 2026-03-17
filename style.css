@@ -425,7 +425,8 @@ body::before {
     text-align: center;
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--text-secondary);
+    opacity: 0.9;
     padding: 6px 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -3467,14 +3468,16 @@ body::before {
     --bg-secondary: #0d2e24;
     --bg-main: var(--bg-primary);
     --bg-sidebar: var(--bg-secondary);
-    --surface: rgba(13, 59, 46, 0.4);
-    --surface-hover: rgba(13, 59, 46, 0.6);
-    --bg-card: rgba(13, 59, 46, 0.3);
-    --border: rgba(16, 185, 129, 0.12);
+    --surface: rgba(13, 59, 46, 0.45);
+    --surface-hover: rgba(13, 59, 46, 0.7);
+    --bg-card: rgba(13, 59, 46, 0.4);
+    --border: rgba(16, 185, 129, 0.35);
     --accent-primary: #34d399;
     --accent-primary-rgb: 52, 211, 153;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
+    --text-secondary: #dcfce7; /* Soft mint - easier on eyes */
+    --text-muted: #a7f3d0;     /* Soft sage */
 }
 
 /* Royal Purple */
@@ -3483,14 +3486,16 @@ body::before {
     --bg-secondary: #231048;
     --bg-main: var(--bg-primary);
     --bg-sidebar: var(--bg-secondary);
-    --surface: rgba(45, 27, 105, 0.4);
-    --surface-hover: rgba(45, 27, 105, 0.6);
-    --bg-card: rgba(45, 27, 105, 0.3);
-    --border: rgba(167, 139, 250, 0.12);
+    --surface: rgba(45, 27, 105, 0.45);
+    --surface-hover: rgba(45, 27, 105, 0.7);
+    --bg-card: rgba(45, 27, 105, 0.4);
+    --border: rgba(167, 139, 250, 0.35);
     --accent-primary: #a78bfa;
     --accent-primary-rgb: 167, 139, 250;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
+    --text-secondary: #f3e8ff; /* Soft lavender */
+    --text-muted: #ddd6fe;     /* Deep lavender accent */
 }
 
 /* Desert Sand */
@@ -3499,14 +3504,16 @@ body::before {
     --bg-secondary: #2a1a0a;
     --bg-main: var(--bg-primary);
     --bg-sidebar: var(--bg-secondary);
-    --surface: rgba(92, 58, 30, 0.4);
-    --surface-hover: rgba(92, 58, 30, 0.6);
-    --bg-card: rgba(92, 58, 30, 0.25);
-    --border: rgba(217, 160, 90, 0.15);
+    --surface: rgba(92, 58, 30, 0.45);
+    --surface-hover: rgba(92, 58, 30, 0.7);
+    --bg-card: rgba(92, 58, 30, 0.35);
+    --border: rgba(217, 160, 90, 0.4);
     --accent-primary: #d9a05a;
     --accent-primary-rgb: 217, 160, 90;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
+    --text-secondary: #fef3c7; /* Soft gold-sand */
+    --text-muted: #fde68a;     /* Muted sand */
 }
 
 /* Ocean */
@@ -3515,14 +3522,16 @@ body::before {
     --bg-secondary: #0c2a40;
     --bg-main: var(--bg-primary);
     --bg-sidebar: var(--bg-secondary);
-    --surface: rgba(12, 53, 71, 0.4);
-    --surface-hover: rgba(12, 53, 71, 0.6);
-    --bg-card: rgba(12, 53, 71, 0.3);
-    --border: rgba(56, 189, 248, 0.12);
+    --surface: rgba(12, 53, 71, 0.45);
+    --surface-hover: rgba(12, 53, 71, 0.7);
+    --bg-card: rgba(12, 53, 71, 0.4);
+    --border: rgba(56, 189, 248, 0.35);
     --accent-primary: #38bdf8;
     --accent-primary-rgb: 56, 189, 248;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
+    --text-secondary: #e0f2fe; /* Soft sky blue */
+    --text-muted: #bae6fd;     /* Muted ocean blue */
 }
 
 /* Mobile: 99 names 2 columns */
