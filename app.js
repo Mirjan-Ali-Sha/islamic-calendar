@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.1';
+const APP_VERSION = '1.8.2';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -1980,6 +1980,7 @@ const App = (() => {
                     const msg = str('prayerProhibited');
 
                     $('countdown-timer').textContent = msg;
+                    $('countdown-label').textContent = label;
                     const heroEl = $('hero-countdown');
                     if (heroEl) {
                         heroEl.style.display = 'flex';
@@ -1987,13 +1988,18 @@ const App = (() => {
                         $('hero-countdown-time').textContent = msg;
                     }
                 } else {
+                    const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
+                    const prayerDisplayName = names[next.name] || 'Next';
+                    const icon = PrayerTimes.PRAYER_ICONS[next.name] || '';
+                    
                     $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+                    $('countdown-label').textContent = `${icon} ${prayerDisplayName}`;
+
                     // ── Hero countdown ring ──
                     const heroEl = $('hero-countdown');
                     if (heroEl) {
                         heroEl.style.display = 'flex';
-                        const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
-                        $('hero-countdown-label').textContent = names[next.name] || 'Next';
+                        $('hero-countdown-label').textContent = prayerDisplayName;
                         $('hero-countdown-time').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
                     }
                 }
