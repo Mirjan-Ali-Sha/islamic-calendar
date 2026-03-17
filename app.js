@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.2';
+const APP_VERSION = '1.8.3';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -63,18 +63,18 @@ const App = (() => {
 
     // UI strings
     const UI_STRINGS = {
-        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.', prayerProhibited: 'Prayer Prohibited', shuruq: 'Shuruq', istiwa: 'Istiwa', ghurub: 'Ghurub' },
-        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.', prayerProhibited: 'الصلاة منهي عنها', shuruq: 'الشروق', istiwa: 'الاستواء', ghurub: 'الغروب' },
-        bn: { eventsTitle: 'এই মাসের ইভেন্ট', noEvents: 'এই মাসে কোনো বিশেষ ইভেন্ট নেই', selectLang: 'ভাষা নির্বাচন করুন', today: 'আজ', install: 'এই অ্যাপটি আপনার ডিভাইসে ইনস্টল করুন', footerNote: 'তারিখগুলি ট্যাবুলার ইসলামি ক্যালেন্ডারের উপর ভিত্তি করে। প্রকৃত তারিখ চাঁদ দেখার উপর নির্ভর করে ১-২ দিন ভিন্ন হতে পারে।', prayerProhibited: 'নামাজ নিষিদ্ধ', shuruq: 'শুরুক', istiwa: 'ইস্তিওয়া', ghurub: 'ঘুরুব' },
-        ur: { eventsTitle: 'اس مہینے کے واقعات', noEvents: 'اس مہینے کوئی خاص واقعہ نہیں', selectLang: 'زبان منتخب کریں', today: 'آج', install: 'یہ ایپ اپنے ڈیوائس پر انسٹال کریں', footerNote: 'تاریخیں حسابی اسلامی تقویم پر مبنی ہیں۔ اصل تاریخیں چاند دیکھنے کی بنیاد پر 1-2 دن مختلف ہو سکتی ہیں۔', prayerProhibited: 'نماز ممنوع ہے', shuruq: 'شروق', istiwa: 'استواء', ghurub: 'غروب' },
-        tr: { eventsTitle: 'Bu Ayın Etkinlikleri', noEvents: 'Bu ay özel etkinlik yok', selectLang: 'Dil Seçin', today: 'Bugün', install: 'Bu uygulamayı cihazınıza yükleyin', footerNote: 'Tarihler tablo tabanlı İslami takvime dayanmaktadır. Gerçek tarihler hilal gözlemine göre 1-2 gün farklılık gösterebilir.', prayerProhibited: 'Namaz Yasak', shuruq: 'İşrak', istiwa: 'İstiva', ghurub: 'Kerahet' },
-        ms: { eventsTitle: 'Acara Bulan Ini', noEvents: 'Tiada acara khas bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini pada peranti anda', footerNote: 'Tarikh adalah berdasarkan kalendar Islam jadual. Tarikh sebenar mungkin berbeza 1-2 hari berdasarkan cerapan anak bulan.', prayerProhibited: 'Solat Dilarang', shuruq: 'Syuruk', istiwa: 'Istiwa', ghurub: 'Ghurub' },
-        id: { eventsTitle: 'Peristiwa Bulan Ini', noEvents: 'Tidak ada peristiwa khusus bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini di perangkat Anda', footerNote: 'Tanggal didasarkan pada kalender Islam tabuler. Tanggal sebenarnya mungkin berbeda 1-2 hari berdasarkan pengamatan bulan.', prayerProhibited: 'Waktu Larangan', shuruq: 'Terbit', istiwa: 'Istiwa', ghurub: 'Terbenam' },
-        fr: { eventsTitle: 'Événements du mois', noEvents: 'Aucun événement spécial ce mois-ci', selectLang: 'Choisir la langue', today: 'Aujourd\'hui', install: 'Installez cette application sur votre appareil', footerNote: 'Les dates sont basées sur le calendrier islamique tabulaire. Les dates réelles peuvent varier de 1 à 2 jours selon l\'observation lunaire.', prayerProhibited: 'Prière Interdite', shuruq: 'Chourouk', istiwa: 'Istiwa', ghurub: 'Ghurub' },
-        hi: { eventsTitle: 'इस महीने के कार्यक्रम', noEvents: 'इस महीने कोई বিশেষ कार्यक्रम नहीं', selectLang: 'भाषा चुनें', today: 'आज', install: 'इस ऐप को इंस्टॉल करें', footerNote: 'तारीखें गणितीय इस्लामी कैलेंडर पर आधारित हैं। चाँद दिखने के आधार पर वास्तविक तारीखें 1-2 दिन भिन्न हो सकती हैं।', prayerProhibited: 'नमाज़ निषेध है', shuruq: 'शुरूक़', istiwa: 'इस्तिवा', ghurub: 'घूरूब' },
-        te: { eventsTitle: 'ఈ నెల కార్యక్రమాలు', noEvents: 'ఈ నెలలో ప్రత్యేక కార్యక్రమాలు ఏమీ లేవు', selectLang: 'భాషను ఎంచుకోండి', today: 'ఈ రోజు', install: 'ఈ యాప్‌ను ఇన్‌స్టాల్ చేయండి', footerNote: 'తేదీలు పట్టిక ఆధారిత ఇస్లామిక్ క్యాలెండర్‌పై ఆధారపడి ఉంటాయి. చంద్రుని దర్శనం ఆధారంగా నిజమైన తేదీలు 1-2 రోజులు మారవచ్చు.', prayerProhibited: 'ప్రార్థన నిషిద్ధం', shuruq: 'శురుక్', istiwa: 'ఇస్తివా', ghurub: 'ఘురుబ్' },
-        ta: { eventsTitle: 'இந்த மாத நிகழ்வுகள்', noEvents: 'இந்த மாதத்தில் சிறப்பு நிகழ்வுகள் ஏதுமில்லை', selectLang: 'மொழியைத் தேர்ந்தெடுக்கவும்', today: 'இன்று', install: 'இந்த செயலியை நிறுவவும்', footerNote: 'தேதிகள் அட்டவணை இஸ்லாமிய நாட்காட்டியை அடிப்படையாகக் கொண்டவை. சந்திரன் பார்வையின் அடிப்படையில் உண்மையான தேதிகள் 1-2 நாட்கள் மாறுபடலாம்.', prayerProhibited: 'தொழுகை தடைசெய்யப்பட்டுள்ளது', shuruq: 'ஷுரூக்', istiwa: 'இஸ்திவா', ghurub: 'குரூப்' },
-        ml: { eventsTitle: 'ഈ മാസത്തെ പരിപാടികൾ', noEvents: 'ഈ മാസം പ്രത്യേക പരിപാടികളൊന്നുമില്ല', selectLang: 'ഭാഷ തിരഞ്ഞെടുക്കുക', today: 'ഇന്ന്', install: 'ഈ ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക', footerNote: 'തീയതികൾ കണക്കാക്കിയ ഇസ്ലാമിക് കലണ്ടറിനെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്. ചന്ദ്രദർശനത്തെ അടിസ്ഥാനമാക്കി യഥാർത്ഥ തീയതികൾ 1-2 ദിവസം വ്യത്യാസപ്പെടാം.', prayerProhibited: 'നിസ്കാരം നിരോധിച്ചിരിക്കുന്നു', shuruq: 'ശുറൂഖ്', istiwa: 'ഇസ്തിവാ', ghurub: 'ഗുറൂബ്' }
+        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.', prayerProhibited: 'Prayer Prohibited', shuruq: 'Shuruq', istiwa: 'Istiwa', ghurub: 'Ghurub', hubWarning: 'This section is not completely verified. Please ask for details from an Imam. Also, the full app translation was done using Google Translate. Users should verify all contents with a knowledgeable person like an Imam in the selected language.', langWarning: 'The author used Google Translate for regional languages. Please contribute on GitHub for any corrections and definitely check with a knowledgeable person like an Imam for clarifications.', proceedBtn: 'Proceed', warningTitle: 'Note/Warning' },
+        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.', prayerProhibited: 'الصلاة منهي عنها', shuruq: 'الشروق', istiwa: 'الاستواء', ghurub: 'الغروب', hubWarning: 'هذا القسم غير محقق بالكامل، يرجى سؤال الإمام للحصول على التفاصيل. تم ترجمة التطبيق بواسطة مترجم جوجل، لذا يرجى التحقق من المحتوى من شخص مطلع مثل الإمام باللغة المختارة.', langWarning: 'استخدم المؤلف مترجم جوجل للغات الإقليمية. يرجى المساهمة في GitHub لأي تصحيح والتحقق مع شخص مطلع مثل الإمام للتوضيح.', proceedBtn: 'متابعة', warningTitle: 'ملاحظة/تحذير' },
+        bn: { eventsTitle: 'এই মাসের ইভেন্ট', noEvents: 'এই মাসে কোনো বিশেষ ইভেন্ট নেই', selectLang: 'ভাষা নির্বাচন করুন', today: 'আজ', install: 'এই অ্যাপটি আপনার ডিভাইসে ইনস্টল করুন', footerNote: 'তারিখগুলি ট্যাবুলার ইসলামি ক্যালেন্ডারের উপর ভিত্তি করে। প্রকৃত তারিখ চাঁদ দেখার উপর নির্ভর করে ১-২ দিন ভিন্ন হতে পারে।', prayerProhibited: 'নামাজ নিষিদ্ধ', shuruq: 'শুরুক', istiwa: 'ইস্তিওয়া', ghurub: 'ঘুরুব', hubWarning: 'এই বিভাগটি সম্পূর্ণরূপে যাচাই করা হয়নি। অনুগ্রহ করে একজন ইমামের কাছ থেকে বিস্তারিত জেনে নিন। এছাড়াও, পুরো অ্যাপটি গুগল ট্রান্সলেটর ব্যবহার করে অনুবাদ করা হয়েছে। ব্যবহারকারীদের উচিত নির্বাচিত ভাষায় ইমামের মতো একজন জ্ঞানী ব্যক্তির কাছ থেকে সমস্ত বিষয়বস্তু যাচাই করে নেওয়া।', langWarning: 'আঞ্চলিক ভাষার জন্য লেখক গুগল ট্রান্সলেটর ব্যবহার করেছেন। কোনো সংশোধনের জন্য অনুগ্রহ করে গিটহাবে (GitHub) অবদান রাখুন এবং স্পষ্টীকরণের জন্য অবশ্যই ইমামের মতো কোনো জ্ঞানী ব্যক্তির সাথে পরীক্ষা করুন।', proceedBtn: 'এগিয়ে যান', warningTitle: 'দ্রষ্টব্য/সতর্কতা' },
+        ur: { eventsTitle: 'اس مہینے کے واقعات', noEvents: 'اس مہینے کوئی خاص واقعہ نہیں', selectLang: 'زبان منتخب کریں', today: 'آج', install: 'یہ ایپ اپنے ڈیوائس پر انسٹال کریں', footerNote: 'تاریخیں حسابی اسلامی تقویم پر مبنی ہیں۔ اصل تاریخیں چاند دیکھنے کی بنیاد پر 1-2 دن مختلف ہو سکتی ہیں۔', prayerProhibited: 'نماز ممنوع ہے', shuruq: 'شروق', istiwa: 'استواء', ghurub: 'غروب', hubWarning: 'یہ حصہ مکمل طور پر تصدیق شدہ نہیں ہے، براہ کرم تفصیلات کے لیے امام سے پوچھیں۔ اس کے علاوہ، ایپ کا مکمل ترجمہ گوگل ٹرانسلیٹر کے ذریعے کیا گیا ہے، صارف کو منتخب زبان میں امام جیسے باشعور شخص سے تمام مواد کی تصدیق کرنی ہوگی۔', langWarning: 'مصنف نے علاقائی زبانوں کے لیے گوگل ٹرانسلیٹر کا استعمال کیا ہے، براہ کرم کسی بھی تصحیح کے لیے گٹ ہب میں حصہ لیں اور وضاحت کے لیے امام جیسے کسی جانکار شخص سے ضرور رابطہ کریں۔', proceedBtn: 'آگے بڑھیں', warningTitle: 'نوٹ/انتباہ' },
+        tr: { eventsTitle: 'Bu Ayın Etkinlikleri', noEvents: 'Bu ay özel etkinlik yok', selectLang: 'Dil Seçin', today: 'Bugün', install: 'Bu uygulamayı cihazınıza yükleyin', footerNote: 'Tarihler tablo tabanlı İslami takvime dayanmaktadır. Gerçek tarihler hilal gözlemine göre 1-2 gün farklılık gösterebilir.', prayerProhibited: 'Namaz Yasak', shuruq: 'İşrak', istiwa: 'İstiva', ghurub: 'Kerahet', hubWarning: 'Bu bölüm tamamen doğrulanmamıştır, lütfen ayrıntılar için bir İmama danışın. Ayrıca, uygulama çevirisi Google Çeviri ile yapılmıştır. Kullanıcılar içerikleri ilgili dilde yetkin bir kişiye (İmam gibi) doğrulatmalıdır.', langWarning: 'Yazar bölgesel diller için Google Çeviri kullanmıştır. Düzeltmeler için lütfen GitHub üzerinden katkıda bulunun ve netleştirme için bir İmama danışın.', proceedBtn: 'Devam Et', warningTitle: 'Not/Uyarı' },
+        ms: { eventsTitle: 'Acara Bulan Ini', noEvents: 'Tiada acara khas bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini pada peranti anda', footerNote: 'Tarikh adalah berdasarkan kalendar Islam jadual. Tarikh sebenar mungkin berbeza 1-2 hari berdasarkan cerapan anak bulan.', prayerProhibited: 'Solat Dilarang', shuruq: 'Syuruk', istiwa: 'Istiwa', ghurub: 'Ghurub', hubWarning: 'Bahagian ini tidak disahkan sepenuhnya, sila tanya Imam untuk butiran. Selain itu, terjemahan aplikasi dilakukan menggunakan Google Translate. Pengguna perlu mengesahkan kandungan dengan orang yang berilmu seperti Imam dalam bahasa yang dipilih.', langWarning: 'Penulis menggunakan Google Translate untuk bahasa serantau. Sila menyumbang di GitHub untuk sebarang pembetulan dan pastikan anda menyemak dengan orang yang berilmu seperti Imam.', proceedBtn: 'Teruskan', warningTitle: 'Nota/Amaran' },
+        id: { eventsTitle: 'Peristiwa Bulan Ini', noEvents: 'Tidak ada peristiwa khusus bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini di perangkat Anda', footerNote: 'Tanggal didasarkan pada kalender Islam tabuler. Tanggal sebenarnya mungkin berbeda 1-2 hari berdasarkan pengamatan bulan.', prayerProhibited: 'Waktu Larangan', shuruq: 'Terbit', istiwa: 'Istiwa', ghurub: 'Terbenam', hubWarning: 'Bagian ini tidak sepenuhnya diverifikasi, silakan tanyakan detailnya kepada Imam. Selain itu, terjemahan aplikasi dilakukan menggunakan Google Translate. Pengguna harus memverifikasi semua konten kepada orang yang berpengetahuan seperti Imam dalam bahasa yang dipilih.', langWarning: 'Penulis menggunakan Google Translate untuk bahasa daerah. Silakan berkontribusi di GitHub untuk koreksi apa pun dan pastikan untuk memeriksa dengan orang yang berpengetahuan seperti Imam.', proceedBtn: 'Lanjutkan', warningTitle: 'Catatan/Peringatan' },
+        fr: { eventsTitle: 'Événements du mois', noEvents: 'Aucun événement spécial ce mois-ci', selectLang: 'Choisir la langue', today: 'Aujourd\'hui', install: 'Installez cette application sur votre appareil', footerNote: 'Les dates sont basées sur le calendrier islamique tabulaire. Les dates réelles peuvent varier de 1 à 2 jours selon l\'observation lunaire.', prayerProhibited: 'Prière Interdite', shuruq: 'Chourouk', istiwa: 'Istiwa', ghurub: 'Ghurub', hubWarning: 'Cette section n\'est pas entièrement vérifiée, veuillez demander des détails à un imam. De plus, la traduction complète de l\'application a été faite via Google Translate. L\'utilisateur doit vérifier tous les contenus avec une personne compétente comme un imam dans la langue sélectionnée.', langWarning: 'L\'auteur a utilisé Google Translate pour les langues régionales. Veuillez contribuer sur GitHub pour toute correction et vérifiez certainement avec une personne compétente comme un imam pour des clarifications.', proceedBtn: 'Procéder', warningTitle: 'Note/Avertissement' },
+        hi: { eventsTitle: 'इस महीने के कार्यक्रम', noEvents: 'इस महीने कोई विशेष कार्यक्रम नहीं', selectLang: 'भाषा चुनें', today: 'आज', install: 'इस ऐप को इंस्टॉल करें', footerNote: 'तारीखें गणितीय इस्लामी कैलेंडर पर आधारित हैं। चाँद दिखने के आधार पर वास्तविक तारीखें 1-2 दिन भिन्न हो सकती हैं।', prayerProhibited: 'नमाज़ निषेध है', shuruq: 'शुरूक़', istiwa: 'इस्तिवा', ghurub: 'घूरूब', hubWarning: 'यह अनुभाग पूरी तरह से सत्यापित नहीं है, कृपया विवरण के लिए इमाम से पूछें। इसके अलावा, पूर्ण ऐप अनुवाद Google Translator का उपयोग करके किया गया है, उपयोगकर्ता को चयनित भाषा में इमाम जैसे प्रतिष्ठित जानकार व्यक्ति से सभी सामग्री को सत्यापित करना होगा।', langWarning: 'लेखक ने क्षेत्रीय भाषाओं के लिए Google Translator का उपयोग किया है, कृपया किसी भी सुधार के लिए github में योगदान दें और स्पष्टीकरण के लिए निश्चित रूप से इमाम जैसे किसी जानकार व्यक्ति से जाँच करें।', proceedBtn: 'आगे बढ़ें', warningTitle: 'नोट/चेतावनी' },
+        te: { eventsTitle: 'ఈ నెల కార్యక్రమాలు', noEvents: 'ఈ నెలలో ప్రత్యేక కార్యక్రమాలు ఏమీ లేవు', selectLang: 'భాషను ఎంచుకోండి', today: 'ఈ రోజు', install: 'ఈ యాప్‌ను ఇన్‌స్టాల్ చేయండి', footerNote: 'తేదీలు పట్టిక ఆధారిత ఇస్లామిక్ క్యాలెండర్‌పై ఆధారపడి ఉంటాయి. చంద్రుని దర్శనం ఆధారంగా నిజమైన తేదీలు 1-2 రోజులు మారవచ్చు.', prayerProhibited: 'ప్రార్థన నిషిద్ధం', shuruq: 'శురుక్', istiwa: 'ఇస్తివా', ghurub: 'ఘురుబ్', hubWarning: 'ఈ విభాగం పూర్తిగా ధృవీకరించబడలేదు, దయచేసి వివరాల కోసం ఇమామ్‌ను అడగండి. అలాగే, పూర్తి యాప్ అనువాదం Google Translatorని ఉపయోగించి చేయబడింది. వినియోగదారు ఎంచుకున్న భాషలో ఇమామ్ వంటి విజ్ఞానవంతులైన వ్యక్తి నుండి అన్ని విషయాలను ధృవీకరించుకోవాలి.', langWarning: 'ప్రాంతీయ భాషల కోసం రచయిత Google Translatorని ఉపయోగించారు. ఏదైనా సవరణ కోసం దయచేసి GitHubలో సహకరించండి మరియు వివరణల కోసం ఖచ్చితంగా ఇమామ్ వంటి తెలిసిన వ్యక్తితో తనిఖీ చేయండి.', proceedBtn: 'కొనసాగించు', warningTitle: 'గమనిక/హెచ్చరిక' },
+        ta: { eventsTitle: 'இந்த மாத நிகழ்வுகள்', noEvents: 'இந்த மாதத்தில் சிறப்பு நிகழ்வுகள் ஏதுமில்லை', selectLang: 'மொழியைத் தேர்ந்தெடுக்கவும்', today: 'இன்று', install: 'இந்த செயலியை நிறுவவும்', footerNote: 'தேதிகள் அட்டவணை இஸ்லாமிய நாட்காட்டியை அடிப்படையாகக் கொண்டவை. சந்திரன் பார்வையின் அடிப்படையில் உண்மையான தேதிகள் 1-2 நாட்கள் மாறுபடலாம்.', prayerProhibited: 'தொழுகை தடைசெய்யப்பட்டுள்ளது', shuruq: 'ஷுரூக்', istiwa: 'இஸ்திவா', ghurub: 'குரூப்', hubWarning: 'இந்த பகுதி முழுமையாக சரிபார்க்கப்படவில்லை, விவரங்களுக்கு இமாமிடம் கேட்கவும். முழு பயன்பாட்டு மொழிபெயர்ப்பும் கூகுள் டிரான்ஸ்లేட்டரைப் பயன்படுத்தி செய்யப்பட்டுள்ளது. பயனர் தேர்ந்தெடுக்கப்பட்ட மொழியில் இமாம் போன்ற ஒருவரிடம் உள்ளடக்கங்களைச் சரிபார்க்க வேண்டும்.', langWarning: 'ஆசிரியர் பிராந்திய மொழிகளுக்கு கூகுள் டிரான்্সலேட்டரைப் பயன்படுத்தியுள்ளார். ஏதேனும் திருத்தம் இருந்தால் கிட்ஹப்பில் பங்களிக்கவும் மற்றும் தெளிவுபடுத்துவதற்கு இமாம் போன்ற ஒருவரிடம் சரிபார்க்கவும்.', proceedBtn: 'தொடரவும்', warningTitle: 'குறிப்பு/எச்சரிக்கை' },
+        ml: { eventsTitle: 'ഈ മാസത്തെ പരിപാടികൾ', noEvents: 'ഈ മാസം പ്രത്യേക പരിപാടികളൊന്നുമില്ല', selectLang: 'ഭാഷ തിരഞ്ഞെടുക്കുക', today: 'ഇന്ന്', install: 'ഈ ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക', footerNote: 'തീയതികൾ കണക്കാക്കിയ ഇസ്ലാമിക് കലണ്ടറിനെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്. ചന്ദ്രദർശനത്തെ അടിസ്ഥാനമാക്കി യഥാർത്ഥ തീയতিകൾ 1-2 ദിവസം വ്യത്യാസപ്പെടാം.', prayerProhibited: 'നിസ്കാരം നിരോധിച്ചിരിക്കുന്നു', shuruq: 'ശുറൂഖ്', istiwa: 'ഇസ്തിവാ', ghurub: 'ഗുറൂബ്', hubWarning: 'ഈ വിഭാഗം പൂർണ്ണമായും പരിശോധിച്ചിട്ടില്ല, വിശദാംശങ്ങൾക്കായി ഒരു ഇമാമിനോട് ചോദിക്കുക. ആപ്പ് വിവർത്തനം ഗൂഗിൾ ട്രানസ്ലേറ്റ് വഴിയാണ് ചെയ്തിരിക്കുന്നത്. ഉപയോക്താവ് തിരഞ്ഞെടുത്ത ഭാഷയിൽ ഇമാം പോലുള്ള ഒരു പണ്ഡിതനിൽ നിന്ന് ഉള്ളടക്കം പരിശോധിച്ചുറപ്പിക്കണം.', langWarning: 'പ്രാദേശിക ഭാഷകൾക്കായി രചയിതാവ് ഗൂഗിൾ ട്രানസ്ലേറ്റ് ഉപയോഗിച്ചു. തിരുത്തലുകൾക്കായി ദയവായി GitHub-ൽ പങ്കുചേരുക, വിശദീകരണങ്ങൾക്കായി ഇമാം പോലുള്ള ഒരാളുമായി ബന്ധപ്പെട്ടുക.', proceedBtn: 'തുടരുക', warningTitle: 'ശ്രദ്ധിക്കുക/മുന്നറിയിപ്പ്' }
     };
 
     function str(key) {
@@ -119,6 +119,37 @@ const App = (() => {
         let ny = y, nm = m + 1;
         if (nm > 12) { nm = 1; ny++; }
         return { year: ny, month: nm };
+    }
+
+    function showWarningModal(key, onProceed, lang = null) {
+        const modal = $('warning-modal');
+        if (!modal) {
+            onProceed();
+            return;
+        }
+
+        const lookup = (k) => {
+            if (lang && UI_STRINGS[lang]) {
+                return UI_STRINGS[lang][k] || UI_STRINGS.en[k] || '';
+            }
+            return str(k);
+        };
+
+        $('warning-title').textContent = lookup('warningTitle');
+        $('warning-desc').textContent = lookup(key);
+        $('warning-proceed-btn').textContent = lookup('proceedBtn');
+
+        // Store the callback on the proceed button element
+        const proceedBtn = $('warning-proceed-btn');
+        const newProceedBtn = proceedBtn.cloneNode(true);
+        proceedBtn.parentNode.replaceChild(newProceedBtn, proceedBtn);
+
+        newProceedBtn.onclick = () => {
+            modal.style.display = 'none';
+            onProceed();
+        };
+
+        modal.style.display = 'flex';
     }
 
     // ── Init ──
@@ -182,9 +213,22 @@ const App = (() => {
             const btn = e.target.closest('.lang-option');
             if (!btn) return;
             const lang = btn.dataset.lang;
-            setLanguage(lang);
-            render();
-            toggleModal('lang-modal', false);
+            if (lang === currentLang) {
+                toggleModal('lang-modal', false);
+                return;
+            }
+
+            const proceed = () => {
+                setLanguage(lang);
+                render();
+                toggleModal('lang-modal', false);
+            };
+
+            if (lang !== 'en' && lang !== 'bn') {
+                showWarningModal('langWarning', proceed, lang);
+            } else {
+                proceed();
+            }
         });
 
         // Calendar grid — event delegation (bound ONCE)
@@ -497,11 +541,13 @@ const App = (() => {
 
         // ── Islamic Tutorials & Duas Hub ──
         $('btn-names').addEventListener('click', () => {
-            $('islamic-hub-view').classList.add('active');
-            renderNames();
-            renderDuasList();
-            renderTutorials();
-            renderSurahs();
+            showWarningModal('hubWarning', () => {
+                $('islamic-hub-view').classList.add('active');
+                renderNames();
+                renderDuasList();
+                renderTutorials();
+                renderSurahs();
+            });
         });
         $('islamic-hub-back-btn').addEventListener('click', () => {
             $('islamic-hub-view').classList.remove('active');
