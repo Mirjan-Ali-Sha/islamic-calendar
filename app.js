@@ -7,8 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.5.8';
-
+const APP_VERSION = '1.8.1';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -64,18 +63,18 @@ const App = (() => {
 
     // UI strings
     const UI_STRINGS = {
-        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.' },
-        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.' },
-        bn: { eventsTitle: 'এই মাসের ইভেন্ট', noEvents: 'এই মাসে কোনো বিশেষ ইভেন্ট নেই', selectLang: 'ভাষা নির্বাচন করুন', today: 'আজ', install: 'এই অ্যাপটি আপনার ডিভাইসে ইনস্টল করুন', footerNote: 'তারিখগুলি ট্যাবুলার ইসলামি ক্যালেন্ডারের উপর ভিত্তি করে। প্রকৃত তারিখ চাঁদ দেখার উপর নির্ভর করে ১-২ দিন ভিন্ন হতে পারে।' },
-        ur: { eventsTitle: 'اس مہینے کے واقعات', noEvents: 'اس مہینے کوئی خاص واقعہ نہیں', selectLang: 'زبان منتخب کریں', today: 'آج', install: 'یہ ایپ اپنے ڈیوائس پر انسٹال کریں', footerNote: 'تاریخیں حسابی اسلامی تقویم پر مبنی ہیں۔ اصل تاریخیں چاند دیکھنے کی بنیاد پر 1-2 دن مختلف ہو سکتی ہیں۔' },
-        tr: { eventsTitle: 'Bu Ayın Etkinlikleri', noEvents: 'Bu ay özel etkinlik yok', selectLang: 'Dil Seçin', today: 'Bugün', install: 'Bu uygulamayı cihazınıza yükleyin', footerNote: 'Tarihler tablo tabanlı İslami takvime dayanmaktadır. Gerçek tarihler hilal gözlemine göre 1-2 gün farklılık gösterebilir.' },
-        ms: { eventsTitle: 'Acara Bulan Ini', noEvents: 'Tiada acara khas bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini pada peranti anda', footerNote: 'Tarikh adalah berdasarkan kalendar Islam jadual. Tarikh sebenar mungkin berbeza 1-2 hari berdasarkan cerapan anak bulan.' },
-        id: { eventsTitle: 'Peristiwa Bulan Ini', noEvents: 'Tidak ada peristiwa khusus bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini di perangkat Anda', footerNote: 'Tanggal didasarkan pada kalender Islam tabuler. Tanggal sebenarnya mungkin berbeda 1-2 hari berdasarkan pengamatan bulan.' },
-        fr: { eventsTitle: 'Événements du mois', noEvents: 'Aucun événement spécial ce mois-ci', selectLang: 'Choisir la langue', today: 'Aujourd\'hui', install: 'Installez cette application sur votre appareil', footerNote: 'Les dates sont basées sur le calendrier islamique tabulaire. Les dates réelles peuvent varier de 1 à 2 jours selon l\'observation lunaire.' },
-        hi: { eventsTitle: 'इस महीने के कार्यक्रम', noEvents: 'इस महीने कोई विशेष कार्यक्रम नहीं', selectLang: 'भाषा चुनें', today: 'आज', install: 'इस ऐप को इंस्टॉल करें', footerNote: 'तारीखें गणितीय इस्लामी कैलेंडर पर आधारित हैं। चाँद दिखने के आधार पर वास्तविक तारीखें 1-2 दिन भिन्न हो सकती हैं।' },
-        te: { eventsTitle: 'ఈ నెల కార్యక్రమాలు', noEvents: 'ఈ నెలలో ప్రత్యేక కార్యక్రమాలు ఏమీ లేవు', selectLang: 'భాషను ఎంచుకోండి', today: 'ఈ రోజు', install: 'ఈ యాప్‌ను ఇన్‌స్టాల్ చేయండి', footerNote: 'తేదీలు పట్టిక ఆధారిత ఇస్లామిక్ క్యాలెండర్‌పై ఆధారపడి ఉంటాయి. చంద్రుని దర్శనం ఆధారంగా నిజమైన తేదీలు 1-2 రోజులు మారవచ్చు.' },
-        ta: { eventsTitle: 'இந்த மாத நிகழ்வுகள்', noEvents: 'இந்த மாதத்தில் சிறப்பு நிகழ்வுகள் ஏதுமில்லை', selectLang: 'மொழியைத் தேர்ந்தெடுக்கவும்', today: 'இன்று', install: 'இந்த செயலியை நிறுவவும்', footerNote: 'தேதிகள் அட்டவணை இஸ்லாமிய நாட்காட்டியை அடிப்படையாகக் கொண்டவை. சந்திரன் பார்வையின் அடிப்படையில் உண்மையான தேதிகள் 1-2 நாட்கள் மாறுபடலாம்.' },
-        ml: { eventsTitle: 'ഈ മാസത്തെ പരിപാടികൾ', noEvents: 'ഈ മാസം പ്രത്യേക പരിപാടികളൊന്നുമില്ല', selectLang: 'ഭാഷ തിരഞ്ഞെടുക്കുക', today: 'ഇന്ന്', install: 'ഈ ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക', footerNote: 'തീയതികൾ കണക്കാക്കിയ ഇസ്ലാമിക് കലണ്ടറിനെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്. ചന്ദ്രദർശനത്തെ അടിസ്ഥാനമാക്കി യഥാർത്ഥ തീയതികൾ 1-2 ദിവസം വ്യത്യാസപ്പെടാം.' }
+        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.', prayerProhibited: 'Prayer Prohibited', shuruq: 'Shuruq', istiwa: 'Istiwa', ghurub: 'Ghurub' },
+        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.', prayerProhibited: 'الصلاة منهي عنها', shuruq: 'الشروق', istiwa: 'الاستواء', ghurub: 'الغروب' },
+        bn: { eventsTitle: 'এই মাসের ইভেন্ট', noEvents: 'এই মাসে কোনো বিশেষ ইভেন্ট নেই', selectLang: 'ভাষা নির্বাচন করুন', today: 'আজ', install: 'এই অ্যাপটি আপনার ডিভাইসে ইনস্টল করুন', footerNote: 'তারিখগুলি ট্যাবুলার ইসলামি ক্যালেন্ডারের উপর ভিত্তি করে। প্রকৃত তারিখ চাঁদ দেখার উপর নির্ভর করে ১-২ দিন ভিন্ন হতে পারে।', prayerProhibited: 'নামাজ নিষিদ্ধ', shuruq: 'শুরুক', istiwa: 'ইস্তিওয়া', ghurub: 'ঘুরুব' },
+        ur: { eventsTitle: 'اس مہینے کے واقعات', noEvents: 'اس مہینے کوئی خاص واقعہ نہیں', selectLang: 'زبان منتخب کریں', today: 'آج', install: 'یہ ایپ اپنے ڈیوائس پر انسٹال کریں', footerNote: 'تاریخیں حسابی اسلامی تقویم پر مبنی ہیں۔ اصل تاریخیں چاند دیکھنے کی بنیاد پر 1-2 دن مختلف ہو سکتی ہیں۔', prayerProhibited: 'نماز ممنوع ہے', shuruq: 'شروق', istiwa: 'استواء', ghurub: 'غروب' },
+        tr: { eventsTitle: 'Bu Ayın Etkinlikleri', noEvents: 'Bu ay özel etkinlik yok', selectLang: 'Dil Seçin', today: 'Bugün', install: 'Bu uygulamayı cihazınıza yükleyin', footerNote: 'Tarihler tablo tabanlı İslami takvime dayanmaktadır. Gerçek tarihler hilal gözlemine göre 1-2 gün farklılık gösterebilir.', prayerProhibited: 'Namaz Yasak', shuruq: 'İşrak', istiwa: 'İstiva', ghurub: 'Kerahet' },
+        ms: { eventsTitle: 'Acara Bulan Ini', noEvents: 'Tiada acara khas bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini pada peranti anda', footerNote: 'Tarikh adalah berdasarkan kalendar Islam jadual. Tarikh sebenar mungkin berbeza 1-2 hari berdasarkan cerapan anak bulan.', prayerProhibited: 'Solat Dilarang', shuruq: 'Syuruk', istiwa: 'Istiwa', ghurub: 'Ghurub' },
+        id: { eventsTitle: 'Peristiwa Bulan Ini', noEvents: 'Tidak ada peristiwa khusus bulan ini', selectLang: 'Pilih Bahasa', today: 'Hari Ini', install: 'Pasang aplikasi ini di perangkat Anda', footerNote: 'Tanggal didasarkan pada kalender Islam tabuler. Tanggal sebenarnya mungkin berbeda 1-2 hari berdasarkan pengamatan bulan.', prayerProhibited: 'Waktu Larangan', shuruq: 'Terbit', istiwa: 'Istiwa', ghurub: 'Terbenam' },
+        fr: { eventsTitle: 'Événements du mois', noEvents: 'Aucun événement spécial ce mois-ci', selectLang: 'Choisir la langue', today: 'Aujourd\'hui', install: 'Installez cette application sur votre appareil', footerNote: 'Les dates sont basées sur le calendrier islamique tabulaire. Les dates réelles peuvent varier de 1 à 2 jours selon l\'observation lunaire.', prayerProhibited: 'Prière Interdite', shuruq: 'Chourouk', istiwa: 'Istiwa', ghurub: 'Ghurub' },
+        hi: { eventsTitle: 'इस महीने के कार्यक्रम', noEvents: 'इस महीने कोई বিশেষ कार्यक्रम नहीं', selectLang: 'भाषा चुनें', today: 'आज', install: 'इस ऐप को इंस्टॉल करें', footerNote: 'तारीखें गणितीय इस्लामी कैलेंडर पर आधारित हैं। चाँद दिखने के आधार पर वास्तविक तारीखें 1-2 दिन भिन्न हो सकती हैं।', prayerProhibited: 'नमाज़ निषेध है', shuruq: 'शुरूक़', istiwa: 'इस्तिवा', ghurub: 'घूरूब' },
+        te: { eventsTitle: 'ఈ నెల కార్యక్రమాలు', noEvents: 'ఈ నెలలో ప్రత్యేక కార్యక్రమాలు ఏమీ లేవు', selectLang: 'భాషను ఎంచుకోండి', today: 'ఈ రోజు', install: 'ఈ యాప్‌ను ఇన్‌స్టాల్ చేయండి', footerNote: 'తేదీలు పట్టిక ఆధారిత ఇస్లామిక్ క్యాలెండర్‌పై ఆధారపడి ఉంటాయి. చంద్రుని దర్శనం ఆధారంగా నిజమైన తేదీలు 1-2 రోజులు మారవచ్చు.', prayerProhibited: 'ప్రార్థన నిషిద్ధం', shuruq: 'శురుక్', istiwa: 'ఇస్తివా', ghurub: 'ఘురుబ్' },
+        ta: { eventsTitle: 'இந்த மாத நிகழ்வுகள்', noEvents: 'இந்த மாதத்தில் சிறப்பு நிகழ்வுகள் ஏதுமில்லை', selectLang: 'மொழியைத் தேர்ந்தெடுக்கவும்', today: 'இன்று', install: 'இந்த செயலியை நிறுவவும்', footerNote: 'தேதிகள் அட்டவணை இஸ்லாமிய நாட்காட்டியை அடிப்படையாகக் கொண்டவை. சந்திரன் பார்வையின் அடிப்படையில் உண்மையான தேதிகள் 1-2 நாட்கள் மாறுபடலாம்.', prayerProhibited: 'தொழுகை தடைசெய்யப்பட்டுள்ளது', shuruq: 'ஷுரூக்', istiwa: 'இஸ்திவா', ghurub: 'குரூப்' },
+        ml: { eventsTitle: 'ഈ മാസത്തെ പരിപാടികൾ', noEvents: 'ഈ മാസം പ്രത്യേക പരിപാടികളൊന്നുമില്ല', selectLang: 'ഭാഷ തിരഞ്ഞെടുക്കുക', today: 'ഇന്ന്', install: 'ഈ ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക', footerNote: 'തീയതികൾ കണക്കാക്കിയ ഇസ്ലാമിക് കലണ്ടറിനെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്. ചന്ദ്രദർശനത്തെ അടിസ്ഥാനമാക്കി യഥാർത്ഥ തീയതികൾ 1-2 ദിവസം വ്യത്യാസപ്പെടാം.', prayerProhibited: 'നിസ്കാരം നിരോധിച്ചിരിക്കുന്നു', shuruq: 'ശുറൂഖ്', istiwa: 'ഇസ്തിവാ', ghurub: 'ഗുറൂബ്' }
     };
 
     function str(key) {
@@ -142,6 +141,15 @@ const App = (() => {
             initPWA();
             startPrayerCountdown();
             console.log('App: Initialization complete.');
+
+            // Hide Splash
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    setTimeout(() => { splash.style.display = 'none'; }, 700);
+                }, 800);
+            }
         } catch (error) {
             console.error('App: Initialization failed:', error);
             // Attempt to recover basic UI even if some features fail
@@ -419,7 +427,6 @@ const App = (() => {
 
         // ── Hijri Adjustment Stepper ──
         function syncHijriAdjUI() {
-            const label = $('hijri-adj-label');
             const settingsVal = $('settings-adj-value');
 
             // Show duration delta: -(Adj(M+1) - Adj(M))
@@ -431,7 +438,6 @@ const App = (() => {
             const sign = durDelta > 0 ? '+' : (durDelta < 0 ? '' : '');
             const text = `Len: ${sign}${durDelta}`;
 
-            if (label) label.textContent = text;
             if (settingsVal) settingsVal.textContent = text;
         }
 
@@ -459,11 +465,17 @@ const App = (() => {
             render();
         }
 
-        $('hijri-adj-minus').addEventListener('click', () => changeHijriAdj(-1));
-        $('hijri-adj-plus').addEventListener('click', () => changeHijriAdj(1));
         $('settings-adj-minus').addEventListener('click', () => changeHijriAdj(-1));
         $('settings-adj-plus').addEventListener('click', () => changeHijriAdj(1));
         syncHijriAdjUI();
+
+        // ── Month/Year Jump Settings ──
+        $('btn-settings-jump').addEventListener('click', () => {
+            currentHijriMonth = parseInt($('settings-month-select').value);
+            currentHijriYear = parseInt($('settings-year-select').value);
+            render();
+            toggleModal('settings-modal', false);
+        });
 
         // ── Settings Modal ──
         $('btn-settings').addEventListener('click', () => toggleModal('settings-modal', true));
@@ -617,6 +629,33 @@ const App = (() => {
         renderEventsList();
         renderLegend();
         renderFooterYear();
+        syncSettingsSelectors();
+    }
+
+    function syncSettingsSelectors() {
+        const monthSel = $('settings-month-select');
+        const yearSel = $('settings-year-select');
+        if (!monthSel || !yearSel) return;
+
+        // Populate months if empty
+        if (monthSel.options.length === 0) {
+            let html = '';
+            for (let i = 1; i <= 12; i++) {
+                html += `<option value="${i}">${HijriEngine.getMonthName(i, currentLang)}</option>`;
+            }
+            monthSel.innerHTML = html;
+        }
+        monthSel.value = currentHijriMonth;
+
+        // Populate years around current
+        const startYear = currentHijriYear - 5;
+        const endYear = currentHijriYear + 10;
+        let yHtml = '';
+        for (let y = startYear; y <= endYear; y++) {
+            yHtml += `<option value="${y}">${y}</option>`;
+        }
+        yearSel.innerHTML = yHtml;
+        yearSel.value = currentHijriYear;
     }
 
     // ── Zakat Calculator ──
@@ -1031,15 +1070,21 @@ const App = (() => {
         const hijriStr = `${today.day} ${HijriEngine.getMonthName(today.month, currentLang)} ${today.year} AH`;
         const gregStr = `${greg.day} ${HijriEngine.getGregMonthName(greg.month, currentLang)} ${greg.year}`;
 
-        $('today-hijri-date').textContent = hijriStr;
-        $('today-greg-date').textContent = gregStr;
+        const hEl = $('today-hijri-date');
+        const gEl = $('today-greg-date');
+        const eEl = $('today-event');
+
+        if (hEl) hEl.textContent = hijriStr;
+        if (gEl) gEl.textContent = gregStr;
 
         // Show today's events
         const todayEvents = IslamicEvents.getEventsForDate(today.month, today.day);
-        if (todayEvents.length > 0) {
-            $('today-event').textContent = todayEvents.map(e => (e.name[currentLang] || e.name.en)).join(' · ');
-        } else {
-            $('today-event').textContent = '';
+        if (eEl) {
+            if (todayEvents.length > 0) {
+                eEl.textContent = todayEvents.map(e => (e.name[currentLang] || e.name.en)).join(' · ');
+            } else {
+                eEl.textContent = '';
+            }
         }
     }
 
@@ -1227,7 +1272,7 @@ const App = (() => {
                 fr: '📜 Hadith du jour',
                 hi: '📜 आज की हदीस',
                 te: '📜 నేటి హదీస్',
-                ta: '📜 இன்றைய ஹதீ‌സ്',
+                ta: '📜 இன்றைய ஹதீ‌ஸ்',
                 ml: '📜 ഇന്നത്തെ ഹദീസ്'
             }
         };
@@ -1446,15 +1491,19 @@ const App = (() => {
             const diff = maghribHrs - currentHrs;
             const h = Math.floor(diff);
             const m = Math.floor((diff - h) * 60);
-            $('ramadan-countdown').textContent = `🍽️ Iftar in ${h}h ${m}m`;
+            const s = Math.floor((diff * 3600) % 60);
+            $('ramadan-countdown').textContent = `🍽️ Iftar in ${h}h ${m}m ${s}s`;
         } else {
             // After Iftar or before Suhoor — countdown to Suhoor
             let diff = fajrHrs - currentHrs;
             if (diff < 0) diff += 24;
             const h = Math.floor(diff);
             const m = Math.floor((diff - h) * 60);
-            $('ramadan-countdown').textContent = `🌙 Suhoor ends in ${h}h ${m}m`;
+            const s = Math.floor((diff * 3600) % 60);
+            $('ramadan-countdown').textContent = `🌙 Suhoor ends in ${h}h ${m}m ${s}s`;
         }
+
+
     }
 
     // ── Event detail modal ──
@@ -1899,7 +1948,7 @@ const App = (() => {
         }
 
         header.style.setProperty('--header-tint', tint);
-        header.style.setProperty('--header-accent-line', accentLine);
+
     }
 
     function startPrayerCountdown() {
@@ -1908,74 +1957,117 @@ const App = (() => {
         const CIRC = 2 * Math.PI * 15.5; // ~97.4 circumference of SVG ring
 
         function tick() {
-            if (!currentCity) return;
-            const now = new Date();
-            let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
-            // Apply time adjustment for countdown too
-            times = applyTimeAdjustment(times);
-            const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
-            const next = PrayerTimes.getNextPrayer(times, currentHrs);
-            $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+            try {
+                if (!currentCity) return;
+                const now = new Date();
+                let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
+                // Apply time adjustment for countdown too
+                times = applyTimeAdjustment(times);
+                const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
+                const next = PrayerTimes.getNextPrayer(times, currentHrs);
 
-            // ── Hero countdown ring ──
-            const heroEl = $('hero-countdown');
-            if (heroEl) {
-                heroEl.style.display = 'flex';
-                const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
-                $('hero-countdown-label').textContent = names[next.name] || 'Next';
-                $('hero-countdown-time').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+                // ── Prohibited Times Check ──
+                const prohibited = [
+                    { name: 'shuruq', start: times._raw.sunrise, end: times._raw.sunrise + 20 / 60 },
+                    { name: 'istiwa', start: times._raw.dhuhr - 10 / 60, end: times._raw.dhuhr },
+                    { name: 'ghurub', start: times._raw.maghrib - 15 / 60, end: times._raw.maghrib }
+                ];
 
-                // Calculate progress through current prayer interval
-                const order = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
-                const idx = order.indexOf(next.name);
-                let prevTime;
-                if (idx > 0 && !next.tomorrow) {
-                    const prevKey = order[idx - 1];
-                    prevTime = times[prevKey]?.decimal ?? times._raw?.[prevKey] ?? 0;
+                let activeProhibited = prohibited.find(p => currentHrs >= p.start && currentHrs < p.end);
+
+                if (activeProhibited) {
+                    const label = str(activeProhibited.name);
+                    const msg = str('prayerProhibited');
+
+                    $('countdown-timer').textContent = msg;
+                    const heroEl = $('hero-countdown');
+                    if (heroEl) {
+                        heroEl.style.display = 'flex';
+                        $('hero-countdown-label').textContent = label;
+                        $('hero-countdown-time').textContent = msg;
+                    }
                 } else {
-                    prevTime = times.isha?.decimal ?? times._raw?.isha ?? 0;
+                    $('countdown-timer').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+                    // ── Hero countdown ring ──
+                    const heroEl = $('hero-countdown');
+                    if (heroEl) {
+                        heroEl.style.display = 'flex';
+                        const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
+                        $('hero-countdown-label').textContent = names[next.name] || 'Next';
+                        $('hero-countdown-time').textContent = PrayerTimes.formatCountdown(next.time, currentHrs);
+                    }
                 }
 
-                let totalSpan = next.time - prevTime;
-                if (totalSpan <= 0) totalSpan += 24;
+                // ── Progress calculation (Refined Salah-to-Salah) ──
+                const salahOrder = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+
+                // 1. Find the next actual Salah (skipping sunrise/sehri)
+                let actualNext = next;
+                if (!salahOrder.includes(next.name)) {
+                    actualNext = getNextSalahOnly(times, currentHrs);
+                }
+
+                // 2. Find the previous actual Salah
+                const sIdx = salahOrder.indexOf(actualNext.name);
+                let prevSalahKey = (sIdx > 0 && !actualNext.tomorrow) ? salahOrder[sIdx - 1] : 'isha';
+
+                let prevTime = times._raw[prevSalahKey] ?? times[prevSalahKey]?.decimal ?? 0;
+                let nextTime = actualNext.time;
+
+                // Normalize for 24h wrap-around
+                if (actualNext.tomorrow || (actualNext.name === 'fajr' && currentHrs > 12)) {
+                    // Next is tomorrow
+                } else if (prevSalahKey === 'isha' && currentHrs < 12) {
+                    prevTime -= 24; // Isha was yesterday
+                }
+
+                if (nextTime < prevTime) nextTime += 24;
+
+                let totalSpan = nextTime - prevTime;
                 let elapsed = currentHrs - prevTime;
-                if (elapsed < 0) elapsed += 24;
-                const pct = Math.min(elapsed / totalSpan, 1);
+                const pct = Math.max(0, Math.min(elapsed / totalSpan, 1));
+
+                // Update Hero Ring & Progress Bar
+                const progressFill = $('prayer-progress-fill');
+                if (progressFill) progressFill.style.width = `${(pct * 100).toFixed(1)}%`;
 
                 const ring = $('countdown-ring');
                 if (ring) {
-                    ring.setAttribute('stroke-dashoffset', CIRC * (1 - pct));
+                    const CIRC = 283;
+                    ring.style.strokeDashoffset = CIRC * (1 - pct);
                 }
 
-                // ── Prayer progress bar ──
-                const progressFill = $('prayer-progress-fill');
-                if (progressFill) {
-                    progressFill.style.width = `${(pct * 100).toFixed(1)}%`;
-                }
+                // ── Ramadan Banner Refresh ──
+                renderRamadan();
+
+                // ── Day/Night header gradient ──
+                updateHeaderGradient(times, currentHrs);
+
+                checkNotifications(times, currentHrs);
+            } catch (e) {
+                console.error("Tick error:", e);
             }
-
-            // ── Day/Night header gradient ──
-            updateHeaderGradient(times, currentHrs);
-
-            checkNotifications(times, currentHrs);
         }
 
         tick();
         prayerCountdownInterval = setInterval(tick, 1000);
     }
 
+    /**
+     * Helper to find the next actual Salah (skipping sun positions)
+     */
+    function getNextSalahOnly(times, currentHrs) {
+        const salahOrder = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+        for (const name of salahOrder) {
+            const t = times._raw[name];
+            if (t > currentHrs) return { name, time: t, tomorrow: false };
+        }
+        return { name: 'fajr', time: times._raw['fajr'] + 24, tomorrow: true };
+    }
+
     // Splash Screen & Date Jumper Init
     window.addEventListener('load', () => {
-        // Splash
-        const splash = document.getElementById('splash-screen');
-        if (splash) {
-            setTimeout(() => {
-                splash.classList.add('hidden');
-                setTimeout(() => { splash.style.display = 'none'; }, 700);
-            }, 2500);
-        }
-
-        // Date Jumper
+        // Date Jumper init
         const dateBtn = $('btn-date-jump');
         const dateInput = $('date-jumper');
 
