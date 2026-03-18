@@ -1,35 +1,122 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a1628"/>
-      <stop offset="100%" style="stop-color:#0f2440"/>
+    <!-- Background gradient -->
+    <linearGradient id="bg192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1b3e"/>
+      <stop offset="50%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#061224"/>
     </linearGradient>
-    <linearGradient id="moon" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#f5c842"/>
-      <stop offset="100%" style="stop-color:#e8a830"/>
+    <!-- Glossy moon gradient -->
+    <radialGradient id="moonGrad192" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#fff8dc"/>
+      <stop offset="25%" stop-color="#ffd700"/>
+      <stop offset="60%" stop-color="#e8a830"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </radialGradient>
+    <!-- Moon shine overlay -->
+    <radialGradient id="moonShine192" cx="30%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <!-- Mosque gradient -->
+    <linearGradient id="mosqueGrad192" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00e6aa"/>
+      <stop offset="40%" stop-color="#00c896"/>
+      <stop offset="100%" stop-color="#008866"/>
     </linearGradient>
-    <linearGradient id="mosque" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00c896"/>
-      <stop offset="100%" style="stop-color:#00a87a"/>
+    <!-- Mosque shine -->
+    <linearGradient id="mosqueShine192" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <!-- Star gradient -->
+    <radialGradient id="starGrad192" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fffef0"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </radialGradient>
+    <!-- Glow filters -->
+    <filter id="moonGlow192" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#ffd700" flood-opacity="0.35"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="starGlow192" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#ffd700" flood-opacity="0.5"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="mosqueGlow192" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#00c896" flood-opacity="0.2"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Glass overlay for background -->
+    <linearGradient id="glassOverlay192" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
+    </linearGradient>
+    <!-- Subtle border glow -->
+    <linearGradient id="borderGlow192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(0,200,150,0.4)"/>
+      <stop offset="50%" stop-color="rgba(255,215,0,0.3)"/>
+      <stop offset="100%" stop-color="rgba(0,200,150,0.4)"/>
     </linearGradient>
   </defs>
-  <rect width="192" height="192" rx="40" fill="url(#bg)"/>
-  <!-- Crescent Moon -->
-  <circle cx="96" cy="68" r="34" fill="url(#moon)"/>
-  <circle cx="112" cy="60" r="28" fill="url(#bg)"/>
-  <!-- Star -->
-  <polygon points="88,52 90,58 96,58 91,62 93,68 88,64 83,68 85,62 80,58 86,58" fill="url(#moon)" opacity="0.9"/>
-  <!-- Mosque Silhouette -->
-  <path d="M46,148 L46,128 Q46,118 56,113 L56,108 Q56,98 66,93 Q76,88 86,93 L96,98 L106,93 Q116,88 126,93 Q136,98 136,108 L136,113 Q146,118 146,128 L146,148 Z" fill="url(#mosque)" opacity="0.85"/>
-  <!-- Minaret left -->
-  <rect x="52" y="105" width="6" height="43" rx="3" fill="url(#mosque)" opacity="0.9"/>
-  <circle cx="55" cy="103" r="4" fill="url(#moon)" opacity="0.7"/>
-  <!-- Minaret right -->
-  <rect x="134" y="105" width="6" height="43" rx="3" fill="url(#mosque)" opacity="0.9"/>
-  <circle cx="137" cy="103" r="4" fill="url(#moon)" opacity="0.7"/>
+
+  <!-- Background with rounded corners -->
+  <rect width="192" height="192" rx="40" fill="url(#bg192)"/>
+  <!-- Glass overlay -->
+  <rect width="192" height="192" rx="40" fill="url(#glassOverlay192)"/>
+  <!-- Subtle border -->
+  <rect x="1" y="1" width="190" height="190" rx="39" fill="none" stroke="url(#borderGlow192)" stroke-width="1.5"/>
+
+  <!-- Decorative background stars -->
+  <circle cx="30" cy="40" r="1" fill="#fff" opacity="0.3"/>
+  <circle cx="160" cy="35" r="0.8" fill="#fff" opacity="0.2"/>
+  <circle cx="45" cy="160" r="0.7" fill="#fff" opacity="0.15"/>
+  <circle cx="155" cy="155" r="1" fill="#fff" opacity="0.2"/>
+  <circle cx="20" cy="100" r="0.6" fill="#fff" opacity="0.15"/>
+  <circle cx="170" cy="90" r="0.8" fill="#fff" opacity="0.2"/>
+
+  <!-- Crescent Moon with glow -->
+  <g filter="url(#moonGlow192)">
+    <circle cx="96" cy="68" r="34" fill="url(#moonGrad192)"/>
+    <circle cx="112" cy="58" r="28" fill="url(#bg192)"/>
+    <!-- Glossy shine on crescent -->
+    <circle cx="96" cy="68" r="34" fill="url(#moonShine192)"/>
+    <circle cx="112" cy="58" r="28" fill="url(#bg192)"/>
+  </g>
+
+  <!-- Star with glow -->
+  <polygon points="84,54 87,62 95,62 89,67 91,75 84,70 77,75 79,67 73,62 81,62" fill="url(#starGrad192)" filter="url(#starGlow192)"/>
+
+  <!-- Mosque with glow -->
+  <g filter="url(#mosqueGlow192)">
+    <path d="M46,148 L46,128 Q46,118 56,113 L56,108 Q56,98 66,93 Q76,88 86,93 L96,98 L106,93 Q116,88 126,93 Q136,98 136,108 L136,113 Q146,118 146,128 L146,148 Z" fill="url(#mosqueGrad192)"/>
+    <!-- Glossy shine on mosque -->
+    <path d="M46,148 L46,128 Q46,118 56,113 L56,108 Q56,98 66,93 Q76,88 86,93 L96,98 L106,93 Q116,88 126,93 Q136,98 136,108 L136,113 Q146,118 146,128 L146,148 Z" fill="url(#mosqueShine192)"/>
+  </g>
+
   <!-- Dome -->
-  <ellipse cx="96" cy="98" rx="18" ry="14" fill="url(#mosque)"/>
-  <circle cx="96" cy="84" r="3" fill="url(#moon)" opacity="0.8"/>
+  <ellipse cx="96" cy="98" rx="18" ry="14" fill="url(#mosqueGrad192)"/>
+  <ellipse cx="96" cy="98" rx="18" ry="14" fill="url(#mosqueShine192)"/>
+  <!-- Dome finial -->
+  <circle cx="96" cy="84" r="3.5" fill="url(#moonGrad192)" filter="url(#starGlow192)"/>
+
+  <!-- Minarets -->
+  <rect x="51" y="105" width="7" height="43" rx="3.5" fill="url(#mosqueGrad192)"/>
+  <rect x="51" y="105" width="3.5" height="43" rx="1.5" fill="url(#mosqueShine192)"/>
+  <circle cx="54.5" cy="103" r="4.5" fill="url(#moonGrad192)" filter="url(#starGlow192)"/>
+
+  <rect x="134" y="105" width="7" height="43" rx="3.5" fill="url(#mosqueGrad192)"/>
+  <rect x="137.5" y="105" width="3.5" height="43" rx="1.5" fill="url(#mosqueShine192)"/>
+  <circle cx="137.5" cy="103" r="4.5" fill="url(#moonGrad192)" filter="url(#starGlow192)"/>
+
   <!-- Door -->
-  <rect x="89" y="130" width="14" height="18" rx="7" fill="url(#bg)" opacity="0.5"/>
+  <rect x="89" y="130" width="14" height="18" rx="7" fill="url(#bg192)" opacity="0.6"/>
+  <!-- Door light -->
+  <rect x="91" y="133" width="10" height="15" rx="5" fill="rgba(255,215,0,0.08)"/>
 </svg>

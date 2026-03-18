@@ -32,7 +32,37 @@
         <div class="splash-geo-star splash-geo-star--tl"></div>
         <div class="splash-geo-star splash-geo-star--br"></div>
         <div class="splash-content">
-            <div class="splash-logo">☪️</div>
+            <div class="splash-logo">
+                <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="moonGlow" cx="40%" cy="35%" r="60%">
+                            <stop offset="0%" stop-color="#fffbe6"/>
+                            <stop offset="40%" stop-color="#ffd700"/>
+                            <stop offset="100%" stop-color="#b8860b"/>
+                        </radialGradient>
+                        <radialGradient id="moonShine" cx="35%" cy="30%" r="40%">
+                            <stop offset="0%" stop-color="rgba(255,255,255,0.7)"/>
+                            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                        </radialGradient>
+                        <filter id="moonShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffd700" flood-opacity="0.6"/>
+                        </filter>
+                        <linearGradient id="starFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fffde8"/>
+                            <stop offset="100%" stop-color="#ffd700"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Crescent Moon -->
+                    <path d="M62 12C40.5 12 23 29.5 23 51s17.5 39 39 39c8.5 0 16.3-2.7 22.7-7.3C77.2 87.5 67.5 90 57 90 33.3 90 14 70.7 14 47S33.3 4 57 4c4.2 0 8.2.6 12 1.6C66 7.8 62.8 9.7 62 12z"
+                          fill="url(#moonGlow)" filter="url(#moonShadow)"/>
+                    <!-- Glossy highlight -->
+                    <path d="M62 12C40.5 12 23 29.5 23 51s17.5 39 39 39c8.5 0 16.3-2.7 22.7-7.3C77.2 87.5 67.5 90 57 90 33.3 90 14 70.7 14 47S33.3 4 57 4c4.2 0 8.2.6 12 1.6C66 7.8 62.8 9.7 62 12z"
+                          fill="url(#moonShine)" opacity="0.6"/>
+                    <!-- Star -->
+                    <polygon points="76,22 78.5,28.5 85,29 80,33.5 81.5,40 76,36.5 70.5,40 72,33.5 67,29 73.5,28.5"
+                             fill="url(#starFill)" filter="url(#moonShadow)"/>
+                </svg>
+            </div>
             <h1 class="splash-title">Islamic Calendar</h1>
             <p class="splash-subtitle">Prayer Times & Events</p>
             <div class="splash-loader"></div>
@@ -333,6 +363,12 @@
         <span id="update-banner-text" class="update-banner-text">🔄 A new version is available!</span>
         <button id="update-btn" class="update-btn">Update Now</button>
         <button id="update-dismiss" class="update-dismiss">✕</button>
+    </div>
+
+    <!-- ========== OFFLINE INDICATOR ========== -->
+    <div id="offline-banner" class="offline-banner" style="display:none;">
+        <span class="offline-icon">📡</span>
+        <span class="offline-text">You are offline — using cached data</span>
     </div>
 
 

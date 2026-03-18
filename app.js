@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.3';
+const APP_VERSION = '1.8.4';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -56,15 +56,15 @@ const App = (() => {
 
     // Notification state
     let notificationsEnabled = localStorage.getItem('ic-notif') === 'true';
-    let lastNotifiedPrayer = '';
+    let notifiedPrayersToday = new Set(); // Track all prayers notified today
 
     // RTL languages
     const RTL_LANGS = ['ar', 'ur'];
 
     // UI strings
     const UI_STRINGS = {
-        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.', prayerProhibited: 'Prayer Prohibited', shuruq: 'Shuruq', istiwa: 'Istiwa', ghurub: 'Ghurub', hubWarning: 'This section is not completely verified. Please ask for details from an Imam. Also, the full app translation was done using Google Translate. Users should verify all contents with a knowledgeable person like an Imam in the selected language.', langWarning: 'The author used Google Translate for regional languages. Please contribute on GitHub for any corrections and definitely check with a knowledgeable person like an Imam for clarifications.', proceedBtn: 'Proceed', warningTitle: 'Note/Warning' },
-        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.', prayerProhibited: 'الصلاة منهي عنها', shuruq: 'الشروق', istiwa: 'الاستواء', ghurub: 'الغروب', hubWarning: 'هذا القسم غير محقق بالكامل، يرجى سؤال الإمام للحصول على التفاصيل. تم ترجمة التطبيق بواسطة مترجم جوجل، لذا يرجى التحقق من المحتوى من شخص مطلع مثل الإمام باللغة المختارة.', langWarning: 'استخدم المؤلف مترجم جوجل للغات الإقليمية. يرجى المساهمة في GitHub لأي تصحيح والتحقق مع شخص مطلع مثل الإمام للتوضيح.', proceedBtn: 'متابعة', warningTitle: 'ملاحظة/تحذير' },
+        en: { eventsTitle: 'Events This Month', noEvents: 'No special events this month', selectLang: 'Select Language', today: 'Today', install: 'Install this app on your device', footerNote: 'Dates are based on the tabular Islamic calendar (arithmetic approximation). Actual dates may vary by 1-2 days based on moon sighting.', prayerProhibited: 'Prayer Prohibited', shuruq: 'Shuruq', istiwa: 'Istiwa', ghurub: 'Ghurub', hubWarning: 'This section is not completely verified. Please ask for details from an Imam. Also, the full app translation was done using Google Translate. Users should verify all contents with a knowledgeable person like an Imam in the selected language.', langWarning: 'The author used Google Translate for regional languages. Please contribute on GitHub for any corrections and definitely check with a knowledgeable person like an Imam for clarifications.', proceedBtn: 'Proceed', warningTitle: 'Note/Warning', notifPrayerTime: 'It is time for {prayer} prayer.' },
+        ar: { eventsTitle: 'أحداث هذا الشهر', noEvents: 'لا توجد أحداث خاصة هذا الشهر', selectLang: 'اختر اللغة', today: 'اليوم', install: 'ثبت هذا التطبيق على جهازك', footerNote: 'التواريخ مبنية على التقويم الإسلامي الحسابي. قد تختلف التواريخ الفعلية بيوم أو يومين حسب رؤية الهلال.', prayerProhibited: 'الصلاة منهي عنها', shuruq: 'الشروق', istiwa: 'الاستواء', ghurub: 'الغروب', hubWarning: 'هذا القسم غير محقق بالكامل، يرجى سؤال الإمام للحصول على التفاصيل. تم ترجمة التطبيق بواسطة مترجم جوجل، لذا يرجى التحقق من المحتوى من شخص مطلع مثل الإمام باللغة المختارة.', langWarning: 'استخدم المؤلف مترجم جوجل للغات الإقليمية. يرجى المساهمة في GitHub لأي تصحيح والتحقق مع شخص مطلع مثل الإمام للتوضيح.', proceedBtn: 'متابعة', warningTitle: 'ملاحظة/تحذير', notifPrayerTime: 'حان وقت صلاة {prayer}.' },
         bn: { eventsTitle: 'এই মাসের ইভেন্ট', noEvents: 'এই মাসে কোনো বিশেষ ইভেন্ট নেই', selectLang: 'ভাষা নির্বাচন করুন', today: 'আজ', install: 'এই অ্যাপটি আপনার ডিভাইসে ইনস্টল করুন', footerNote: 'তারিখগুলি ট্যাবুলার ইসলামি ক্যালেন্ডারের উপর ভিত্তি করে। প্রকৃত তারিখ চাঁদ দেখার উপর নির্ভর করে ১-২ দিন ভিন্ন হতে পারে।', prayerProhibited: 'নামাজ নিষিদ্ধ', shuruq: 'শুরুক', istiwa: 'ইস্তিওয়া', ghurub: 'ঘুরুব', hubWarning: 'এই বিভাগটি সম্পূর্ণরূপে যাচাই করা হয়নি। অনুগ্রহ করে একজন ইমামের কাছ থেকে বিস্তারিত জেনে নিন। এছাড়াও, পুরো অ্যাপটি গুগল ট্রান্সলেটর ব্যবহার করে অনুবাদ করা হয়েছে। ব্যবহারকারীদের উচিত নির্বাচিত ভাষায় ইমামের মতো একজন জ্ঞানী ব্যক্তির কাছ থেকে সমস্ত বিষয়বস্তু যাচাই করে নেওয়া।', langWarning: 'আঞ্চলিক ভাষার জন্য লেখক গুগল ট্রান্সলেটর ব্যবহার করেছেন। কোনো সংশোধনের জন্য অনুগ্রহ করে গিটহাবে (GitHub) অবদান রাখুন এবং স্পষ্টীকরণের জন্য অবশ্যই ইমামের মতো কোনো জ্ঞানী ব্যক্তির সাথে পরীক্ষা করুন।', proceedBtn: 'এগিয়ে যান', warningTitle: 'দ্রষ্টব্য/সতর্কতা' },
         ur: { eventsTitle: 'اس مہینے کے واقعات', noEvents: 'اس مہینے کوئی خاص واقعہ نہیں', selectLang: 'زبان منتخب کریں', today: 'آج', install: 'یہ ایپ اپنے ڈیوائس پر انسٹال کریں', footerNote: 'تاریخیں حسابی اسلامی تقویم پر مبنی ہیں۔ اصل تاریخیں چاند دیکھنے کی بنیاد پر 1-2 دن مختلف ہو سکتی ہیں۔', prayerProhibited: 'نماز ممنوع ہے', shuruq: 'شروق', istiwa: 'استواء', ghurub: 'غروب', hubWarning: 'یہ حصہ مکمل طور پر تصدیق شدہ نہیں ہے، براہ کرم تفصیلات کے لیے امام سے پوچھیں۔ اس کے علاوہ، ایپ کا مکمل ترجمہ گوگل ٹرانسلیٹر کے ذریعے کیا گیا ہے، صارف کو منتخب زبان میں امام جیسے باشعور شخص سے تمام مواد کی تصدیق کرنی ہوگی۔', langWarning: 'مصنف نے علاقائی زبانوں کے لیے گوگل ٹرانسلیٹر کا استعمال کیا ہے، براہ کرم کسی بھی تصحیح کے لیے گٹ ہب میں حصہ لیں اور وضاحت کے لیے امام جیسے کسی جانکار شخص سے ضرور رابطہ کریں۔', proceedBtn: 'آگے بڑھیں', warningTitle: 'نوٹ/انتباہ' },
         tr: { eventsTitle: 'Bu Ayın Etkinlikleri', noEvents: 'Bu ay özel etkinlik yok', selectLang: 'Dil Seçin', today: 'Bugün', install: 'Bu uygulamayı cihazınıza yükleyin', footerNote: 'Tarihler tablo tabanlı İslami takvime dayanmaktadır. Gerçek tarihler hilal gözlemine göre 1-2 gün farklılık gösterebilir.', prayerProhibited: 'Namaz Yasak', shuruq: 'İşrak', istiwa: 'İstiva', ghurub: 'Kerahet', hubWarning: 'Bu bölüm tamamen doğrulanmamıştır, lütfen ayrıntılar için bir İmama danışın. Ayrıca, uygulama çevirisi Google Çeviri ile yapılmıştır. Kullanıcılar içerikleri ilgili dilde yetkin bir kişiye (İmam gibi) doğrulatmalıdır.', langWarning: 'Yazar bölgesel diller için Google Çeviri kullanmıştır. Düzeltmeler için lütfen GitHub üzerinden katkıda bulunun ve netleştirme için bir İmama danışın.', proceedBtn: 'Devam Et', warningTitle: 'Not/Uyarı' },
@@ -79,6 +79,46 @@ const App = (() => {
 
     function str(key) {
         return (UI_STRINGS[currentLang] || UI_STRINGS.en)[key] || UI_STRINGS.en[key] || '';
+    }
+
+    // ── DST-aware timezone offset ──
+    // Maps city IDs to IANA timezone names for DST-affected regions
+    const DST_TIMEZONES = {
+        london: 'Europe/London', paris: 'Europe/Paris', berlin: 'Europe/Berlin',
+        newyork: 'America/New_York', toronto: 'America/Toronto',
+        chicago: 'America/Chicago', losangeles: 'America/Los_Angeles',
+        sydney: 'Australia/Sydney', istanbul: 'Europe/Istanbul',
+        jerusalem: 'Asia/Jerusalem', amman: 'Asia/Amman',
+        beirut: 'Asia/Beirut', tehran: 'Asia/Tehran',
+        casablanca: 'Africa/Casablanca'
+    };
+
+    function getDSTAwareTimezone(city, date) {
+        const ianaZone = DST_TIMEZONES[city.id];
+        if (!ianaZone) return city.tz; // No DST — use hardcoded offset
+
+        try {
+            // Use Intl to get the actual UTC offset for this date & timezone
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: ianaZone,
+                timeZoneName: 'shortOffset'
+            });
+            const parts = formatter.formatToParts(date);
+            const tzPart = parts.find(p => p.type === 'timeZoneName');
+            if (tzPart) {
+                // Parse "GMT+1", "GMT-5", "GMT+5:30" etc.
+                const match = tzPart.value.match(/GMT([+-]?)(\d+)(?::(\d+))?/);
+                if (match) {
+                    const sign = match[1] === '-' ? -1 : 1;
+                    const hours = parseInt(match[2]) || 0;
+                    const minutes = parseInt(match[3]) || 0;
+                    return sign * (hours + minutes / 60);
+                }
+            }
+        } catch (e) {
+            // Intl not supported or timezone not recognized — fallback
+        }
+        return city.tz;
     }
 
     // ── DOM refs ──
@@ -171,6 +211,18 @@ const App = (() => {
             goToToday();
             initPWA();
             startPrayerCountdown();
+
+            // ── Offline indicator ──
+            const offlineBanner = $('offline-banner');
+            function updateOnlineStatus() {
+                if (offlineBanner) {
+                    offlineBanner.style.display = navigator.onLine ? 'none' : 'flex';
+                }
+            }
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            updateOnlineStatus(); // Check initial state
+
             console.log('App: Initialization complete.');
 
             // Hide Splash
@@ -733,7 +785,7 @@ const App = (() => {
     async function initQibla() {
         compassActive = true;
         isCalibrating = false;
-        calibratedBearingOffset = 0;
+        let calibratedBearingOffset = 0;
 
         const badge = $('qibla-accuracy-badge');
         $('compass-needle').style.opacity = '0';
@@ -1061,33 +1113,57 @@ const App = (() => {
             const diff = (currentHrs - prayerTime) * 60; // diff in minutes
 
             // Notify if within 1 minute of prayer time AND not already notified for this prayer today
-            if (diff >= 0 && diff < 1 && lastNotifiedPrayer !== prayer) {
-                lastNotifiedPrayer = prayer;
+            if (diff >= 0 && diff < 1 && !notifiedPrayersToday.has(prayer)) {
+                notifiedPrayersToday.add(prayer);
 
                 const names = PrayerTimes.PRAYER_NAMES[currentLang] || PrayerTimes.PRAYER_NAMES.en;
                 const prayerName = names[prayer];
 
+                // Use translated notification text
+                const notifText = (str('notifPrayerTime') || 'It is time for {prayer} prayer.').replace('{prayer}', prayerName);
+
                 new Notification('Prayer Time', {
-                    body: `It is time for ${prayerName} prayer.`,
+                    body: notifText,
                     icon: 'icons/icon-192.png'
                 });
 
-                // Play Audio
+                // Play Adhan tone
                 playAdhan();
             }
         }
 
-        // Reset lastNotifiedPrayer at midnight
+        // Reset all notified prayers at midnight
         if (currentHrs < 0.01) {
-            lastNotifiedPrayer = '';
+            notifiedPrayersToday.clear();
         }
     }
 
     function playAdhan() {
-        // Simple built-in chime if no Adhan file provided
-        // We'll use a short Bismillah audio if possible, or just a beep
-        const audio = new Audio('https://www.soundjay.com/buttons/sounds/beep-07.mp3');
-        audio.play().catch(e => console.warn('Audio playback blocked:', e));
+        // Generate a pleasant notification tone using Web Audio API (works offline)
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = ctx.currentTime;
+
+            // Play a two-note chime
+            const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
+            frequencies.forEach((freq, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.3, now + i * 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.3 + 0.8);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now + i * 0.3);
+                osc.stop(now + i * 0.3 + 0.8);
+            });
+
+            // Close context after chime finishes
+            setTimeout(() => ctx.close(), 3000);
+        } catch (e) {
+            console.warn('Audio playback not supported:', e);
+        }
     }
 
     function scrollToToday(animate = false) {
@@ -1514,7 +1590,7 @@ const App = (() => {
                 now,
                 currentCity.lat,
                 currentCity.lng,
-                currentCity.tz,
+                getDSTAwareTimezone(currentCity, now),
                 calcMethod,
                 asrSchool
             );
@@ -1776,7 +1852,8 @@ const App = (() => {
     function updateLocationBar() {
         if (!currentCity) return;
         if (currentCity.id === '__gps__') {
-            $('location-name').textContent = `📍 ${currentCity.name} (GMT${currentCity.tz >= 0 ? '+' : ''}${currentCity.tz})`;
+            const tz = getDSTAwareTimezone(currentCity, new Date());
+            $('location-name').textContent = `📍 ${currentCity.name} (GMT${tz >= 0 ? '+' : ''}${tz})`;
         } else {
             $('location-name').textContent = `${currentCity.name}, ${currentCity.country}`;
         }
@@ -1867,7 +1944,7 @@ const App = (() => {
             now,
             currentCity.lat,
             currentCity.lng,
-            currentCity.tz,
+            getDSTAwareTimezone(currentCity, now),
             calcMethod,
             asrSchool
         );
@@ -1913,9 +1990,10 @@ const App = (() => {
 
         // Convert Hijri date to Gregorian for calculation
         const greg = HijriEngine.hijriToGregorian(hYear, hMonth, hDay);
+        const gregDate = new Date(greg.year, greg.month - 1, greg.day);
         let times = PrayerTimes.calculateForDate(
             greg.year, greg.month, greg.day,
-            currentCity.lat, currentCity.lng, currentCity.tz,
+            currentCity.lat, currentCity.lng, getDSTAwareTimezone(currentCity, gregDate),
             calcMethod, asrSchool
         );
 
@@ -2012,7 +2090,7 @@ const App = (() => {
             try {
                 if (!currentCity) return;
                 const now = new Date();
-                let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
+                let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, getDSTAwareTimezone(currentCity, now), calcMethod, asrSchool);
                 // Apply time adjustment for countdown too
                 times = applyTimeAdjustment(times);
                 const currentHrs = now.getHours() + (now.getMinutes() + (now.getSeconds() + now.getMilliseconds() / 1000) / 60) / 60;
