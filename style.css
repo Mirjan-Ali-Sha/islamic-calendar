@@ -190,7 +190,7 @@ body::before {
 /* Compact Today Banner */
 .today-banner {
     box-sizing: border-box;
-    padding: 4px 16px;
+    padding: 2px 16px;
     max-width: 720px;
     margin: 0 auto;
     display: flex;
@@ -202,7 +202,7 @@ body::before {
     background: var(--surface);
     z-index: 1060;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    height: 70px; /* ENFORCED */
+    height: 54px; /* Compact */
     justify-content: center;
     overflow: hidden;
 }
@@ -333,15 +333,15 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 16px;
+    padding: 2px 12px;
     max-width: 720px;
     margin: 0 auto;
     background: var(--surface);
     position: sticky;
-    top: 152px; /* 82 + 70 */
+    top: 136px; /* 82 + 54 */
     z-index: 1040;
     border-bottom: none;
-    height: 48px; /* ENFORCED */
+    height: 38px; /* Compact */
     overflow: hidden;
 }
 
@@ -349,9 +349,9 @@ body::before {
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--text-secondary);
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -374,7 +374,7 @@ body::before {
 }
 
 .month-title-hijri {
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--accent-gold);
@@ -382,10 +382,10 @@ body::before {
 }
 
 .month-title-greg {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     display: block;
-    margin-top: 1px;
+    margin-top: 0px;
 }
 
 /* ================================================
@@ -413,10 +413,10 @@ body::before {
     margin: 0 auto;
     background: var(--surface);
     position: sticky;
-    top: 200px; /* 152 + 48 */
+    top: 174px; /* 136 + 38 */
     z-index: 1020;
     border-bottom: none;
-    height: 30px; /* ENFORCED */
+    height: 28px; /* Compact */
     align-items: center;
     overflow: hidden;
 }
@@ -426,7 +426,6 @@ body::before {
     font-size: 0.7rem;
     font-weight: 600;
     color: var(--text-secondary);
-    opacity: 0.9;
     padding: 6px 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1280,7 +1279,7 @@ body::before {
     }
 
     .month-title-hijri {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
 
     .event-dot {
@@ -3476,8 +3475,8 @@ body::before {
     --accent-primary-rgb: 52, 211, 153;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
-    --text-secondary: #dcfce7; /* Soft mint - easier on eyes */
-    --text-muted: #a7f3d0;     /* Soft sage */
+    --text-secondary: #e8f5ee; /* Bright mint-white */
+    --text-muted: #c8e6d6;     /* Visible light sage */
 }
 
 /* Royal Purple */
@@ -3494,8 +3493,8 @@ body::before {
     --accent-primary-rgb: 167, 139, 250;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
-    --text-secondary: #f3e8ff; /* Soft lavender */
-    --text-muted: #ddd6fe;     /* Deep lavender accent */
+    --text-secondary: #ede5ff; /* Bright lavender-white */
+    --text-muted: #cdc0f0;     /* Visible soft lavender */
 }
 
 /* Desert Sand */
@@ -3512,8 +3511,8 @@ body::before {
     --accent-primary-rgb: 217, 160, 90;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
-    --text-secondary: #fef3c7; /* Soft gold-sand */
-    --text-muted: #fde68a;     /* Muted sand */
+    --text-secondary: #f5edd8; /* Bright warm-white */
+    --text-muted: #dfd0b0;     /* Visible sand-cream */
 }
 
 /* Ocean */
@@ -3530,8 +3529,8 @@ body::before {
     --accent-primary-rgb: 56, 189, 248;
     --accent-gold: #fbbf24;
     --accent-gold-rgb: 251, 191, 36;
-    --text-secondary: #e0f2fe; /* Soft sky blue */
-    --text-muted: #bae6fd;     /* Muted ocean blue */
+    --text-secondary: #e4f0fa; /* Bright sky-white */
+    --text-muted: #c0ddf0;     /* Visible ocean-light */
 }
 
 /* Mobile: 99 names 2 columns */

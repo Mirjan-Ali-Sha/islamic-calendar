@@ -1531,23 +1531,27 @@ const App = (() => {
 
         // Countdown to Iftar or Suhoor
         const currentHrs = now.getHours() + (now.getMinutes() + (now.getSeconds() + now.getMilliseconds() / 1000) / 60) / 60;
-        const maghribHrs = times._raw.maghrib;
         const fajrHrs = suhoorHrs - 10 / 60;
+        // Round targets to displayed minute (matching what the user sees)
+        const roundedMaghrib = Math.round(times._raw.maghrib * 60) / 60;
+        const roundedFajr = Math.round(fajrHrs * 60) / 60;
 
-        if (currentHrs < maghribHrs && currentHrs >= fajrHrs) {
+        if (currentHrs < roundedMaghrib && currentHrs >= roundedFajr) {
             // During fasting — countdown to Iftar
-            const diff = maghribHrs - currentHrs;
-            const h = Math.floor(diff);
-            const m = Math.floor((diff - h) * 60);
-            const s = Math.ceil(((diff - h) * 60 - m) * 60);
+            const diff = roundedMaghrib - currentHrs;
+            const totalSeconds = Math.max(0, Math.ceil(diff * 3600));
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
             $('ramadan-countdown').textContent = `🍽️ Iftar in ${h}h ${m}m ${s}s`;
         } else {
             // After Iftar or before Suhoor — countdown to Suhoor
-            let diff = fajrHrs - currentHrs;
+            let diff = roundedFajr - currentHrs;
             if (diff < 0) diff += 24;
-            const h = Math.floor(diff);
-            const m = Math.floor((diff - h) * 60);
-            const s = Math.floor((diff * 3600) % 60);
+            const totalSeconds = Math.max(0, Math.ceil(diff * 3600));
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
             $('ramadan-countdown').textContent = `🌙 Suhoor ends in ${h}h ${m}m ${s}s`;
         }
 

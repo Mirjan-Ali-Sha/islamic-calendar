@@ -186,11 +186,16 @@ const PrayerTimes = (() => {
     }
 
     function formatCountdown(targetHours, currentHours) {
-        let diff = targetHours - currentHours;
+        // Round target to the nearest displayed minute so countdown
+        // matches the time shown to the user (formatTime uses Math.round on minutes)
+        const roundedTarget = Math.round(targetHours * 60) / 60;
+        let diff = roundedTarget - currentHours;
         if (diff < 0) diff += 24;
-        const h = Math.floor(diff);
-        const m = Math.floor((diff - h) * 60);
-        const s = Math.ceil(((diff - h) * 60 - m) * 60);
+        // Use integer total-seconds with ceil so "0s" only shows at the exact target
+        const totalSeconds = Math.max(0, Math.ceil(diff * 3600));
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
         return `${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
     }
 
