@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.5';
+const APP_VERSION = '1.8.7';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -263,14 +263,26 @@ const App = (() => {
                     applyOnlineState(false);
                     return;
                 }
+                if (window.location.protocol === 'file:') {
+                    applyOnlineState(true);
+                    return;
+                }
                 try {
-                    // Use HEAD request with cache busting to bypass SW and check real internet
-                    const res = await fetch(window.location.origin + window.location.pathname + '?ping=' + Date.now(), {
+                    // Fetch manifest.json to ensure a valid endpoint. 
+                    // Bypass SW using HEAD since SW only intercepts GET.
+                    const url = new URL('manifest.json', window.location.href);
+                    url.searchParams.set('ping', Date.now());
+                    
+                    await fetch(url.toString(), {
                         method: 'HEAD',
                         cache: 'no-store'
                     });
-                    applyOnlineState(res.ok || res.status === 405 || res.status === 200);
+                    
+                    // If fetch succeeds without throwing a network exception, we are online.
+                    // Even a 404 or 405 HTTP status means we reached the remote server.
+                    applyOnlineState(true);
                 } catch (e) {
+                    console.warn('Connectivity ping failed:', e);
                     applyOnlineState(false);
                 }
             }
