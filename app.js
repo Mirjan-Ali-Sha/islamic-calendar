@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.7';
+const APP_VERSION = '1.8.8';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -218,10 +218,10 @@ const App = (() => {
             const connectivityDot = $('connectivity-dot');
             let onlineToastTimer = null;
 
-            let currentIsOnline = null;
+            let currentIsOnline = navigator.onLine;
 
-            function applyOnlineState(isOnline) {
-                if (currentIsOnline === isOnline) return;
+            function applyOnlineState(isOnline, isInitial = false) {
+                if (!isInitial && currentIsOnline === isOnline) return;
                 currentIsOnline = isOnline;
 
                 // Update connectivity dot
@@ -232,17 +232,11 @@ const App = (() => {
 
                 if (offlineBanner) {
                     if (!isOnline) {
-                        // Offline: show amber banner persistently
+                        // Offline: completely hide the banner, user only wants the orange dot
                         clearTimeout(onlineToastTimer);
-                        offlineBanner.classList.remove('online-mode');
-                        offlineBanner.querySelector('.offline-icon').textContent = '📡';
-                        if (offlineText) offlineText.textContent = 'You are offline — using cached data';
-                        offlineBanner.style.display = 'flex';
-                        offlineBanner.style.animation = 'none';
-                        void offlineBanner.offsetWidth; // reflow
-                        offlineBanner.style.animation = 'slideDown 0.4s var(--ease)';
-                    } else {
-                        // Online: show green toast briefly, then hide
+                        offlineBanner.style.display = 'none';
+                    } else if (!isInitial) {
+                        // Came back online: show green toast briefly, then hide
                         offlineBanner.classList.add('online-mode');
                         offlineBanner.querySelector('.offline-icon').textContent = '✅';
                         if (offlineText) offlineText.textContent = 'Back online';
@@ -254,6 +248,9 @@ const App = (() => {
                         onlineToastTimer = setTimeout(() => {
                             offlineBanner.style.display = 'none';
                         }, 3000);
+                    } else {
+                        // Initial online state: no banner
+                        offlineBanner.style.display = 'none';
                     }
                 }
             }
@@ -294,7 +291,7 @@ const App = (() => {
             setInterval(checkRealConnectivity, 15000);
 
             // Initial check
-            applyOnlineState(navigator.onLine);
+            applyOnlineState(navigator.onLine, true);
             checkRealConnectivity();
 
             console.log('App: Initialization complete.');
