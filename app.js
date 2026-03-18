@@ -1489,7 +1489,7 @@ const App = (() => {
     }
 
     // ── Ramadan Mode ──
-    function renderRamadan() {
+    function renderRamadan(passedNow = null, passedTimes = null) {
         const today = HijriEngine.getToday();
         const banner = $('ramadan-banner');
 
@@ -1506,16 +1506,20 @@ const App = (() => {
 
         banner.classList.add('active');
 
-        const now = new Date();
-        let times = PrayerTimes.calculate(
-            now,
-            currentCity.lat,
-            currentCity.lng,
-            currentCity.tz,
-            calcMethod,
-            asrSchool
-        );
-        times = applyTimeAdjustment(times);
+        const now = passedNow || new Date();
+        let times = passedTimes;
+
+        if (!times) {
+            times = PrayerTimes.calculate(
+                now,
+                currentCity.lat,
+                currentCity.lng,
+                currentCity.tz,
+                calcMethod,
+                asrSchool
+            );
+            times = applyTimeAdjustment(times);
+        }
 
         // Suhoor ends = Fajr time (some communities subtract 10 min)
         const suhoorHrs = times._raw.fajr;
@@ -2088,7 +2092,7 @@ const App = (() => {
                 }
 
                 // ── Ramadan Banner Refresh ──
-                renderRamadan();
+                renderRamadan(now, times);
 
                 // ── Day/Night header gradient ──
                 updateHeaderGradient(times, currentHrs);
