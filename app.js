@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.8';
+const APP_VERSION = '1.8.9';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -232,9 +232,19 @@ const App = (() => {
 
                 if (offlineBanner) {
                     if (!isOnline) {
-                        // Offline: completely hide the banner, user only wants the orange dot
+                        // Offline: show amber banner briefly for 3 seconds, then hide
                         clearTimeout(onlineToastTimer);
-                        offlineBanner.style.display = 'none';
+                        offlineBanner.classList.remove('online-mode');
+                        offlineBanner.querySelector('.offline-icon').textContent = '📡';
+                        if (offlineText) offlineText.textContent = 'You are offline — using cached data';
+                        offlineBanner.style.display = 'flex';
+                        offlineBanner.style.animation = 'none';
+                        void offlineBanner.offsetWidth;
+                        offlineBanner.style.animation = 'slideDown 0.4s var(--ease)';
+                        
+                        onlineToastTimer = setTimeout(() => {
+                            offlineBanner.style.display = 'none';
+                        }, 3000);
                     } else if (!isInitial) {
                         // Came back online: show green toast briefly, then hide
                         offlineBanner.classList.add('online-mode');
