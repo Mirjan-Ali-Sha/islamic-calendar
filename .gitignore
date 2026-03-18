@@ -26,3 +26,12 @@ coverage/
 # Local Development
 .env
 .env.local
+
+# Temporary/Diagnostic Scripts
+test_content.js
+duas_list.json
+duas_list.txt
+expand_remaining.js
+inject_new_salah.js
+inject_salah.js
+clean_citations.js

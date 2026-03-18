@@ -8,707 +8,637 @@ const IslamicContent = (() => {
 
     // ── Daily Duas & Hadiths (30 items — one per day-of-month) ──
     const DAILY_CONTENT = [
-        {
-            "type": "dua",
+    {
+        "type": "dua",
+        "ar": "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ",
+        "tr": "Bismillahir Rahmanir Rahim",
+        "translations": {
+            "en": "In the name of Allah, the Most Gracious, the Most Merciful.",
+            "bn": "পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে শুরু করছি।",
+            "ur": "اللہ کے نام سے شروع جو بڑا مہربان نہایت رحم والا ہے۔",
             "ar": "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ",
-            "tr": "Bismillahir Rahmanir Rahim",
-            "translations": {
-                "en": "In the name of Allah, the Most Gracious, the Most Merciful.",
-                "bn": "পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে শুরু করছি।",
-                "ur": "اللہ کے نام سے شروع جو بڑا مہربان نہایت رحم والا ہے۔",
-                "ar": "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ",
-                "tr": "Rahman ve Rahim olan Allah'ın adıyla.",
-                "ms": "Dengan nama Allah, Yang Maha Pemurah, lagi Maha Mengasihani.",
-                "id": "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.",
-                "fr": "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.",
-                "hi": "अल्लाह के नाम से, जो बड़ा मेहरबान और निहायत रहम वाला है।",
-                "te": "అత్యంత దయగల, కరుణామయుడైన అల్లాహ్ పేరుతో.",
-                "ta": "அளவற்ற அருளாளனும் நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் பெயரால்.",
-                "ml": "പരമകാരുണികനും കരുണാനിധിയുമായ അള്ളാഹുവിന്റെ നാമത്തിൽ."
-            },
-            "ref": "Quran 1:1"
+            "tr": "Rahman ve Rahim olan Allah'ın adıyla.",
+            "ms": "Dengan nama Allah, Yang Maha Pemurah, lagi Maha Mengasihani.",
+            "id": "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.",
+            "fr": "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.",
+            "hi": "अल्लाह के नाम से, जो बड़ा मेहरबान और निहायत रहम वाला है।",
+            "te": "అత్యంత దయగల, కరుణామయుడైన అల్లాహ్ పేరుతో.",
+            "ta": "அளவற்ற அருளாளனும் நிகரற்ற அன்புடையோனுமாகிய அல்லாஹ்வின் பெயரால்.",
+            "ml": "പരമകാരുണികനും കരുണാനിധിയുമായ അള്ളാഹുവിന്റെ നാമത്തിൽ."
         },
-        {
-            "type": "hadith",
-            "ar": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
-            "tr": "Innamal a'malu bin-niyyat",
-            "translations": {
-                "en": "Actions are judged by intentions.",
-                "bn": "নিশ্চয়ই সকল কাজ নিয়তের ওপর নির্ভরশীল।",
-                "ur": "اعمال کا دارومدار نیتوں پر ہے۔",
-                "ar": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
-                "tr": "Ameller niyetlere göredir.",
-                "ms": "Sesungguhnya setiap amalan itu bergantung pada niat.",
-                "id": "Sesungguhnya amal itu tergantung pada niatnya.",
-                "fr": "Certes, les actions ne valent que par les intentions.",
-                "hi": "कार्यों का आधार नियत (इरादे) पर है।",
-                "te": "పనులు ఉద్దేశాల పైనే ఆధారపడి ఉంటాయి.",
-                "ta": "செயல்கள் அனைத்தும் எண்ணங்களைப் பொறுத்தே அமைகின்றன.",
-                "ml": "കർമ്മങ്ങൾ ഉദ്ദേശ്യങ്ങൾക്കനുസരിച്ചാണ് പരിഗണിക്കപ്പെടുന്നത്."
-            },
-            "ref": "Bukhari & Muslim"
+        "ref": "Quran 1:1"
+    },
+    {
+        "type": "hadith",
+        "ar": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
+        "tr": "Innamal a'malu bin-niyyat",
+        "translations": {
+            "en": "Actions are judged by intentions, and every person will get the reward according to what he has intended.",
+            "bn": "নিশ্চয়ই আমলসমূহ নিয়তের উপর নির্ভরশীল, এবং প্রত্যেক ব্যক্তি তাই পাবে যা সে নিয়ত করেছে।",
+            "ur": "بے شک اعمال کا دارومدار نیتوں پر ہے، اور ہر انسان کو وہی ملے گا جس کی اس نے نیت کی ہے۔",
+            "ar": "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى (صحيح البخاري ومسلم)",
+            "tr": "Ameller niyetlere göredir ve herkese niyet ettiği şeyin karşılığı vardır.",
+            "ms": "Sesungguhnya amalan itu bergantung kepada niat, dan setiap orang akan mendapat apa yang diniatkannya.",
+            "id": "Sesungguhnya amal itu tergantung niatnya, dan seseorang akan mendapatkan apa yang ia niatkan.",
+            "fr": "Les actes ne valent que par les intentions et à chacun ce qu'il a eu l'intention de faire.",
+            "hi": "कर्मों का आधार नियत पर है, और प्रत्येक व्यक्ति को वही मिलेगा जिसकी उसने नियत की है।",
+            "te": "నిజంగా పనులు ఉద్దేశాల పై ఆధారపడి ఉంటాయి, మరియు ప్రతి వ్యక్తి అతను ఉద్దేశించినదే పొందుతాడు.",
+            "ta": "நிச்சயமாக செயல்கள் எண்ணங்களைப் பொறுத்தே அமைகின்றன, ஒவ்வொருவருக்கும் அவர் எண்ணியதே கிடைக்கும்.",
+            "ml": "കർമ്മങ്ങൾ ഉദ്ദേശ്യങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്, ഓരോ വ്യക്തിക്കും അവൻ ഉദ്ദേശിച്ചതാണ് ലഭിക്കുക."
         },
-        {
-            "type": "dua",
+        "ref": "Bukhari & Muslim",
+        "arabic": "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+        "transliteration": "Innamal a'malu bin-niyyat, wa innama likulli imri'in ma nawa."
+    },
+    {
+        "type": "dua",
+        "ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        "tr": "Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan waqina 'adhaban-nar",
+        "translations": {
+            "en": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the torment of the Fire.",
+            "bn": "হে আমাদের প্রভু! আমাদের দুনিয়াতে কল্যাণ দিন এবং আখেরাতেও কল্যাণ দিন এবং আগুনের আজাব থেকে আমাদের রক্ষা করুন।",
+            "ur": "اے ہمارے رب! ہمیں دنیا میں بھی بھلائی دے اور آخرت میں بھی بھلائی دے اور ہمیں آگ کے عذاب سے بچا۔",
             "ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
-            "tr": "Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan waqina 'adhaban-nar",
-            "translations": {
-                "en": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the torment of the Fire.",
-                "bn": "হে আমাদের প্রভু! আমাদের দুনিয়াতে কল্যাণ দিন এবং আখেরাতেও কল্যাণ দিন এবং আগুনের আজাব থেকে আমাদের রক্ষা করুন।",
-                "ur": "اے ہمارے رب! ہمیں دنیا میں بھی بھلائی دے اور آخرت میں بھی بھلائی دے اور ہمیں آگ کے عذاب سے بچا۔",
-                "ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
-                "tr": "Rabbimiz! Bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.",
-                "ms": "Wahai Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab neraka.",
-                "id": "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat dan peliharalah kami dari siksa neraka.",
-                "fr": "Notre Seigneur ! Accorde-nous belle part ici-bas, et belle part aussi dans l'au-delà ; et protège-nous du châtiment du Feu !",
-                "hi": "ऐ हमारे रब, हमें दुनिया में भलाई दे और आख़िरत में भी भलाई दे, और हमें आग के अज़ाब से बचा।",
-                "te": "ఓ మా ప్రభూ! మాకు ఈ లోకంలోనూ మేలు కలిగించు, పరలోకంలోనూ మేలు కలిగించు మరియు నరకాగ్ని నుండి మమ్మల్ని రక్షించు.",
-                "ta": "எங்கள் இறைவா! எகளுக்கு இவ்வுலகிலும் நன்மையை வழங்குவாயாக! மறுமையிலும் நன்மையை வழங்குவாயாக! இன்னும் நரக நெருப்பின் தண்டனையிலிருந்து எங்களைக் காத்தருள்வாயாக!",
-                "ml": "ഞങ്ങളുടെ നാഥാ! ഞങ്ങൾക്ക് ഇഹലോകത്ത് നന്മ നൽകേണമേ, പരലോകത്തും നന്മ നൽകേണമേ, നരകശിക്ഷയിൽ നിന്ന് ഞങ്ങളെ കാക്കേണമേ."
-            },
-            "ref": "Quran 2:201"
+            "tr": "Rabbimiz! Bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.",
+            "ms": "Wahai Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab neraka.",
+            "id": "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat dan peliharalah kami dari siksa neraka.",
+            "fr": "Notre Seigneur ! Accorde-nous belle part ici-bas, et belle part aussi dans l'au-delà ; et protège-nous du châtiment du Feu !",
+            "hi": "ऐ हमारे रब, हमें दुनिया में भलाई दे और आख़िरत में भी भलाई दे, और हमें आग के अज़ाब से बचा।",
+            "te": "ఓ మా ప్రభూ! మాకు ఈ లోకంలోనూ మేలు కలిగించు, పరలోకంలోనూ మేలు కలిగించు మరియు నరకాగ్ని నుండి మమ్మల్ని రక్షించు.",
+            "ta": "எங்கள் இறைவா! எகளுக்கு இவ்வுலகிலும் நன்மையை வழங்குவாயாக! மறுமையிலும் நன்மையை வழங்குவாயாக! இன்னும் நரக நெருப்பின் தண்டனையிலிருந்து எங்களைக் காத்தருள்வாயாக!",
+            "ml": "ഞങ്ങളുടെ നാഥാ! ഞങ്ങൾക്ക് ഇഹലോകത്ത് നന്മ നൽകേണമേ, പരലോകത്തും നന്മ നൽകേണമേ, നരകശിക്ഷയിൽ നിന്ന് ഞങ്ങളെ കാക്കേണമേ."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 2:201"
+    },
+    {
+        "type": "hadith",
+        "ar": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+        "tr": "Khairukum man ta'allamal-Qur'ana wa 'allamahu",
+        "translations": {
+            "en": "The best of you are those who learn the Quran and teach it.",
+            "bn": "তোমাদের মধ্যে সেই ব্যক্তিই উত্তম যে কুরআন শিক্ষা করে এবং অন্যকে শিক্ষা দেয়।",
+            "ur": "تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔",
             "ar": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-            "tr": "Khairukum man ta'allamal-Qur'ana wa 'allamahu",
-            "translations": {
-                "en": "The best of you are those who learn the Quran and teach it.",
-                "bn": "তোমাদের মধ্যে সেই ব্যক্তিই উত্তম যে কুরআন শিক্ষা করে এবং অন্যকে শিক্ষা দেয়।",
-                "ur": "تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔",
-                "ar": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-                "tr": "Sizin en hayırlınız Kur'an'ı öğrenen ve öğreteninizdir.",
-                "ms": "Sebaik-baik kamu adalah orang yang mempelajari al-Quran dan mengajarkannya.",
-                "id": "Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya.",
-                "fr": "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne.",
-                "hi": "तुममें सबसे बेहतर वह है जो कुरआन सीखे और दूसरों को सिखाए।",
-                "te": "మీలో ఉత్తముడు ఖురాన్‌ను నేర్చుకుని ఇతరులకు నేర్పించేవాడు.",
-                "ta": "உங்களில் சிறந்தவர் குர்ஆனைக் கற்றுக்கொண்டு அதைப் பிறருக்குக் கற்பிப்பவரே ஆவார்.",
-                "ml": "നിങ്ങളിൽ ഉത്തമൻ ഖുർആൻ പഠിക്കുകയും പഠിപ്പിക്കുകയും ചെയ്യുന്നവനാണ്."
-            },
-            "ref": "Bukhari"
+            "tr": "Sizin en hayırlınız Kur'an'ı öğrenen ve öğreteninizdir.",
+            "ms": "Sebaik-baik kamu adalah orang yang mempelajari al-Quran dan mengajarkannya.",
+            "id": "Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya.",
+            "fr": "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne.",
+            "hi": "तुममें सबसे बेहतर वह है जो कुरआन सीखे और दूसरों को सिखाए।",
+            "te": "మీలో ఉత్తముడు ఖురాన్‌ను నేర్చుకుని ఇతరులకు నేర్పించేవాడు.",
+            "ta": "உங்களில் சிறந்தவர் குர்ஆனைக் கற்றுக்கொண்டு அதைப் பிறருக்குக் கற்பிப்பவரே ஆவார்.",
+            "ml": "നിങ്ങളിൽ ഉത്തമൻ ഖുർആൻ പഠിക്കുകയും പഠിപ്പിക്കുകയും ചെയ്യുന്നവനാണ്."
         },
-        {
-            "type": "dua",
-            "ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي",
-            "tr": "Rabbi-shrah li sadri wa yassir li amri",
-            "translations": {
-                "en": "My Lord, expand my chest and ease my task for me.",
-                "bn": "হে আমার পালনকর্তা! আমার বক্ষ প্রশস্ত করে দিন এবং আমার কাজ সহজ করে দিন।",
-                "ur": "اے میرے رب! میرا سینہ کھول دے اور میرا کام میرے لیے آسان کر دے۔",
-                "ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي",
-                "tr": "Rabbim! Gönlümü ferahlat, işimi kolaylaştır.",
-                "ms": "Wahai Tuhanku, lapangkanlah bagiku dadaku, dan mudahkanlah bagiku tugasku.",
-                "id": "Ya Tuhanku, lapangkanlah untukku dadaku, dan mudahkanlah untukku urusanku.",
-                "fr": "Seigneur, ouvre-moi ma poitrine, et facilite-moi ma tâche.",
-                "hi": "ऐ मेरे रब! मेरा सीना (दिल) खोल दे और मेरे काम को मेरे लिए आसान कर दे।",
-                "te": "ఓ నా ప్రభూ! నా హృదయాన్ని విశాలం చేయి మరియు నా పనిని సులభతరం చేయి.",
-                "ta": "என் இறைவா! எனக்காக என் நெஞ்சத்தை விரிவுபடுத்துவாயாக! என் காரியத்தை எனக்கு எளிதாக்குவாயாக!",
-                "ml": "എന്റെ നാഥാ! നീ എനിക്ക് എന്റെ ഹൃദയം വിശാലമാക്കിത്തരേണമേ, എന്റെ കാര്യം നീ എനിക്ക് എളുപ്പമാക്കിത്തരേണമേ."
-            },
-            "ref": "Quran 20:25-26"
+        "ref": "Bukhari"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي",
+        "tr": "Rabbi-shrah li sadri wa yassir li amri",
+        "translations": {
+            "en": "My Lord, expand for me my breast [with assurance], and ease for me my task, and untie the knot from my tongue, that they may understand my speech.",
+            "bn": "হে আমার পালনকর্তা! আমার বক্ষ প্রশস্ত করে দিন, এবং আমার কাজকে সহজ করে দিন, এবং আমার জিহ্বার জড়তা দূর করে দিন, যাতে তারা আমার কথা বুঝতে পারে।",
+            "ur": "اے میرے رب! میرے لیے میرا سینہ کھول دے، اور میرا کام میرے لیے آسان کر دے، اور میری زبان کی گرہ کھول دے، تاکہ وہ میری بات سمجھ سکیں۔",
+            "ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي (سورة طه 25-28)",
+            "tr": "Rabbim! Göğsümü genişlet, işimi kolaylaştır, dilimdeki bağı çöz ki sözümü anlasınlar.",
+            "ms": "Wahai Tuhanku, lapangkanlah bagiku dadaku, dan mudahkanlah bagiku urusanku, dan lepaskanlah simpulan dari lidahku, supaya mereka faham perkataanku.",
+            "id": "Ya Tuhanku, lapangkanlah untukku dadaku, dan mudahkanlah untukku urusanku, dan lepaskanlah kekakuan dari lidahku, supaya mereka mengerti perkataanku.",
+            "fr": "Seigneur, élargis ma poitrine, facilite ma tâche, et dénoue le nœud de ma langue, afin qu'ils comprennent mes paroles.",
+            "hi": "हे मेरे रब! मेरे लिए मेरा सीना खोल दे, और मेरे काम को आसान कर दे, और मेरी जुबान की गिरह खोल दे, ताकि वे मेरी बात समझ सकें।",
+            "te": "ఓ నా ప్రభూ! నా కోసం నా హృదయాన్ని విశాలం చేయి, నా పనిని సులభతరం చేయి, మరియు నా నాలుక ముడిని విప్పు, తద్వారా వారు నా మాటను అర్థం చేసుకుంటారు.",
+            "ta": "என் இறைவா! எனக்காக என் நெஞ்சை விரிவாக்குவாயாக, என் காரியத்தை எனக்கு எளிதாக்குவாயாக, என் நாவின் முடிச்சை அவிழ்த்து விடுவாயாக, அவர்கள் என் பேச்சைப் புரிந்து கொள்வதற்காக.",
+            "ml": "എൻ്റെ രക്ഷിതാവേ! എനിക്കായി എൻ്റെ ഹൃദയം വിശാലമാക്കേണമേ, എൻ്റെ കാര്യം എനിക്കു എളുപ്പമാക്കേണമേ, എൻ്റെ നാവിലെ കെട്ട് അഴിച്ചുതരേണമേ, അവർ എൻ്റെ വാക്ക് മനസ്സിലാക്കുവാൻ."
         },
-        {
-            "type": "hadith",
-            "ar": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
-            "tr": "Al-Muslimu man salimal-Muslimuna min lisanihi wa yadihi",
-            "translations": {
-                "en": "A Muslim is one from whose tongue and hand other Muslims are safe.",
-                "bn": "প্রকৃত মুসলিম সে-ই, যার জিহ্বা ও হাত থেকে অন্য মুসলিমরা নিরাপদ থাকে।",
-                "ur": "مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔",
-                "ar": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
-                "tr": "Müslüman, dilinden ve elinden Müslümanların emin olduğu kimsedir.",
-                "ms": "Seorang Muslim itu adalah orang yang mana orang-orang Muslim yang lain selamat daripada lidahnya dan tangannya.",
-                "id": "Muslim adalah seseorang yang orang-orang Muslim lainnya selamat dari lisan dan tangannya.",
-                "fr": "Le musulman est celui dont les musulmans sont à l'abri de sa langue et de sa main.",
-                "hi": "मुसलमान वह है जिसके हाथ और ज़बान (बोल) से दूसरे मुसलमान महफूज़ रहें।",
-                "te": "నిజమైన ముస్లిం ఎవరు అంటే అతని నాలుక మరియు చేతి నుండి ఇతర ముస్లింలు సురక్షితంగా ఉన్నవాడు.",
-                "ta": "முஸ்லிம் என்பவர் எவருடைய நாவு மற்றும் கையின் தீங்குகளிலிருந்து மற்ற முஸ்லிம்கள் பாதுகாப்புப் பெறுகிறார்களோ அவரே ஆவார்.",
-                "ml": "ഏതൊരാളുടെ നാവിൽ നിന്നും കയ്യിൽ നിന്നും മറ്റുള്ളവർ സുരക്ഷിതരാണോ അയാളാണ് യഥാർത്ഥ മുസ്ലിം."
-            },
-            "ref": "Bukhari & Muslim"
+        "ref": "Quran 20:25-26",
+        "arabic": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي",
+        "transliteration": "Rabbi ishrah lee sadree, wayassir lee amree, wahlul uqdatan min lisanee, yafqahoo qawlee."
+    },
+    {
+        "type": "hadith",
+        "ar": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+        "tr": "Al-Muslimu man salimal-Muslimuna min lisanihi wa yadihi",
+        "translations": {
+            "en": "A true Muslim is the one from whose tongue and hands the Muslims are safe, and a true emigrant (Muhajir) is the one who abandons what Allah has forbidden.",
+            "bn": "প্রকৃত মুসলিম সেই ব্যক্তি, যার মুখ ও হাত থেকে অন্য মুসলিমরা নিরাপদ থাকে, এবং প্রকৃত মুহাজির সেই ব্যক্তি, যে আল্লাহ যা নিষেধ করেছেন তা ত্যাগ করে।",
+            "ur": "سچا مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں، اور سچا مہاجر وہ ہے جو ان کاموں کو چھوڑ دے جن سے اللہ نے منع فرمایا ہے۔",
+            "ar": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ (صحيح البخاري)",
+            "tr": "Gerçek Müslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir. Gerçek muhacir ise, Allah'ın yasakladığı şeyleri terk eden kimsedir.",
+            "ms": "Seorang Islam yang sebenar ialah orang yang mana umat Islam yang lain selamat dari lidah dan tangannya, dan seorang muhajir (orang yang berhijrah) ialah orang yang meninggalkan apa yang dilarang oleh Allah.",
+            "id": "Seorang muslim yang sejati adalah orang yang mana muslim lainnya selamat dari lisan dan tangannya, dan seorang muhajir (orang yang hijrah) adalah orang yang meninggalkan apa yang dilarang oleh Allah.",
+            "fr": "Le vrai musulman est celui dont la langue et les mains ne nuisent pas aux autres musulmans, et le vrai émigrant (Muhajir) est celui qui abandonne ce qu'Allah a interdit.",
+            "hi": "सच्चा मुसलमान वह है जिसकी जुबान और हाथ से दूसरे मुसलमान सुरक्षित रहें, और सच्चा मुहाजिर वह है जो उन चीजों को छोड़ दे जिनसे अल्लाह ने मना किया है।",
+            "te": "నిజమైన ముస్లిం అంటే అతని నాలుక మరియు చేతుల నుండి ఇతర ముస్లింలు సురక్షితంగా ఉన్న వ్యక్తి, మరియు నిజమైన ముహాజిర్ అంటే అల్లాహ్ నిషేధించిన దానిని వదిలివేసే వ్యక్తి.",
+            "ta": "உண்மையான முஸ்லிம் என்பவன் எவனுடைய நாவு மற்றும் கைகளில் இருந்து மற்ற முஸ்லிம்கள் பாதுகாப்பாக இருக்கிறார்களோ அவன் தான், மேலும் உண்மையான முஹாஜிர் என்பவன் அல்லாஹ் தடுத்ததை விட்டுவிட்டவன்.",
+            "ml": "യഥാർത്ഥ മുസ്ലിം അവൻ്റെ നാവിലും കൈകളിലും നിന്ന് മറ്റ് മുസ്ലീങ്ങൾ സുരക്ഷിതരായിരിക്കുന്ന വ്യക്തിയാണ്, യഥാർത്ഥ മുഹാജിർ അല്ലാഹു വിലക്കിയ കാര്യങ്ങൾ ഉപേക്ഷിക്കുന്നവനാണ്."
         },
-        {
-            "type": "dua",
+        "ref": "Bukhari & Muslim",
+        "arabic": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ",
+        "transliteration": "Al-muslimu man salimal-muslimuna min lisanihi wa yadihi, wal-muhajiru man hajara ma nahallahu anhu."
+    },
+    {
+        "type": "dua",
+        "ar": "لَا إِلٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+        "tr": "La ilaha illa Anta subhanaka inni kuntu minadh-dhalimin",
+        "translations": {
+            "en": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
+            "bn": "আপনি ছাড়া কোনো উপাস্য নেই, আপনি পবিত্র। নিশ্চয়ই আমি পাপিষ্ঠদের অন্তর্ভুক্ত হয়ে গেছি।",
+            "ur": "تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی ظالموں میں سے تھا۔",
             "ar": "لَا إِلٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
-            "tr": "La ilaha illa Anta subhanaka inni kuntu minadh-dhalimin",
-            "translations": {
-                "en": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
-                "bn": "আপনি ছাড়া কোনো উপাস্য নেই, আপনি পবিত্র। নিশ্চয়ই আমি পাপিষ্ঠদের অন্তর্ভুক্ত হয়ে গেছি।",
-                "ur": "تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی ظالموں میں سے تھا۔",
-                "ar": "لَا إِلٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
-                "tr": "Senden başka ilah yoktur, Seni tenzih ederim. Şüphesiz ben zalimlerden oldum.",
-                "ms": "Tiada Tuhan melainkan Engkau, Maha Suci Engkau, sesungguhnya aku adalah dari orang-orang yang zalim.",
-                "id": "Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku adalah termasuk orang-orang yang zalim.",
-                "fr": "Point de divinité à part Toi ! Pureté à Toi ! J'ai été vraiment du nombre des injustes.",
-                "hi": "तेरे सिवा कोई माबूद (ईश्वर) नहीं, तू पाक है, बेशक मैं ही ज़ालिमों में से था।",
-                "te": "నీవు తప్ప మరొక ఆరాధ్యుడు లేడు, నీవు మహా పవిత్రుడివి, నిశ్చయంగా నేను అపరాధినైపోయాను.",
-                "ta": "உன்னைத் தவிர வணக்கத்திற்குரியவன் வேறு யாருமில்லை; நீ மிகத் தூய்மையானவன்; நிச்சயமாக நான் அநியாயம் செய்பவர்களில் ஒருவனாகிவிட்டேன்.",
-                "ml": "നീയല്ലാതെ യാതൊരു ദൈവവുമില്ല, നീ എത്ര പരിശുദ്ധൻ! തീർച്ചയായും ഞാൻ അക്രമികളുടെ കൂട്ടത്തിൽ പെട്ടുപോയിരിക്കുന്നു."
-            },
-            "ref": "Quran 21:87"
+            "tr": "Senden başka ilah yoktur, Seni tenzih ederim. Şüphesiz ben zalimlerden oldum.",
+            "ms": "Tiada Tuhan melainkan Engkau, Maha Suci Engkau, sesungguhnya aku adalah dari orang-orang yang zalim.",
+            "id": "Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku adalah termasuk orang-orang yang zalim.",
+            "fr": "Point de divinité à part Toi ! Pureté à Toi ! J'ai été vraiment du nombre des injustes.",
+            "hi": "तेरे सिवा कोई माबूद (ईश्वर) नहीं, तू पाक है, बेशक मैं ही ज़ालिमों में से था।",
+            "te": "నీవు తప్ప మరొక ఆరాధ్యుడు లేడు, నీవు మహా పవిత్రుడివి, నిశ్చయంగా నేను అపరాధినైపోయాను.",
+            "ta": "உன்னைத் தவிர வணக்கத்திற்குரியவன் வேறு யாருமில்லை; நீ மிகத் தூய்மையானவன்; நிச்சயமாக நான் அநியாயம் செய்பவர்களில் ஒருவனாகிவிட்டேன்.",
+            "ml": "നീയല്ലാതെ യാതൊരു ദൈവവുമില്ല, നീ എത്ര പരിശുദ്ധൻ! തീർച്ചയായും ഞാൻ അക്രമികളുടെ കൂട്ടത്തിൽ പെട്ടുപോയിരിക്കുന്നു."
         },
-        {
-            "type": "hadith",
-            "ar": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
-            "tr": "Man kana yu'minu billahi wal-yawmil-akhiri falyaqul khairan aw liyasmut",
-            "translations": {
-                "en": "Whoever believes in Allah and the Last Day, let him speak good or remain silent.",
-                "bn": "যে ব্যক্তি আল্লাহ ও পরকালের ওপর বিশ্বাস রাখে, সে যেন ভালো কথা বলে অথবা চুপ থাকে।",
-                "ur": "جو اللہ اور قیامت کے دن پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔",
-                "ar": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
-                "tr": "Allah'a ve ahiret gününe iman eden ya hayır söylesin ya da sussun.",
-                "ms": "Sesiapa yang beriman dengan Allah dan Hari Akhirat, maka hendaklah dia berkata yang baik atau diam.",
-                "id": "Barangsiapa yang beriman kepada Allah dan hari akhir, hendaklah dia berkata yang baik atau diam.",
-                "fr": "Que celui qui croit en Allah et au Jour dernier dise du bien ou qu'il se taise.",
-                "hi": "जो व्यक्ति अल्लाह और परलोक के दिन पर ईमान रखता है, उसे चाहिए कि वह अच्छी बात कहे या चुप रहे।",
-                "te": "అల్లాహ్‌ను మరియు ప్రళయ దినాన్ని నమ్మే వ్యక్తి మంచి మాట పలకాలి లేదా మౌనంగా ఉండాలి.",
-                "ta": "அல்லாஹ்வையும் இறுதி நாளையும் நம்புபவர் நல்லதைப் பேசட்டும்; அல்லது வாய்மூடி மௌனமாக இருக்கட்டும்.",
-                "ml": "അല്ലാഹുവിലും അന്ത്യദിനത്തിലും വിശ്വസിക്കുന്നവൻ നല്ലത് സംസാരിക്കട്ടെ, അല്ലെങ്കിൽ മിണ്ടാതിരിക്കട്ടെ."
-            },
-            "ref": "Bukhari & Muslim"
+        "ref": "Quran 21:87"
+    },
+    {
+        "type": "hadith",
+        "ar": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+        "tr": "Man kana yu'minu billahi wal-yawmil-akhiri falyaqul khairan aw liyasmut",
+        "translations": {
+            "en": "Let whoever believes in Allah and the Last Day speak good or remain silent. Let whoever believes in Allah and the Last Day honor his neighbor. Let whoever believes in Allah and the Last Day honor his guest.",
+            "bn": "যে ব্যক্তি আল্লাহ ও শেষ দিবসে বিশ্বাস করে, সে যেন ভালো কথা বলে অথবা চুপ থাকে। যে ব্যক্তি আল্লাহ ও শেষ দিবসে বিশ্বাস করে, সে যেন তার প্রতিবেশীকে সম্মান করে। যে ব্যক্তি আল্লাহ ও শেষ দিবসে বিশ্বাস করে, সে যেন তার মেহমানকে সম্মান করে।",
+            "ur": "جو اللہ اور یوم آخرت پر ایمان رکھتا ہے، اسے چاہیے کہ اچھی بات کہے یا چپ رہے۔ اور جو اللہ اور یوم آخرت پر ایمان رکھتا ہے، وہ اپنے پڑوسی کی عزت کرے۔ اور جو اللہ اور یوم آخرت پر ایمان رکھتا ہے، وہ اپنے مہمان کی عزت کرے۔",
+            "ar": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ (صحيح البخاري ومسلم)",
+            "tr": "Allah'a ve ahiret gününe iman eden kimse, ya hayır söylesin ya da sussun. Allah'a ve ahiret gününe iman eden kimse, komşusuna ikram etsin. Allah'a ve ahiret gününe iman eden kimse, misafirine ikram etsin.",
+            "ms": "Barangsiapa beriman kepada Allah dan hari akhirat, hendaklah ia berkata baik atau diam. Barangsiapa beriman kepada Allah dan hari akhirat, hendaklah ia memuliakan jirannya. Barangsiapa beriman kepada Allah dan hari akhirat, hendaklah ia memuliakan tetamunya.",
+            "id": "Barangsiapa beriman kepada Allah dan hari akhir, hendaklah ia berkata baik atau diam. Barangsiapa beriman kepada Allah dan hari akhir, hendaklah ia memuliakan tetangganya. Barangsiapa beriman kepada Allah dan hari akhir, hendaklah ia memuliakan tamunya.",
+            "fr": "Que celui qui croit en Allah et au Jour Dernier dise du bien ou garde le silence. Que celui qui croit en Allah et au Jour Dernier honore son voisin. Que celui qui croit en Allah et au Jour Dernier honore son invité.",
+            "hi": "जो अल्लाह और अंतिम दिन पर विश्वास करता है, उसे भला बोलना चाहिए या चुप रहना चाहिए। जो अल्लाह और अंतिम दिन पर विश्वास करता है, उसे अपने पड़ोसी का सम्मान करना चाहिए। जो अल्लाह और अंतिम दिन पर विश्वास करता है, उसे अपने अतिथि का सम्मान करना चाहिए।",
+            "te": "అల్లాహ్ మరియు అంతిమ దినంపై విశ్వాసం ఉన్న ఎవరైనా మంచి మాట్లాడనివ్వండి లేదా మౌనంగా ఉండనివ్వండి. అల్లాహ్ మరియు అంతిమ దినంపై విశ్వాసం ఉన్న ఎవరైనా తన పొరుగువారిని గౌరవించనివ్వండి. అల్లాహ్ మరియు అంతిమ దినంపై విశ్వాసం ఉన్న ఎవరైనా తన అథితిని గౌరవించనివ్వండి.",
+            "ta": "அல்லாஹ்வின் மீதும் இறுதி நாளின் மீதும் நம்பிக்கை கொண்டவர் நல்லதை பேசட்டும் அல்லது மௌனமாக இருக்கட்டும். அல்லாஹ்வின் மீதும் இறுதி நாளின் மீதும் நம்பிக்கை கொண்டவர் அண்டை வீட்டாரை மதிக்கட்டும். அல்லாஹ்வின் மீதும் இறுதி நாளின் மீதும் நம்பிக்கை கொண்டவர் தனது விருந்தினரை மதிக்கட்டும்.",
+            "ml": "അല്ലാഹുവിലും അന്ത്യദിനത്തിലും വിശ്വസിക്കുന്നവൻ നല്ലത് പറയട്ടെ അല്ലെങ്കിൽ നിശബ്ദനായിരിക്കട്ടെ. അല്ലാഹുവിലും അന്ത്യദിനത്തിലും വിശ്വസിക്കുന്നവൻ തൻ്റെ അയൽക്കാരനെ ബഹുമാനിക്കട്ടെ. അല്ലാഹുവിലും അന്ത്യദിനത്തിലും വിശ്വസിക്കുന്നവൻ തൻ്റെ അതിഥിയെ ബഹുമാനിക്കട്ടെ."
         },
-        {
-            "type": "dua",
+        "ref": "Bukhari & Muslim",
+        "arabic": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ",
+        "transliteration": "Man kana yu’minu billahi wal-yawmil-akhiri falyakul khayran aw liyasmut, wa man kana yu’minu billahi wal-yawmil-akhiri falyukrim jarahu, wa man kana yu’minu billahi wal-yawmil-akhiri falyukrim dayfahu."
+    },
+    {
+        "type": "dua",
+        "ar": "حَسْبُنَا اللّٰهُ وَنِعْمَ الْوَكِيلُ",
+        "tr": "Hasbunallahu wa ni'mal-wakil",
+        "translations": {
+            "en": "Sufficient for us is Allah, and He is the best Disposer of affairs.",
+            "bn": "আমাদের জন্য আল্লাহই যথেষ্ট এবং তিনি কতই না চমৎকার কর্মবিধায়ক।",
+            "ur": "ہمیں اللہ ہی کافی ہے اور وہ بہترین کارساز ہے۔",
             "ar": "حَسْبُنَا اللّٰهُ وَنِعْمَ الْوَكِيلُ",
-            "tr": "Hasbunallahu wa ni'mal-wakil",
-            "translations": {
-                "en": "Sufficient for us is Allah, and He is the best Disposer of affairs.",
-                "bn": "আমাদের জন্য আল্লাহই যথেষ্ট এবং তিনি কতই না চমৎকার কর্মবিধায়ক।",
-                "ur": "ہمیں اللہ ہی کافی ہے اور وہ بہترین کارساز ہے۔",
-                "ar": "حَسْبُنَا اللّٰهُ وَنِعْمَ الْوَكِيلُ",
-                "tr": "Allah bize yeter, O ne güzel vekildir.",
-                "ms": "Cukuplah Allah bagi kami dan Dialah sebaik-baik Pelindung.",
-                "id": "Cukuplah Allah menjadi Penolong kami dan Allah adalah sebaik-baik Pelindung.",
-                "fr": "Allah nous suffit; Il est notre meilleur garant.",
-                "hi": "हमारे लिए अल्लाह ही काफी है और वह बेहतरीन कार्यसाधक है।",
-                "te": "మాకు అల్లాహ్ చాలు, మరియు ఆయన ఉత్తమ కార్యసాధకుడు.",
-                "ta": "அல்லாஹ்வே நமக்கு போதுமானவன்; இன்னும் அவன் மிகச் சிறந்த பாதுகாவலன்.",
-                "ml": "ഞങ്ങൾക്ക് അല്ലാഹു മതി; അവൻ എത്ര നല്ല ഭാരമേൽപ്പിക്കപ്പെടുന്നവനാണ്."
-            },
-            "ref": "Quran 3:173"
+            "tr": "Allah bize yeter, O ne güzel vekildir.",
+            "ms": "Cukuplah Allah bagi kami dan Dialah sebaik-baik Pelindung.",
+            "id": "Cukuplah Allah menjadi Penolong kami dan Allah adalah sebaik-baik Pelindung.",
+            "fr": "Allah nous suffit; Il est notre meilleur garant.",
+            "hi": "हमारे लिए अल्लाह ही काफी है और वह बेहतरीन कार्यसाधक है।",
+            "te": "మాకు అల్లాహ్ చాలు, మరియు ఆయన ఉత్తమ కార్యసాధకుడు.",
+            "ta": "அல்லாஹ்வே நமக்கு போதுமானவன்; இன்னும் அவன் மிகச் சிறந்த பாதுகாவலன்.",
+            "ml": "ഞങ്ങൾക്ക് അല്ലാഹു മതി; അവൻ എത്ര നല്ല ഭാരമേൽപ്പിക്കപ്പെടുന്നവനാണ്."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 3:173"
+    },
+    {
+        "type": "hadith",
+        "ar": "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+        "tr": "La yu'minu ahadukum hatta yuhibba li-akhihi ma yuhibbu linafsihi",
+        "translations": {
+            "en": "None of you truly believes until he loves for his brother what he loves for himself.",
+            "bn": "তোমাদের কেউ ততক্ষণ পর্যন্ত পূর্ণ মুমিন হতে পারবে না, যতক্ষণ না সে তার ভাইয়ের জন্য তা-ই পছন্দ করে যা সে নিজের জন্য পছন্দ করে।",
+            "ur": "تم میں سے کوئی اس وقت تک مومن نہیں ہو سکتا جب تک وہ اپنے بھائی کے لیے وہی پسند نہ کرے جو اپنے لیے کرتا ہے۔",
             "ar": "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
-            "tr": "La yu'minu ahadukum hatta yuhibba li-akhihi ma yuhibbu linafsihi",
-            "translations": {
-                "en": "None of you truly believes until he loves for his brother what he loves for himself.",
-                "bn": "তোমাদের কেউ ততক্ষণ পর্যন্ত পূর্ণ মুমিন হতে পারবে না, যতক্ষণ না সে তার ভাইয়ের জন্য তা-ই পছন্দ করে যা সে নিজের জন্য পছন্দ করে।",
-                "ur": "تم میں سے کوئی اس وقت تک مومن نہیں ہو سکتا جب تک وہ اپنے بھائی کے لیے وہی پسند نہ کرے جو اپنے لیے کرتا ہے۔",
-                "ar": "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
-                "tr": "Sizden biriniz kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.",
-                "ms": "Tidak beriman seseorang di antara kamu sehinggalah dia menyayangi untuk saudaranya apa yang dia sayangi untuk dirinya sendiri.",
-                "id": "Tidak beriman salah seorang di antara kalian sampai dia mencintai saudaranya seperti dia mencintai dirinya sendiri.",
-                "fr": "Aucun de vous ne sera un vrai croyant tant qu'il n'aimera pas pour son frère ce qu'il aime pour lui-même.",
-                "hi": "तुममें से कोई तब तक मोमिन (ईमान वाला) नहीं हो सकता जब तक वह अपने भाई के लिए भी वही पसंद न करे जो वह अपने लिए पसंद करता है।",
-                "te": "మీలో ఎవరూ తన సోదరుడి కోసం తాను ఇష్టపడేదానిని ఇష్టపడే వరకు విశ్వాసి కాలేడు.",
-                "ta": "தனக்கு விரும்புவதையே தன் சகோதரனுக்கும் விரும்பும் வரை உங்களில் எவரும் முழுமையான முஃமின் (இறையச்சமுடையவர்) ஆக முடியாது.",
-                "ml": "നിങ്ങളിൽ ഒരാൾ തനിക്ക് ഇഷ്ടപ്പെടുന്നത് തന്റെ സഹോദരനും ഇഷ്ടപ്പെടുന്നത് വരെ വിശ്വാസിയാവുകയില്ല."
-            },
-            "ref": "Bukhari & Muslim"
+            "tr": "Sizden biriniz kendisi için istediğini kardeşi için de istemedikçe iman etmiş olmaz.",
+            "ms": "Tidak beriman seseorang di antara kamu sehinggalah dia menyayangi untuk saudaranya apa yang dia sayangi untuk dirinya sendiri.",
+            "id": "Tidak beriman salah seorang di antara kalian sampai dia mencintai saudaranya seperti dia mencintai dirinya sendiri.",
+            "fr": "Aucun de vous ne sera un vrai croyant tant qu'il n'aimera pas pour son frère ce qu'il aime pour lui-même.",
+            "hi": "तुममें से कोई तब तक मोमिन (ईमान वाला) नहीं हो सकता जब तक वह अपने भाई के लिए भी वही पसंद न करे जो वह अपने लिए पसंद करता है।",
+            "te": "మీలో ఎవరూ తన సోదరుడి కోసం తాను ఇష్టపడేదానిని ఇష్టపడే వరకు విశ్వాసి కాలేడు.",
+            "ta": "தனக்கு விரும்புவதையே தன் சகோதரனுக்கும் விரும்பும் வரை உங்களில் எவரும் முழுமையான முஃமின் (இறையச்சமுடையவர்) ஆக முடியாது.",
+            "ml": "നിങ്ങളിൽ ഒരാൾ തനിക്ക് ഇഷ്ടപ്പെടുന്നത് തന്റെ സഹോദരനും ഇഷ്ടപ്പെടുന്നത് വരെ വിശ്വാസിയാവുകയില്ല."
         },
-        {
-            "type": "dua",
+        "ref": "Bukhari & Muslim"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبِّ زِدْنِي عِلْمًا",
+        "tr": "Rabbi zidni 'ilma",
+        "translations": {
+            "en": "My Lord, increase me in knowledge.",
+            "bn": "হে আমার পালনকর্তা! আমার জ্ঞান বৃদ্ধি করে দিন।",
+            "ur": "اے میرے رب! میرے علم میں اضافہ فرما۔",
             "ar": "رَبِّ زِدْنِي عِلْمًا",
-            "tr": "Rabbi zidni 'ilma",
-            "translations": {
-                "en": "My Lord, increase me in knowledge.",
-                "bn": "হে আমার পালনকর্তা! আমার জ্ঞান বৃদ্ধি করে দিন।",
-                "ur": "اے میرے رب! میرے علم میں اضافہ فرما۔",
-                "ar": "رَبِّ زِدْنِي عِلْمًا",
-                "tr": "Rabbim, ilmimi arttır.",
-                "ms": "Wahai Tuhanku, tambahilah ilmuku.",
-                "id": "Ya Tuhanku, tambahkanlah kepadaku ilmu.",
-                "fr": "Seigneur, augmente ma science.",
-                "hi": "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर।",
-                "te": "ఓ నా ప్రభూ! నా జ్ఞానాన్ని పెంచు.",
-                "ta": "என் இறைவா! எனக்குக் கல்வியை அதிகப்படுத்துவாயாக!",
-                "ml": "എന്റെ നാഥാ! നീ എനിക്ക് അറിവ് വർദ്ധിപ്പിച്ചു തരേണമേ."
-            },
-            "ref": "Quran 20:114"
+            "tr": "Rabbim, ilmimi arttır.",
+            "ms": "Wahai Tuhanku, tambahilah ilmuku.",
+            "id": "Ya Tuhanku, tambahkanlah kepadaku ilmu.",
+            "fr": "Seigneur, augmente ma science.",
+            "hi": "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर।",
+            "te": "ఓ నా ప్రభూ! నా జ్ఞానాన్ని పెంచు.",
+            "ta": "என் இறைவா! எனக்குக் கல்வியை அதிகப்படுத்துவாயாக!",
+            "ml": "എന്റെ നാഥാ! നീ എനിക്ക് അറിവ് വർദ്ധിപ്പിച്ചു തരേണമേ."
         },
-        {
-            "type": "hadith",
-            "ar": "الطُّهُورُ شَطْرُ الْإِيمَانِ",
-            "tr": "At-tuhuru shatrul-iman",
-            "translations": {
-                "en": "Cleanliness is half of faith.",
-                "bn": "পবিত্রতা ঈমানের অর্ধেক।",
-                "ur": "پاکیزگی ایمان کا حصہ ہے۔",
-                "ar": "الطُّهُورُ شَطْرُ الْإِيمَانِ",
-                "tr": "Temizlik imanın yarısıdır.",
-                "ms": "Bersuci itu adalah sebahagian daripada iman.",
-                "id": "Bersuci (thaharah) itu setengah daripada iman.",
-                "fr": "La pureté est la moitié de la foi.",
-                "hi": "पाक-पवित्रता ईमान का आधा हिस्सा है।",
-                "te": "శుభ్రత విశ్వాసంలో సగం.",
-                "ta": "சுத்தம் ஈமானில் (விசுவாசத்தில்) பாதி ஆகும்.",
-                "ml": "ശുദ്ധി വിശ്വാസത്തിന്റെ പകുതിയാകുന്നു."
-            },
-            "ref": "Muslim"
+        "ref": "Quran 20:114"
+    },
+    {
+        "type": "hadith",
+        "ar": "الطُّهُورُ شَطْرُ الْإِيمَانِ",
+        "tr": "At-tuhuru shatrul-iman",
+        "translations": {
+            "en": "Cleanliness is half of faith, and (saying) Al-Hamdu Lillah (Praise be to Allah) fills the scale.",
+            "bn": "পরিষ্কার-পরিচ্ছন্নতা ঈমানের অঙ্গ, এবং 'আলহামদুলিল্লাহ' বলা ওজনের পাল্লাকে পূর্ণ করে দেয়।",
+            "ur": "پاکی آدھا ایمان ہے، اور الحمد للہ کہنا ترازو کو بھر دیتا ہے۔",
+            "ar": "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ (صحيح مسلم)",
+            "tr": "Temizlik imanın yarısıdır ve Elhamdülillah (Allah'a hamd olsun) mizanı doldurur.",
+            "ms": "Kebersihan separuh dari iman, dan (ucapan) Alhamdulillah memenuhi timbangan.",
+            "id": "Kebersihan sebagian dari iman, dan (ucapan) Alhamdulillah memenuhi timbangan.",
+            "fr": "La propreté est la moitié de la foi et (dire) Al-Hamdu Lillah (Louange à Allah) emplit la balance.",
+            "hi": "स्वच्छता आधा ईमान है, और 'अल्हमदुलिल्लाह' कहना तराज़ू को भर देता है।",
+            "te": "పరిశుభ్రత విశ్వాసంలో సగం, మరియు (చెప్పడం) అల్హమ్దులిల్లాహ్ (అల్లాహ్ కు స్తోత్రములు) త్రాసును నింపుతుంది.",
+            "ta": "தூய்மை ஈமானில் பாதியாகும், மேலும் அல்ஹம்துலில்லாஹ் (அல்லாஹ்வுக்கே புகழனைத்தும்) கூறுவது தராசை நிரப்புகிறது.",
+            "ml": "ശുചിത്വം വിശ്വാസത്തിൻ്റെ പകുതിയാണ്, അൽഹംദുലില്ലാഹ് (അല്ലാഹുവിന് സ്തുതി) എന്ന് പറയുന്നത് തുലാസ് നിറയ്ക്കുന്നു."
         },
-        {
-            "type": "dua",
-            "ar": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً",
-            "tr": "Rabbana la tuzigh qulubana ba'da idh hadaitana wa hab lana min ladunka rahmah",
-            "translations": {
-                "en": "Our Lord, let not our hearts deviate after You have guided us and grant us mercy from Yourself.",
-                "bn": "হে আমাদের প্রভু! সরল পথ প্রদর্শনের পর আমাদের অন্তরকে সত্যলুঙ্খিত করবেন না এবং আপনার পক্ষ থেকে আমাদের রহমত দান করুন।",
-                "ur": "اے ہمارے رب! ہمارے دلوں کو ٹیڑھا نہ ہونے دے اس کے بعد کہ تو نے ہمیں ہدایت دی اور ہمیں اپنی طرف سے رحمت عطا فرما۔",
-                "ar": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً",
-                "tr": "Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi saptırma ve bize katından bir rahmet bağışla.",
-                "ms": "Wahai Tuhan kami, janganlah Engkau pesongkan hati kami sesudah Engkau memberi petunjuk kepada kami, dan kurniakanlah kepada kami rahmat dari sisi-Mu.",
-                "id": "Ya Tuhan kami, janganlah Engkau jadikan hati kami condong kepada kesesatan sesudah Engkau beri petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi-Mu.",
-                "fr": "Seigneur ! Ne laisse pas dévier nos cœurs après que Tu nous as guidés; et accorde-nous Ta miséricorde.",
-                "hi": "ऐ हमारे रब! हमें सीधा रास्ता दिखाने के बाद हमारे दिलों को भटकने न दे, और अपनी तरफ से हमें रहमत (दया) अता कर।",
-                "te": "ఓ మా ప్రభూ! నీవు మాకు మార్గదర్శకత్వం చేసిన తర్వాత మా హృదయాలను పక్కదారి పట్టనివ్వకు మరియు నీ తరపు నుండి మాకు కరుణను ప్రసాదించు.",
-                "ta": "எங்கள் இறைவா! நீ எங்களுக்கு நேர்வழி காட்டிய பிறகு எங்கள் இதயங்களைத் தடம் புரளச் செய்யாதே! இன்னும் உன் புறத்திலிருந்து எங்களுக்கு அருளை வழங்குவாயாக!",
-                "ml": "ഞങ്ങളുടെ നാഥാ! നീ ഞങ്ങളെ നേർവഴിയിലാക്കിയ ശേഷം ഞങ്ങളുടെ ഹൃദയങ്ങളെ നീ തെറ്റിക്കരുതേ, നിന്റെ അടുക്കൽ നിന്നുള്ള കാരുണ്യം നീ ഞങ്ങൾക്ക് നൽകേണമേ."
-            },
-            "ref": "Quran 3:8"
+        "ref": "Muslim",
+        "arabic": "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ",
+        "transliteration": "At-tuhuru shatrul eeman, wal-hamdu lillahi tamla'ul meezan."
+    },
+    {
+        "type": "dua",
+        "ar": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً",
+        "tr": "Rabbana la tuzigh qulubana ba'da idh hadaitana wa hab lana min ladunka rahmah",
+        "translations": {
+            "en": "Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.",
+            "bn": "হে আমাদের পালনকর্তা! আপনি আমাদেরকে সুপথ প্রদর্শনের পর আমাদের অন্তরসমূহকে সত্য লঙ্ঘনপ্রবণ করবেন না এবং আপনার নিকট থেকে আমাদেরকে রহমত দান করুন। নিশ্চয় আপনিই মহা দাতা।",
+            "ur": "اے ہمارے رب! ہمیں ہدایت دینے کے بعد ہمارے دلوں کو ٹیڑھا نہ ہونے دے اور ہمیں اپنے پاس سے رحمت عطا فرما۔ یقیناً تو ہی سب سے بڑا عطا کرنے والا ہے۔",
+            "ar": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ (سورة آل عمران 8)",
+            "tr": "Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi saptırma. Bize kendi katından bir rahmet bağışla. Şüphesiz sen, Vehhab'sın (çok bağışlayansın).",
+            "ms": "Wahai Tuhan kami! Janganlah Engkau memesongkan hati kami sesudah Engkau beri petunjuk kepada kami, dan kurniakanlah kepada kami rahmat dari sisi-Mu. Sesungguhnya Engkau jualah Tuhan Yang Melimpah-limpah pemberian-Nya.",
+            "id": "Ya Tuhan kami, janganlah Engkau jadikan hati kami condong kepada kesesatan sesudah Engkau beri petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi Engkau; karena sesungguhnya Engkau-lah Maha Pemberi (karunia).",
+            "fr": "Seigneur ! Ne laisse pas dévier nos cœurs après que Tu nous aies guidés, et accorde-nous Ta miséricorde. C'est Toi, certes, le Grand Donateur !",
+            "hi": "हमारे रब! हमें हिदायत देने के बाद हमारे दिलों को टेढ़ा न कर और हमें अपने पास से दया प्रदान कर। बेशक, तू ही सबसे बड़ा दाता है।",
+            "te": "ఓ మా ప్రభువా! మాకు మార్గదర్శనం చేసిన తర్వాత మా హృదయాలను దారి తప్పనివ్వకు మరియు నీ నుండి మాకు దయను ప్రసాదించు. నిజమే, నీవు గొప్ప దాతవు.",
+            "ta": "எங்கள் இறைவா! எங்களுக்கு வழிகாட்டிய பிறகு எங்கள் இதயங்களை தடம்புரளச் செய்யாதே. உன்னிடமிருந்து எங்களுக்கு ரஹ்மத்தை வழங்குவாயாக. நிச்சயமாக நீயே மகா கொடையாளி.",
+            "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ! ഞങ്ങൾക്ക് നീ നേർവഴി കാണിച്ച് തന്നതിന് ശേഷം ഞങ്ങളുടെ ഹൃദയങ്ങളെ നീ തെറ്റിക്കരുതേ. നിൻ്റെ പക്കൽ നിന്നുള്ള കാരുണ്യം ഞങ്ങൾക്ക് നൽകേണമേ. തീർച്ചയായും നീ വലിയ ദാതാവാകുന്നു."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 3:8",
+        "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ",
+        "transliteration": "Rabbana la tuzigh quloobana ba’da idh hadaytana wahab lana min ladunka rahmatan, innaka antal-Wahhab."
+    },
+    {
+        "type": "hadith",
+        "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+        "tr": "Tabassumuka fi wajhi akhika laka sadaqah",
+        "translations": {
+            "en": "Your smile in the face of your brother is charity.",
+            "bn": "তোমার ভাইয়ের (হাস্যউজ্জ্বল) মুখের দিকে তাকিয়ে মুচকি হাসিও একটি সদকা।",
+            "ur": "تمہارا اپنے بھائی کے سامنے مسکرانا تمہارے لیے صدقہ ہے۔",
             "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
-            "tr": "Tabassumuka fi wajhi akhika laka sadaqah",
-            "translations": {
-                "en": "Your smile in the face of your brother is charity.",
-                "bn": "তোমার ভাইয়ের (হাস্যউজ্জ্বল) মুখের দিকে তাকিয়ে মুচকি হাসিও একটি সদকা।",
-                "ur": "تمہارا اپنے بھائی کے سامنے مسکرانا تمہارے لیے صدقہ ہے۔",
-                "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
-                "tr": "Gülümsemen senin için bir sadakadır.",
-                "ms": "Senyumanmu kepada saudaramu adalah sedekah.",
-                "id": "Senyummu di hadapan saudaramu adalah sedekah.",
-                "fr": "Ton sourire face à ton frère est pour toi une aumône.",
-                "hi": "अपने भाई के सामने तुम्हारा मुस्कुराना भी सदाक़ा (दान) है।",
-                "te": "నీ సోదరుని వైపు చూసి నవ్వడం కూడా దానమే.",
-                "ta": "உன் சகோதரனின் முகத்தைப் பார்த்து நீ புன்னகைப்பது உனக்கு ஒரு தர்மமாகும்.",
-                "ml": "നിന്റെ സഹോദരന്റെ മുഖത്ത് നോക്കിയുള്ള നിന്റെ പുഞ്ചിരി നിനക്ക് ഒരു ധർമ്മമാണ്."
-            },
-            "ref": "Tirmidhi"
+            "tr": "Gülümsemen senin için bir sadakadır.",
+            "ms": "Senyumanmu kepada saudaramu adalah sedekah.",
+            "id": "Senyummu di hadapan saudaramu adalah sedekah.",
+            "fr": "Ton sourire face à ton frère est pour toi une aumône.",
+            "hi": "अपने भाई के सामने तुम्हारा मुस्कुराना भी सदाक़ा (दान) है।",
+            "te": "నీ సోదరుని వైపు చూసి నవ్వడం కూడా దానమే.",
+            "ta": "உன் சகோதரனின் முகத்தைப் பார்த்து நீ புன்னகைப்பது உனக்கு ஒரு தர்மமாகும்.",
+            "ml": "നിന്റെ സഹോദരന്റെ മുഖത്ത് നോക്കിയുള്ള നിന്റെ പുഞ്ചിരി നിനക്ക് ഒരു ധർമ്മമാണ്."
         },
-        {
-            "type": "dua",
-            "ar": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا",
-            "tr": "Rabbana-ghfirlana dhunubana wa israfana fi amrina",
-            "translations": {
-                "en": "Our Lord, forgive us our sins and excesses in our affairs.",
-                "bn": "হে আমাদের পালনকর্তা! আমাদের গুনাহসমূহ এবং আমাদের কাজে আমাদের বাড়াবাড়িগুলো ক্ষমা করে দিন।",
-                "ur": "اے ہمارے رب! ہمارے گناہ معاف فرما اور ہمارے کاموں میں ہماری زیادتیاں بھی۔",
-                "ar": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا",
-                "tr": "Rabbimiz! Günahlarımızı ve işimizdeki taşkınlıklarımızı bağışla.",
-                "ms": "Wahai Tuhan kami, ampunkanlah dosa-dosa kami dan keterlanjuran kami dalam urusan kami.",
-                "id": "Ya Tuhan kami, ampunilah dosa-dosa kami dan tindakan-tindakan kami yang berlebih-lebihan dalam urusan kami.",
-                "fr": "Seigneur, pardonne-nous nos péchés ainsi que nos excès dans nos comportements.",
-                "hi": "ऐ हमारे रब! हमारे गुनाह माफ कर और हमारे कामों में हमारी ज़्यादतियों को भी।",
-                "te": "ఓ మా ప్రభూ! మా పాపాలను మరియు మా పనులలో మేము చేసిన అతిక్రమణలను క్షమించు.",
-                "ta": "எங்கள் இறைவா! எங்கள் பாவங்களையும், எங்கள் காரியங்களில் நாங்கள் செய்த வரம்பு மீறல்களையும் எங்களுக்கு மன்னிப்பாயாக!",
-                "ml": "ഞങ്ങളുടെ നാഥാ! ഞങ്ങളുടെ പാപങ്ങളും ഞങ്ങളുടെ കാര്യങ്ങളിലുണ്ടായ അതിക്രമങ്ങളും നീ ഞങ്ങൾക്ക് പൊറുത്തുതരേണമേ."
-            },
-            "ref": "Quran 3:147"
+        "ref": "Tirmidhi"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا",
+        "tr": "Rabbana-ghfirlana dhunubana wa israfana fi amrina",
+        "translations": {
+            "en": "Our Lord, forgive us our sins and the excess in our affairs, and plant firmly our feet, and give us victory over the disbelieving people.",
+            "bn": "হে আমাদের পালনকর্তা! আমাদের অপরাধ এবং আমাদের কাজকর্মে আমাদের সীমালঙ্ঘন ক্ষমা করুন, আমাদের পা দৃঢ় রাখুন এবং কাফের সম্প্রদায়ের বিরুদ্ধে আমাদেরকে সাহায্য করুন।",
+            "ur": "اے ہمارے رب! ہمارے گناہ اور ہمارے کاموں میں ہماری زیادتی بخش دے، اور ہمارے قدم مضبوط رکھ، اور کافروں کی قوم پر ہماری مدد فرما۔",
+            "ar": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ (سورة آل عمران 147)",
+            "tr": "Rabbimiz! Günahlarımızı ve işimizdeki taşkınlıklarımızı bağışla, adımlarımızı sağlamlaştır ve kafirler topluluğuna karşı bize yardım et.",
+            "ms": "Wahai Tuhan kami! Ampunkanlah dosa-dosa kami dan perbuatan kami yang melampaui batas dalam urusan kami, dan teguhkanlah pendirian kami, dan tolonglah kami menghadapi kaum yang kafir.",
+            "id": "Ya Tuhan kami, ampunilah dosa-dosa kami dan tindakan-tindakan kami yang berlebih-lebihan dalam urusan kami dan tetapkanlah pendirian kami, dan tolonglah kami terhadap kaum yang kafir.",
+            "fr": "Notre Seigneur, pardonne-nous nos péchés et nos excès de comportement, affermis nos pas, et donne-nous la victoire sur le peuple mécréant.",
+            "hi": "हमारे रब! हमारे गुनाहों और हमारे कामों में हमारी ज़्यादती को माफ़ कर, और हमारे कदम मज़बूत रख, और काफ़िरों की क़ौम के ख़िलाफ़ हमारी मदद कर।",
+            "te": "ఓ మా ప్రభువా! మా పాపాలను మరియు మా వ్యవహారాలలో మా మితిమీరిన చర్యలను క్షమించు, మా అడుగులను స్థిరపరచు, మరియు అవిశ్వాసుల పై మాకు విజయాన్ని ప్రసాదించు.",
+            "ta": "எங்கள் இறைவா! எங்கள் பாவங்களையும், எங்கள் காரியங்களில் நாங்கள் வரம்பு மீறியதையும் மன்னிப்பாயாக. எங்கள் பாதங்களை உறுதியாக்குவாயாக, காஃபிரான கூட்டத்தினருக்கு எதிராக எங்களுக்கு உதவி செய்வாயாக.",
+            "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ! ഞങ്ങളുടെ പാപങ്ങളും ഞങ്ങളുടെ കാര്യങ്ങളിലെ അതിരുകവിച്ചിലുകളും ഞങ്ങൾക്ക് പൊറുത്തുതരേണമേ. ഞങ്ങളുടെ പാദങ്ങൾ ഉറപ്പിച്ചുനിർത്തേണമേ. അവിശ്വാസികളായ ജനങ്ങൾക്കെതിരിൽ ഞങ്ങളെ സഹായിക്കേണമേ."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 3:147",
+        "arabic": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+        "transliteration": "Rabbana ighfir lana thunoobana wa israfana fee amrina wa thabbit aqdamana wansurna 'alal-qawmil-kafireen."
+    },
+    {
+        "type": "hadith",
+        "ar": "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
+        "tr": "Ad-dunya sijnul-mu'min wa jannatul-kafir",
+        "translations": {
+            "en": "This world is a prison for the believer and a paradise for the disbeliever.",
+            "bn": "দুনিয়া মুমিনের জন্য কারাগার এবং কাফিরের জন্য জান্নাত।",
+            "ur": "دنیا مومن کے لیے قید خانہ اور کافر کے لیے جنت ہے۔",
             "ar": "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
-            "tr": "Ad-dunya sijnul-mu'min wa jannatul-kafir",
-            "translations": {
-                "en": "This world is a prison for the believer and a paradise for the disbeliever.",
-                "bn": "দুনিয়া মুমিনের জন্য কারাগার এবং কাফিরের জন্য জান্নাত।",
-                "ur": "دنیا مومن کے لیے قید خانہ اور کافر کے لیے جنت ہے۔",
-                "ar": "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
-                "tr": "Dünya müminin zindanı, kafirin cennetidir.",
-                "ms": "Dunia adalah penjara bagi orang mukmin dan syurga bagi orang kafir.",
-                "id": "Dunia adalah penjara bagi orang mukmin dan surga bagi orang kafir.",
-                "fr": "Le bas-monde est la prison du croyant et le paradis du mécréant.",
-                "hi": "दुनिया मोमिन के लिए जेलखाना है और काफिर के लिए जन्नत।",
-                "te": "ఈ ప్రపంచం విశ్వాసికి చెరసాల మరియు అవిశ్వాసికి స్వర్గం.",
-                "ta": "இவ்வுலகம் முஃமினுக்குச் (இறையச்சமுடையவருக்கு) சிறைச்சாலையாகும்; காஃபிருக்கு (சத்தியத்தை நிராகரிப்பவருக்கு) சுவனமாகும்.",
-                "ml": "ദുനിയാവ് സത്യവിശ്വാസിക്ക് തടവറയും സത്യനിഷേധിക്ക് സ്വർഗ്ഗവുമാണ്."
-            },
-            "ref": "Muslim"
+            "tr": "Dünya müminin zindanı, kafirin cennetidir.",
+            "ms": "Dunia adalah penjara bagi orang mukmin dan syurga bagi orang kafir.",
+            "id": "Dunia adalah penjara bagi orang mukmin dan surga bagi orang kafir.",
+            "fr": "Le bas-monde est la prison du croyant et le paradis du mécréant.",
+            "hi": "दुनिया मोमिन के लिए जेलखाना है और काफिर के लिए जन्नत।",
+            "te": "ఈ ప్రపంచం విశ్వాసికి చెరసాల మరియు అవిశ్వాసికి స్వర్గం.",
+            "ta": "இவ்வுலகம் முஃமினுக்குச் (இறையச்சமுடையவருக்கு) சிறைச்சாலையாகும்; காஃபிருக்கு (சத்தியத்தை நிராகரிப்பவருக்கு) சுவனமாகும்.",
+            "ml": "ദുനിയാവ് സത്യവിശ്വാസിക്ക് തടവറയും സത്യനിഷേധിക്ക് സ്വർഗ്ഗവുമാണ്."
         },
-        {
-            "type": "dua",
-            "ar": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ",
-            "tr": "Rabbi awzi'ni an ashkura ni'mataka-llati an'amta 'alayya",
-            "translations": {
-                "en": "My Lord, enable me to be grateful for Your favor which You have bestowed upon me.",
-                "bn": "হে আমার পালনকর্তা! আমাকে সামর্থ্য দিন যাতে আমি আপনার সেই নেয়ামতের কৃতজ্ঞতা প্রকাশ করতে পারি যা আপনি আমাকে দান করেছেন।",
-                "ur": "اے میرے رب! مجھے توفیق دے کہ میں تیری اس نعمت کا شکر ادا کروں جو تو نے مجھ پر کی ہے۔",
-                "ar": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ",
-                "tr": "Rabbim! Bana verdiğin nimete şükretmemi nasip eyle.",
-                "ms": "Wahai Tuhanku, ilhamkanlah daku supaya tetap bersyukur akan nikmat-Mu yang Engkau kurniakan kepadaku.",
-                "id": "Ya Tuhanku, berilah aku ilham untuk tetap mensyukuri nikmat-Mu yang telah Engkau anugerahkan kepadaku.",
-                "fr": "Seigneur ! Permets-moi d'être reconnaissant pour le bienfait dont Tu m'as comblé.",
-                "hi": "ऐ मेरे रब! मुझे तौफीक दे कि मैं तेरी उन नेमतों का शुक्र अदा करूँ जो तूने मुझ पर की हैं।",
-                "te": "ఓ నా ప్రభూ! నీవు నాకు ప్రసాదించిన నీ ఉపకారానికి కృతజ్ఞతగా ఉండటానికి నాకు శక్తినివ్వు.",
-                "ta": "என் இறைவா! நீ எனக்குச் செய்த உன்னுடைய அருட்கொடைகளுக்காக நான் நன்றி செலுத்த எனக்கு அருள்புரிவாயாக!",
-                "ml": "എന്റെ നാഥാ! നീ എനിക്കും എന്റെ മാതാപിതാക്കൾക്കും നൽകിയ അനുഗ്രഹത്തിന് നന്ദി കാണിക്കാൻ എനിക്ക് നീ കരുത്തേണമേ."
-            },
-            "ref": "Quran 27:19"
+        "ref": "Muslim"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ",
+        "tr": "Rabbi awzi'ni an ashkura ni'mataka-llati an'amta 'alayya",
+        "translations": {
+            "en": "My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to do righteousness of which You approve. And admit me by Your mercy into [the ranks of] Your righteous servants.",
+            "bn": "হে আমার পালনকর্তা! আপনি আমাকে সামর্থ্য দিন যাতে আমি আপনার সেই নিয়ামতের কৃতজ্ঞতা প্রকাশ করতে পারি যা আপনি আমাকে ও আমার পিতা-মাতাকে দিয়েছেন, এবং যাতে আমি এমন সৎকাজ করতে পারি যা আপনি পছন্দ করেন। আর আপনার রহমতে আমাকে আপনার সৎকর্মশীল বান্দাদের অন্তর্ভুক্ত করুন।",
+            "ur": "اے میرے رب! مجھے توفیق دے کہ میں تیری اس نعمت کا شکر ادا کروں جو تو نے مجھ پر اور میرے والدین پر انعام کی ہے، اور یہ کہ میں ایسے نیک عمل کروں جن سے تو راضی ہو، اور مجھے اپنی رحمت سے اپنے نیک بندوں میں داخل فرما۔",
+            "ar": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ (سورة النمل 19)",
+            "tr": "Rabbim! Bana ve anne-babama verdiğin nimete şükretmemi ve razı olacağın yararlı işler yapmamı bana ilham et ve beni rahmetinle iyi kullarının arasına kat.",
+            "ms": "Wahai Tuhanku, ilhamkanlah daku supaya tetap bersyukur akan nikmat-Mu yang Engkau kurniakan kepadaku dan kepada ibu bapaku, dan supaya aku tetap mengerjakan amal soleh yang Engkau redai; dan masukkanlah daku dengan rahmat-Mu dalam kumpulan hamba-hamba-Mu yang soleh.",
+            "id": "Ya Tuhanku, berilah aku ilham untuk tetap mensyukuri nikmat Mu yang telah Engkau anugerahkan kepadaku dan kepada dua orang ibu bapakku dan untuk mengerjakan amal saleh yang Engkau ridhai; dan masukkanlah aku dengan rahmat-Mu ke dalam golongan hamba-hamba-Mu yang saleh.",
+            "fr": "Seigneur ! Permets-moi d'être reconnaissant pour Tes bienfaits dont Tu m'as comblé ainsi que mes parents, et d'accomplir les bonnes œuvres que Tu agrées, et fais-moi entrer, par Ta miséricorde, parmi Tes serviteurs vertueux.",
+            "hi": "मेरे रब! मुझे सामर्थ्य दे कि मैं तेरी उस नेमत का शुक्र अदा करूँ जो तूने मुझे और मेरे माता-पिता को प्रदान की है, और ऐसे नेक काम करूँ जिनसे तू प्रसन्न हो, और मुझे अपनी दया से अपने नेक बंदों में शामिल कर ले।",
+            "te": "నా ప్రభూ! నాకు మరియు నా తల్లిదండ్రులకు నీవు ప్రసాదించిన నీ అనుగ్రహానికి కృతజ్ఞతలు చెప్పే శక్తిని నాకు ఇవ్వు. మరియు నీవు ఇష్టపడే మంచి పనులు చేయడానికి నాకు శక్తినివ్వు. మరియు నీ దయ ద్వారా నన్ను నీ నీతిమంతులైన దాసులలో చేర్చు.",
+            "ta": "என் இறைவா! எனக்கும் என் பெற்றோருக்கும் நீ வழங்கிய அருட்கொடைகளுக்கு நன்றி செலுத்தவும், நீ விரும்பக்கூடிய நல்ல செயல்களைச் செய்யவும் எனக்கு ஆற்றல் வழங்குவாயாக. மேலும் உனது ரஹ்மத்தின் மூலம் என்னை உனது நல்லடியார்களில் சேர்த்துக்கொள்வாயாக.",
+            "ml": "എൻ്റെ രക്ഷിതാവേ! എനിക്കും എൻ്റെ മാതാപിതാക്കൾക്കും നീ നൽകിയ അനുഗ്രഹത്തിന് നന്ദി കാണിക്കാനും, നീ ഇഷ്ടപ്പെടുന്ന സൽകർമ്മങ്ങൾ ചെയ്യാനും എന്നെ നീ അനുഗ്രഹിക്കേണമേ. നിൻ്റെ കാരുണ്യത്താൽ നിൻ്റെ സജ്ജനങ്ങളായ ദാസന്മാരിൽ എന്നെ നീ ഉൾപ്പെടുത്തുകയും ചെയ്യേണമേ."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 27:19",
+        "arabic": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ",
+        "transliteration": "Rabbi awzi’nee an ashkura ni’mataka allatee an’amta ‘alayya wa’ala walidayya wa-an a’mala salihan tardahu wa-adkhilnee birahmatika fee ‘ibadikas-saliheen."
+    },
+    {
+        "type": "hadith",
+        "ar": "إِنَّ اللّٰهَ جَمِيلٌ يُحِبُّ الْجَمَالَ",
+        "tr": "Innallaha jamilun yuhibbul-jamal",
+        "translations": {
+            "en": "Indeed Allah is Beautiful and He loves beauty.",
+            "bn": "নিশ্চয়ই আল্লাহ সুন্দর এবং তিনি সৌন্দর্য পছন্দ করেন।",
+            "ur": "بیشک اللہ خوبصورت ہے اور خوبصورتی کو پسند کرتا ہے۔",
             "ar": "إِنَّ اللّٰهَ جَمِيلٌ يُحِبُّ الْجَمَالَ",
-            "tr": "Innallaha jamilun yuhibbul-jamal",
-            "translations": {
-                "en": "Indeed Allah is Beautiful and He loves beauty.",
-                "bn": "নিশ্চয়ই আল্লাহ সুন্দর এবং তিনি সৌন্দর্য পছন্দ করেন।",
-                "ur": "بیشک اللہ خوبصورت ہے اور خوبصورتی کو پسند کرتا ہے۔",
-                "ar": "إِنَّ اللّٰهَ جَمِيلٌ يُحِبُّ الْجَمَالَ",
-                "tr": "Şüphesiz Allah güzeldir, güzelliği sever.",
-                "ms": "Sesungguhnya Allah itu indah dan Dia menyukai keindahan.",
-                "id": "Sesungguhnya Allah itu indah dan menyukai keindahan.",
-                "fr": "Certes, Allah est Beau et Il aime la beauté.",
-                "hi": "बेशक अल्लाह सुंदर है और वह सुंदरता को पसंद करता है।",
-                "te": "నిశ్చయంగా అల్లాహ్ అందమైనవాడు మరియు ఆయన అందాన్ని ప్రేమిస్తాడు.",
-                "ta": "நிச்சயமாக அல்லாஹ் அழகானவன்; அவன் அழகையே விரும்புகிறான்.",
-                "ml": "തീർച്ചയായും അല്ലാഹു ഭംഗിയുള്ളവനാണ്, അവൻ ഭംഗി ഇഷ്ടപ്പെടുന്നു."
-            },
-            "ref": "Muslim"
+            "tr": "Şüphesiz Allah güzeldir, güzelliği sever.",
+            "ms": "Sesungguhnya Allah itu indah dan Dia menyukai keindahan.",
+            "id": "Sesungguhnya Allah itu indah dan menyukai keindahan.",
+            "fr": "Certes, Allah est Beau et Il aime la beauté.",
+            "hi": "बेशक अल्लाह सुंदर है और वह सुंदरता को पसंद करता है।",
+            "te": "నిశ్చయంగా అల్లాహ్ అందమైనవాడు మరియు ఆయన అందాన్ని ప్రేమిస్తాడు.",
+            "ta": "நிச்சயமாக அல்லாஹ் அழகானவன்; அவன் அழகையே விரும்புகிறான்.",
+            "ml": "തീർച്ചയായും അല്ലാഹു ഭംഗിയുള്ളവനാണ്, അവൻ ഭംഗി ഇഷ്ടപ്പെടുന്നു."
         },
-        {
-            "type": "dua",
+        "ref": "Muslim"
+    },
+    {
+        "type": "dua",
+        "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+        "tr": "Allahumma inni as-alukal-huda wat-tuqa wal-'afafa wal-ghina",
+        "translations": {
+            "en": "O Allah, I ask You for guidance, piety, chastity and self-sufficiency.",
+            "bn": "হে আল্লাহ! আমি আপনার কাছে হেদায়াত, তাকওয়া, চারিত্রিক পবিত্রতা এবং সচ্ছলতা প্রার্থনা করছি।",
+            "ur": "اے اللہ! میں تجھ سے ہدایت، تقویٰ، پاکدامنی اور غنا (بے نیازی) کا سوال کرتا ہوں۔",
             "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
-            "tr": "Allahumma inni as-alukal-huda wat-tuqa wal-'afafa wal-ghina",
-            "translations": {
-                "en": "O Allah, I ask You for guidance, piety, chastity and self-sufficiency.",
-                "bn": "হে আল্লাহ! আমি আপনার কাছে হেদায়াত, তাকওয়া, চারিত্রিক পবিত্রতা এবং সচ্ছলতা প্রার্থনা করছি।",
-                "ur": "اے اللہ! میں تجھ سے ہدایت، تقویٰ، پاکدامنی اور غنا (بے نیازی) کا سوال کرتا ہوں۔",
-                "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
-                "tr": "Allah'ım! Senden hidayet, takva, iffet ve gönül zenginliği isterim.",
-                "ms": "Ya Allah, sesungguhnya aku memohon kepada-Mu petunjuk, ketakwaan, sifat iffah dan kekayaan.",
-                "id": "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, dan kecukupan.",
-                "fr": "Ô Allah, je Te demande l'orientation, la piété, la chasteté et la suffisance.",
-                "hi": "ऐ अल्लाह! मैं तुझसे हिदायत, परहेज़गारी, पाकीज़गी और बे-नियाज़ी (आत्मनिर्भरता) का सवाल करता हूँ।",
-                "te": "ఓ అల్లాహ్! నేను నిన్ను మార్గదర్శకత్వం, దైవభీతి, పవిత్రత మరియు స్వావలంబన కోరుతున్నాను.",
-                "ta": "யா அல்லாஹ்! நான் உன்னிடம் நேர்வழியையும், இறையச்சத்தையும், ஒழுக்கத்தையும், போதுமென்ற மனத்தையும் வேண்டுகிறேன்.",
-                "ml": "അല്ലാഹുവേ! നിന്നോട് ഞാൻ നേർവഴിയും, സൂക്ഷ്മതയും, സദാചാരനിഷ്ഠയും, ഐശ്വര്യവും ചോദിക്കുന്നു."
-            },
-            "ref": "Muslim"
+            "tr": "Allah'ım! Senden hidayet, takva, iffet ve gönül zenginliği isterim.",
+            "ms": "Ya Allah, sesungguhnya aku memohon kepada-Mu petunjuk, ketakwaan, sifat iffah dan kekayaan.",
+            "id": "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, dan kecukupan.",
+            "fr": "Ô Allah, je Te demande l'orientation, la piété, la chasteté et la suffisance.",
+            "hi": "ऐ अल्लाह! मैं तुझसे हिदायत, परहेज़गारी, पाकीज़गी और बे-नियाज़ी (आत्मनिर्भरता) का सवाल करता हूँ।",
+            "te": "ఓ అల్లాహ్! నేను నిన్ను మార్గదర్శకత్వం, దైవభీతి, పవిత్రత మరియు స్వావలంబన కోరుతున్నాను.",
+            "ta": "யா அல்லாஹ்! நான் உன்னிடம் நேர்வழியையும், இறையச்சத்தையும், ஒழுக்கத்தையும், போதுமென்ற மனத்தையும் வேண்டுகிறேன்.",
+            "ml": "അല്ലാഹുവേ! നിന്നോട് ഞാൻ നേർവഴിയും, സൂക്ഷ്മതയും, സദാചാരനിഷ്ഠയും, ഐശ്വര്യവും ചോദിക്കുന്നു."
         },
-        {
-            "type": "hadith",
+        "ref": "Muslim"
+    },
+    {
+        "type": "hadith",
+        "ar": "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
+        "tr": "Man salaka tariqan yaltamisu fihi 'ilman sahalallahu lahu bihi tariqan ilal-Jannah",
+        "translations": {
+            "en": "Whoever follows a path seeking knowledge, Allah will make easy for him a path to Paradise.",
+            "bn": "যে ব্যক্তি জ্ঞান অন্বেষণের পথে চলবে, আল্লাহ তার জন্য জান্নাতের পথ সুগম করে দেবেন।",
+            "ur": "جو علم کی تلاش میں کسی راستے پر چلے، اللہ اس کے لیے جنت کا راستہ آسان کر دیتا ہے۔",
             "ar": "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
-            "tr": "Man salaka tariqan yaltamisu fihi 'ilman sahalallahu lahu bihi tariqan ilal-Jannah",
-            "translations": {
-                "en": "Whoever follows a path seeking knowledge, Allah will make easy for him a path to Paradise.",
-                "bn": "যে ব্যক্তি জ্ঞান অন্বেষণের পথে চলবে, আল্লাহ তার জন্য জান্নাতের পথ সুগম করে দেবেন।",
-                "ur": "جو علم کی تلاش میں کسی راستے پر چلے، اللہ اس کے لیے جنت کا راستہ آسان کر دیتا ہے۔",
-                "ar": "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
-                "tr": "Kim ilim öğrenmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.",
-                "ms": "Sesiapa yang menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan ke syurga.",
-                "id": "Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga.",
-                "fr": "Celui qui emprunte un chemin pour rechercher une science, Allah lui facilite un chemin vers le Paradis.",
-                "hi": "जो व्यक्ति इल्म (ज्ञान) की तलाश में किसी रास्ते पर चले, अल्लाह उसके लिए जन्नत का रास्ता आसान कर देता है।",
-                "te": "జ్ఞానాన్ని కోరుతూ ఎవరైనా ఒక మార్గంలో ప్రయాణిస్తే, అల్లాహ్ అతని కోసం స్వర్గానికి వెళ్ళే మార్గాన్ని సులభతరం చేస్తాడు.",
-                "ta": "கல்வியைத் தேடி ஒருவர் ஒரு பாதையில் நடந்தால், அதன் மூலம் அவருக்குச் சுவனத்திற்கான பாதையை அல்லாஹ் எளிதாக்குகிறான்.",
-                "ml": "അറിവ് തേടിക്കൊണ്ട് ആരെങ്കിലും ഒരു വഴിയിൽ സഞ്ചരിച്ചാൽ അല്ലാഹു അവർക്ക് സ്വർഗ്ഗത്തിലേക്കുള്ള വഴി എളുപ്പമാക്കിക്കൊടുക്കും."
-            },
-            "ref": "Muslim"
+            "tr": "Kim ilim öğrenmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.",
+            "ms": "Sesiapa yang menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan ke syurga.",
+            "id": "Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga.",
+            "fr": "Celui qui emprunte un chemin pour rechercher une science, Allah lui facilite un chemin vers le Paradis.",
+            "hi": "जो व्यक्ति इल्म (ज्ञान) की तलाश में किसी रास्ते पर चले, अल्लाह उसके लिए जन्नत का रास्ता आसान कर देता है।",
+            "te": "జ్ఞానాన్ని కోరుతూ ఎవరైనా ఒక మార్గంలో ప్రయాణిస్తే, అల్లాహ్ అతని కోసం స్వర్గానికి వెళ్ళే మార్గాన్ని సులభతరం చేస్తాడు.",
+            "ta": "கல்வியைத் தேடி ஒருவர் ஒரு பாதையில் நடந்தால், அதன் மூலம் அவருக்குச் சுவனத்திற்கான பாதையை அல்லாஹ் எளிதாக்குகிறான்.",
+            "ml": "അറിവ് തേടിക്കൊണ്ട് ആരെങ്കിലും ഒരു വഴിയിൽ സഞ്ചരിച്ചാൽ അല്ലാഹു അവർക്ക് സ്വർഗ്ഗത്തിലേക്കുള്ള വഴി എളുപ്പമാക്കിക്കൊടുക്കും."
         },
-        {
-            "type": "dua",
-            "ar": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ",
-            "tr": "Rabbana hab lana min azwajina wa dhurriyyatina qurrata a'yun",
-            "translations": {
-                "en": "Our Lord, grant us from our spouses and offspring comfort to our eyes.",
-                "bn": "হে আমাদের পালনকর্তা! আমাদের স্ত্রীদের এবং সন্তানদের পক্ষ থেকে আমাদের চোখের শীতলতা দান করুন।",
-                "ur": "اے ہمارے رب! ہمیں اپنی بیویوں اور اپنی اولاد سے آنکھوں کی ٹھنڈک عطا فرما۔",
-                "ar": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ",
-                "tr": "Rabbimiz! Bize eşlerimizden ve çocuklarımızdan gözümüzün aydınlığı olacak nesiller ihsan et.",
-                "ms": "Wahai Tuhan kami, berilah kami beroleh dari isteri-isteri dan zuriat keturunan kami perkara-perkara yang menyukakan hati.",
-                "id": "Ya Tuhan kami, anugerahkanlah kepada kami istri-istri kami dan keturunan kami sebagai penyenang hati (kami).",
-                "fr": "Notre Seigneur ! Accorde-nous de nos épouses et de notre descendance la joie des yeux.",
-                "hi": "ऐ हमारे रब! हमें हमारी पत्नियों और हमारी औलाद की तरफ से आँखों की ठंडक अता कर।",
-                "te": "ఓ మా ప్రభూ! మా జీవిత భాగస్వాముల నుండి మరియు మా సంతానం నుండి మాకు కనువిందును ప్రసాదించు.",
-                "ta": "எங்கள் இறைவா! எங்கள் துணைவியரிடமிருந்தும், எங்கள் சந்ததியினரிடமிருந்தும் எங்களுக்குக் கண் குளிர்ச்சியைத் தந்தருள்வாயாக!",
-                "ml": "ഞങ്ങളുടെ നാഥാ! ഞങ്ങളുടെ ഇണകളിൽ നിന്നും സന്താനങ്ങളിൽ നിന്നും ഞങ്ങൾക്ക് നീ കൺകുളിർമ നൽകേണമേ."
-            },
-            "ref": "Quran 25:74"
+        "ref": "Muslim"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ",
+        "tr": "Rabbana hab lana min azwajina wa dhurriyyatina qurrata a'yun",
+        "translations": {
+            "en": "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.",
+            "bn": "হে আমাদের পালনকর্তা! আমাদের স্ত্রী ও সন্তানদের দ্বারা আমাদের চোখ শীতল করুন এবং আমাদেরকে মুত্তাকীদের নেতা বানিয়ে দিন।",
+            "ur": "اے ہمارے رب! ہمیں ہماری بیویوں اور اولاد کی طرف سے آنکھوں کی ٹھنڈک عطا فرما اور ہمیں متقیوں کا امام بنا دے۔",
+            "ar": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا (سورة الفرقان 74)",
+            "tr": "Rabbimiz! Bize eşlerimizden ve soyumuzdan göz aydınlığı olacak kimseler bağışla ve bizi takva sahiplerine önder kıl.",
+            "ms": "Wahai Tuhan kami! Kurniakanlah kepada kami dari isteri-isteri dan zuriat keturunan kami perkara-perkara yang menyukakan hati melihatnya, dan jadikanlah kami imam ikutan bagi orang-orang yang bertakwa.",
+            "id": "Ya Tuhan kami, anugerahkanlah kepada kami dari isteri-isteri kami dan keturunan kami sebagai penyenang hati (kami), dan jadikanlah kami imam bagi orang-orang yang bertakwa.",
+            "fr": "Seigneur, accorde-nous la joie des yeux en nos épouses et notre descendance, et fais de nous des modèles pour les pieux.",
+            "hi": "हमारे रब! हमें हमारी पत्नियों और हमारी संतानों की ओर से आँखों की ठंडक प्रदान कर, और हमें परहेज़गारों (नेक लोगों) का इमाम (मार्गदर्शक) बना दे।",
+            "te": "మా ప్రభూ! మా భార్యలు మరియు సంతానం నుండి మా కళ్ళకు చల్లదనాన్ని ప్రసాదించు మరియు మమ్మల్ని భయభక్తులు గలవారికి నాయకునిగా చేయు.",
+            "ta": "எங்கள் இறைவா! எங்கள் மனைவியர் மற்றும் சந்ததியினரிடமிருந்து எங்கள் கண்களுக்கு குளிர்ச்சியைத் தருவாயாக. மேலும் எங்களை இறையச்சமுடையவர்களுக்கு வழிகாட்டியாக ஆக்குவாயாக.",
+            "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ! ഞങ്ങളുടെ ഭാര്യമാരിൽ നിന്നും സന്താനങ്ങളിൽ നിന്നും ഞങ്ങളുടെ കണ്ണുകൾക്ക് കുളിർമ നൽകേണമേ, ഞങ്ങളെ ഭയഭക്തിയുള്ളവർക്ക് മാതൃകയാക്കേണമേ."
         },
-        {
-            "type": "hadith",
+        "ref": "Quran 25:74",
+        "arabic": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+        "transliteration": "Rabbana hab lana min azwajina wa dhurriyatina qurrata a’yunin waj’alna lil-muttaqeena imama."
+    },
+    {
+        "type": "hadith",
+        "ar": "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
+        "tr": "Al-kalimatut-tayyibatu sadaqah",
+        "translations": {
+            "en": "A good word is charity.",
+            "bn": "ভালো কথা বলাও একটি সদকা।",
+            "ur": "اچھی بات کہنا بھی صدقہ ہے۔",
             "ar": "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
-            "tr": "Al-kalimatut-tayyibatu sadaqah",
-            "translations": {
-                "en": "A good word is charity.",
-                "bn": "ভালো কথা বলাও একটি সদকা।",
-                "ur": "اچھی بات کہنا بھی صدقہ ہے۔",
-                "ar": "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
-                "tr": "Güzel söz sadakadır.",
-                "ms": "Perkataan yang baik itu adalah sedekah.",
-                "id": "Perkataan yang baik adalah sedekah.",
-                "fr": "Une bonne parole est une aumône.",
-                "hi": "अच्छी बात कहना भी सदाक़ा (दान) है।",
-                "te": "మంచి మాట పలకడం కూడా దానమే.",
-                "ta": "நல்ல சொல் ஒரு தர்மமாகும்.",
-                "ml": "നല്ല വാക്ക് ഒരു ധർമ്മമാണ്."
-            },
-            "ref": "Bukhari & Muslim"
+            "tr": "Güzel söz sadakadır.",
+            "ms": "Perkataan yang baik itu adalah sedekah.",
+            "id": "Perkataan yang baik adalah sedekah.",
+            "fr": "Une bonne parole est une aumône.",
+            "hi": "अच्छी बात कहना भी सदाक़ा (दान) है।",
+            "te": "మంచి మాట పలకడం కూడా దానమే.",
+            "ta": "நல்ல சொல் ஒரு தர்மமாகும்.",
+            "ml": "നല്ല വാക്ക് ഒരു ധർമ്മമാണ്."
         },
-        {
-            "type": "dua",
-            "ar": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",
-            "tr": "Allahumma inni a'udhu bika minal-hammi wal-hazan",
-            "translations": {
-                "en": "O Allah, I seek refuge in You from anxiety and sorrow.",
-                "bn": "হে আল্লাহ! আমি আপনার কাছে উদ্বেগ ও শোক থেকে আশ্রয় প্রার্থনা করছি।",
-                "ur": "اے اللہ! میں فکر اور غم سے تیری پناہ مانگتا ہوں۔",
-                "ar": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",
-                "tr": "Allah'ım! Gam ve kederden Sana sığınırım.",
-                "ms": "Ya Allah, sesungguhnya aku berlindung kepada-Mu daripada kegelisahan dan kedukaan.",
-                "id": "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari keluh kesah dan kesedihan.",
-                "fr": "Ô Allah, je cherche refuge auprès de Toi contre l'anxiété et la tristesse.",
-                "hi": "ऐ अल्लाह! मैं चिंता और शोक से तेरी पناہ मांगता हूँ।",
-                "te": "ఓ అల్లాహ్! నేను ఆందోళన మరియు విచారం నుండి నీ శరణు కోరుతున్నాను.",
-                "ta": "யா அல்லாஹ்! கவலையிலிருந்தும் துக்கத்திலிருந்தும் உன்னிடம் நான் பாதுகாப்புத் தேடுகிறேன்.",
-                "ml": "അല്ലാഹുവേ! ഉത്കണ്ഠയിൽ നിന്നും ദുഃഖത്തിൽ നിന്നും ഞാൻ നിന്നോട് കാവൽ ചോദിക്കുന്നു."
-            },
-            "ref": "Bukhari"
+        "ref": "Bukhari & Muslim"
+    },
+    {
+        "type": "dua",
+        "ar": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",
+        "tr": "Allahumma inni a'udhu bika minal-hammi wal-hazan",
+        "translations": {
+            "en": "O Allah, I seek refuge in You from anxiety and sorrow, weakness and laziness, miserliness and cowardice, the burden of debts and from being overpowered by men.",
+            "bn": "হে আল্লাহ! আমি তোমার কাছে বিষণ্ণতা ও দুঃখ, দুর্বলতা ও অলসতা, কৃপণতা ও ভীরুতা, ঋণের বোঝা এবং মানুষের আধিপত্য থেকে আশ্রয় চাই।",
+            "ur": "اے اللہ! میں پریشانی اور غم، عاجزی اور سستی، بخل اور بزدلی، قرض کے بوجھ اور لوگوں کے مجھ پر غلبہ پانے سے تیری پناہ مانگتا ہوں۔",
+            "ar": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ (صحيح البخاري)",
+            "tr": "Ey Allah'ım! Kederden ve üzüntüden, acizlikten ve tembellikten, cimrilikten ve korkaklıktan, borç yükünden ve insanların kahrından sana sığınırım.",
+            "ms": "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari keluh kesah dan duka cita, dari kelemahan dan kemalasan, dari sifat bakhil dan pengecut, dari bebanan hutang dan penindasan manusia.",
+            "id": "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari keluh kesah dan duka cita, dari kelemahan dan kemalasan, dari sifat bakhil dan pengecut, dari lilitan hutang dan penindasan orang.",
+            "fr": "Ô Allah ! Je cherche refuge auprès de Toi contre l'anxiété et la tristesse, l'incapacité et la paresse, l'avarice et la lâcheté, le poids des dettes et la domination des hommes.",
+            "hi": "ऐ अल्लाह! मैं चिंता और दुख, कमजोरी और आलस्य, कंजूसी और कायरता, कर्ज के बोझ और पुरुषों के वर्चस्व से तेरी पनाह मांगता हूँ।",
+            "te": "ఓ అల్లాహ్! ఆందోళన మరియు బాధ, బలహీనత మరియు బద్ధకం, పిసినారితనం మరియు పిరికితనం, అప్పుల భారం మరియు మనుషుల ఆధిపత్యం నుండి నేను నీ ఆశ్రయం కోరుతున్నాను.",
+            "ta": "யா அல்லாஹ்! கவலை மற்றும் துக்கம், பலவீனம் மற்றும் சோம்பல், கஞ்சத்தனம் மற்றும் கோழைத்தனம், கடன்களின் சுமை மற்றும் மனிதர்களின் ஆதிக்கம் ஆகியவற்றிலிருந்து நான் உன்னிடம் அடைக்கலம் தேடுகிறேன்.",
+            "ml": "അല്ലാഹുവേ! ഉത്കണ്ഠയിൽ നിന്നും ദുഃഖത്തിൽ നിന്നും, ബലഹീനതയിൽ നിന്നും മടിയിൽ നിന്നും, പിശുക്കിൽ നിന്നും ഭീരുത്വത്തിൽ നിന്നും, കടങ്ങളുടെ ഭാരത്തിൽ നിന്നും ജനങ്ങളുടെ ആധിപത്യത്തിൽ നിന്നും ഞാൻ നിന്നോട് അഭയം തേടുന്നു."
         },
-        {
-            "type": "hadith",
+        "ref": "Bukhari",
+        "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ",
+        "transliteration": "Allahumma innee a’oodhu bika minal-hammi wal-hazani, wal-‘ajzi wal-kasali, wal-bukhli wal-jubni, wa dala’id-dayni, wa ghalabatir-rijal."
+    },
+    {
+        "type": "hadith",
+        "ar": "الصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ",
+        "tr": "As-sadaqatu tutfi'ul-khati'ata kama yutfi'ul-ma'un-nar",
+        "translations": {
+            "en": "Charity extinguishes sin as water extinguishes fire.",
+            "bn": "দান-সদকা গুনাহকে নিভিয়ে দেয় যেমনভাবে পানি আগুনকে নিভিয়ে দেয়।",
+            "ur": "صدقہ گناہ کو ایسے بجھا دیتا ہے جیسے پانی آگ کو بجھا دیتا ہے۔",
             "ar": "الصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ",
-            "tr": "As-sadaqatu tutfi'ul-khati'ata kama yutfi'ul-ma'un-nar",
-            "translations": {
-                "en": "Charity extinguishes sin as water extinguishes fire.",
-                "bn": "দান-সদকা গুনাহকে নিভিয়ে দেয় যেমনভাবে পানি আগুনকে নিভিয়ে দেয়।",
-                "ur": "صدقہ گناہ کو ایسے بجھا دیتا ہے جیسے پانی آگ کو بجھا دیتا ہے۔",
-                "ar": "الصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ",
-                "tr": "Sadaka, suyun ateşi söndürdüğü gibi günahları söndürür.",
-                "ms": "Sedekah itu menghapuskan dosa sebagaimana air memadamkan api.",
-                "id": "Sedekah dapat menghapus dosa sebagaimana air memadamkan api.",
-                "fr": "L'aumône éteint le péché comme l'eau éteint le feu.",
-                "hi": "सदाक़ा (दान) गुनाहों को वैसे ही मिटा देता है जैसे पानी आग को बुझा देता है।",
-                "te": "నీరు నిప్పును ఆర్పేసినట్లుగా దానం పాపాలను తుడిచివేస్తుంది.",
-                "ta": "தண்ணீர் நெருப்பை அணைப்பதைப் போல், தர்மம் பாவங்களை அழித்துவிடும்.",
-                "ml": "വെള്ളം തീയെ കെടുത്തുന്നത് പോലെ ധർമ്മം പാപങ്ങളെ ഇല്ലാതാക്കുന്നു."
-            },
-            "ref": "Tirmidhi"
+            "tr": "Sadaka, suyun ateşi söndürdüğü gibi günahları söndürür.",
+            "ms": "Sedekah itu menghapuskan dosa sebagaimana air memadamkan api.",
+            "id": "Sedekah dapat menghapus dosa sebagaimana air memadamkan api.",
+            "fr": "L'aumône éteint le péché comme l'eau éteint le feu.",
+            "hi": "सदाक़ा (दान) गुनाहों को वैसे ही मिटा देता है जैसे पानी आग को बुझा देता है।",
+            "te": "నీరు నిప్పును ఆర్పేసినట్లుగా దానం పాపాలను తుడిచివేస్తుంది.",
+            "ta": "தண்ணீர் நெருப்பை அணைப்பதைப் போல், தர்மம் பாவங்களை அழித்துவிடும்.",
+            "ml": "വെള്ളം തീയെ കെടുത്തുന്നത് പോലെ ധർമ്മം പാപങ്ങളെ ഇല്ലാതാക്കുന്നു."
         },
-        {
-            "type": "dua",
-            "ar": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
-            "tr": "Rabbi hab li hukman wa al-hiqni bis-salihin",
-            "translations": {
-                "en": "My Lord, grant me wisdom and join me with the righteous.",
-                "bn": "হে আমার পালনকর্তা! আমাকে প্রজ্ঞা দান করুন এবং আমাকে সৎকর্মশীলদের অন্তর্ভুক্ত করুন।",
-                "ur": "اے میرے رب! مجھے حکمت عطا فرما اور مجھے نیک لوگوں کے ساتھ ملا دے۔",
-                "ar": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
-                "tr": "Rabbim! Bana hikmet ver ve beni salihlere kat.",
-                "ms": "Wahai Tuhanku, berikanlah daku hikmat, dan hubungkanlah daku dengan orang-orang yang soleh.",
-                "id": "Ya Tuhanku, berikanlah kepadaku hikmah dan pertemukanlah aku dengan orang-orang yang saleh.",
-                "fr": "Seigneur, accorde-moi la sagesse et joins-moi aux gens de bien.",
-                "hi": "ऐ मेरे रब! मुझे हिकमत (बुद्धिमत्ता) अता कर और मुझे नेक लोगों में शामिल कर।",
-                "te": "ఓ నా ప్రభూ! నాకు జ్ఞానాన్ని ప్రసాదించు మరియు నన్ను పుణ్యాత్ములతో చేర్చు.",
-                "ta": "என் இறைவா! எனக்கு ஞானத்தை வழங்குவாயாக! இன்னும் என்னை நல்லடியார்களுடன் சேர்த்து வைப்பாயாக!",
-                "ml": "എന്റെ നാഥാ! നീ എനിക്ക് ജ്ഞാനം നൽകേണമേ, എന്നെ നീ സജ്ജനങ്ങളുടെ കൂട്ടത്തിൽ ചേർക്കേണമേ."
-            },
-            "ref": "Quran 26:83"
+        "ref": "Tirmidhi"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
+        "tr": "Rabbi hab li hukman wa al-hiqni bis-salihin",
+        "translations": {
+            "en": "My Lord, grant me authority and join me with the righteous. And grant me a reputation of honor among later generations. And place me among the inheritors of the Garden of Pleasure.",
+            "bn": "হে আমার পালনকর্তা! আমাকে প্রজ্ঞা দান করুন এবং আমাকে সৎকর্মশীলদের অন্তর্ভুক্ত করুন। এবং পরবর্তীদের মধ্যে আমার সুনাম অক্ষুণ্ন রাখুন। আর আমাকে নেয়ামতে ভরপুর জান্নাতের উত্তরাধিকারীদের অন্তর্ভুক্ত করুন।",
+            "ur": "اے میرے رب! مجھے علم و حکمت عطا فرما اور مجھے نیکوں کے ساتھ ملا دے۔ اور آنے والی نسلوں میں میرا ذکر خیر قائم رکھ۔ اور مجھے نعمتوں والی جنت کے وارثوں میں سے بنا دے۔",
+            "ar": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ وَاجْعَل لِّي لِسَانَ صِدْقٍ فِي الْآخِرِينَ وَاجْعَلْنِي مِن وَرَثَةِ جَنَّةِ النَّعِيمِ (سورة الشعراء 83-85)",
+            "tr": "Rabbim! Bana hikmet (hüküm, ilim ve anlayış) ver ve beni iyiler arasına kat. Benden sonra gelecekler içinde beni doğrulukla, iyilikle anılanlardan eyle. Ve beni Naim Cennetinin varislerinden kıl.",
+            "ms": "Wahai Tuhanku, berikanlah daku hikmat (ilmu pengetahuan), dan hubungkanlah daku dengan orang-orang yang soleh. Dan jadikanlah bagiku sebutan yang baik dalam kalangan orang-orang yang datang kemudian. Dan jadikanlah daku seorang daripada waris-waris kebun Syurga yang penuh kenikmatan.",
+            "id": "Ya Tuhanku, berikanlah kepadaku hikmah dan masukkanlah aku ke dalam golongan orang-orang yang saleh. Dan jadikanlah aku buah tutur yang baik bagi orang-orang (yang datang) kemudian. Dan jadikanlah aku termasuk orang-orang yang mempusakai surga yang penuh kenikmatan.",
+            "fr": "Seigneur, accorde-moi la sagesse et fais-moi rejoindre les gens de bien. Fais que je sois mentionné en bien par les générations futures. Et fais de moi l'un des héritiers du Jardin des délices.",
+            "hi": "मेरे रब! मुझे ज्ञान और समझ दे, और मुझे नेकों के साथ मिला दे। और आने वाली नस्लों में मेरे लिए सच्ची ख्याति बना। और मुझे सुखों वाले स्वर्ग के वारिसों में से कर दे।",
+            "te": "నా ప్రభూ! నాకు జ్ఞానం ఇవ్వు మరియు నన్ను నీతిమంతులతో చేర్చు. మరియు తరువాతి తరాలలో నాకు మంచి పేరు ప్రసాదించు. మరియు ఆనందాల స్వర్గపు వారసులలో నన్ను ఉంచు.",
+            "ta": "என் இறைவா! எனக்கு ஞானத்தை வழங்குவாயாக, என்னை நல்லடியார்களுடன் சேர்த்துக்கொள்வாயாக. மேலும் பின்வரும் சமுதாயத்தினர் மத்தியில் எனக்கு நற்பெயரை ஏற்படுத்துவாயாக. மேலும் என்னை இன்பம் நிறைந்த சுவனத்தின் வாரிசுகளில் ஆக்குவாயாக.",
+            "ml": "എൻ്റെ രക്ഷിതാവേ! എനിക്ക് നീ ജ്ഞാനം നൽകുകയും എന്നെ സജ്ജനങ്ങളോടൊപ്പം ചേർക്കുകയും ചെയ്യേണമേ. വരും തലമുറകൾക്കിടയിൽ എനിക്ക് ഒരു സൽകീർത്തി നൽകേണമേ. അനുഗ്രഹപൂർണ്ണമായ സ്വർഗ്ഗത്തിൻ്റെ അവകാശികളിൽ എന്നെ നീ ഉൾപ്പെടുത്തേണമേ."
         },
-        {
-            "type": "hadith",
-            "ar": "لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا",
-            "tr": "La tahasadu wa la tanajashu wa la tabaghadu",
-            "translations": {
-                "en": "Do not envy one another, do not inflate prices, do not hate one another.",
-                "bn": "তোমরা একে অপরের প্রতি হিংসা করো না, কেনাবেচায় ধোঁকা দিও না এবং একে অপরের প্রতি বিদ্বেষ পোষণ করো না।",
-                "ur": "ایک دوسرے سے حسد نہ کرو، دھوکہ دہی سے بولی نہ بڑھاؤ، اور ایک دوسرے سے بغض نہ رکھو۔",
-                "ar": "لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا",
-                "tr": "Birbirinize haset etmeyin, alışverişte birbirinizi aldatmayın, birbirinize buğzetmeyin.",
-                "ms": "Janganlah kamu hasad-menghasad, janganlah kamu tipu-menipu, janganlah kamu benci-membenci.",
-                "id": "Janganlah kalian saling mendengki, janganlah kalian saling menipu, janganlah kalian saling membenci.",
-                "fr": "Ne vous enviez pas les uns les autres, ne surenchérissez pas, ne vous haïssez pas.",
-                "hi": "एक दूसरे से हसद (जलन) न करो, खरीदारी में धोखा न दो, और एक दूसरे से नफरत न करो।",
-                "te": "ఒకరిపై ఒకరు అసూయ పడకండి, తప్పుడు ధరలు పెంచకండి, ఒకరినొకరు ద్వేషించుకోకండి.",
-                "ta": "நீங்கள் ஒருவருக்கொருவர் பொறாமை கொள்ளாதீர்கள்; விலையை உயர்த்துவதற்காக வியாபாரத்தில் மோசடி செய்யாதீர்கள்; ஒருவருக்கொருவர் பகைத்துக் கொள்ளாதீர்கள்.",
-                "ml": "നിങ്ങൾ പരസ്പരം അസൂയപ്പെടരുത്, കച്ചവടത്തിൽ കൃത്രിമം കാണിക്കരുത്, പരസ്പരം വിദ്വേഷം വെച്ചുപുലർത്തരുത്."
-            },
-            "ref": "Muslim"
+        "ref": "Quran 26:83",
+        "arabic": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ وَاجْعَل لِّي لِسَانَ صِدْقٍ فِي الْآخِرِينَ وَاجْعَلْنِي مِن وَرَثَةِ جَنَّةِ النَّعِيمِ",
+        "transliteration": "Rabbi hab lee hukman wa alhiqnee bis-saliheen, waj'al lee lisana sidqin fil-akhireen, waj'alnee min warathati jannatin-na'eem."
+    },
+    {
+        "type": "hadith",
+        "ar": "لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا",
+        "tr": "La tahasadu wa la tanajashu wa la tabaghadu",
+        "translations": {
+            "en": "Do not envy one another, do not inflate prices, do not hate one another, do not turn away from one another, do not undercut one another, but be you, O servants of Allah, brothers.",
+            "bn": "একের প্রতি অন্যের বিদ্বেষ রেখো না, মূল্য বাড়ানোর জন্য দর হাঁকবে না, পরস্পরের প্রতি ঘৃণা পোষণ করবে না, একে অপরের থেকে মুখ ফিরিয়ে নেবে না, এবং অন্যের কেনা-বেচার ওপর কেনা-বেচা করবে না। হে আল্লাহর বান্দারা! তোমরা ভাই ভাই হয়ে যাও।",
+            "ur": "ایک دوسرے سے حسد نہ کرو، نیلامی میں قیمت نہ بڑھاؤ، ایک دوسرے سے بغض نہ رکھو، ایک دوسرے سے منہ نہ موڑو، ایک دوسرے کے سودے پر سودا نہ کرو، بلکہ اے اللہ کے بندو! بھائی بھائی بن کر رہو۔",
+            "ar": "لاَ تَحَاسَدُوا، وَلاَ تَنَاجَشُوا، وَلاَ تَبَاغَضُوا، وَلاَ تَدَابَرُوا، وَلاَ يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا (صحيح مسلم)",
+            "tr": "Birbirinize haset etmeyin. Alışverişte fiyat kızıştırmayın. Birbirinize kin tutmayın. Birbirinize sırt çevirmeyin. Birinizin satışı üzerine satış yapmayın. Ey Allah'ın kulları! Kardeş olun.",
+            "ms": "Janganlah saling mendengki, jangan saling menipu pada harga, jangan saling membenci, jangan saling membelakangi, jangan mendahului dalam jual beli orang lain, dan jadilah kalian hamba-hamba Allah yang bersaudara.",
+            "id": "Janganlah saling mendengki, jangan saling menipu, jangan saling membenci, jangan saling membelakangi, jangan mendahului dalam jual beli orang lain, dan jadilah kalian hamba-hamba Allah yang bersaudara.",
+            "fr": "Ne vous enviez pas, ne faussez pas les enchères, ne vous haïssez pas, ne vous détournez pas les uns des autres, ne concluez pas de vente par-dessus celle de votre frère, mais soyez, ô serviteurs d'Allah, des frères.",
+            "hi": "एक-दूसरे से ईर्ष्या मत करो, कीमतें मत बढ़ाओ, एक-दूसरे से नफरत मत करो, एक-दूसरे से मुँह मत मोड़ो, एक-दूसरे का सौदा मत काटो, बल्कि अल्लाह के बंदो! भाई-भाई बन कर रहो।",
+            "te": "ఒకరినొకరు అసూయపడకండి, ధరలను పెంచకండి, ఒకరినొకరు ద్వేషించకండి, ఒకరినొకరు విస్మరించకండి, ఒకరినొకరు తక్కువ చేసి విక్రయించకండి, కానీ అల్లాహ్ దాసులారా, సోదరులుగా ఉండండి.",
+            "ta": "ஒருவர் மீது ஒருவர் பொறாமை கொள்ள வேண்டாம், விலையை ஏற்றுவதற்காக ஏலம் கேட்க வேண்டாம், ஒருவரையொருவர் வெறுக்க வேண்டாம், ஒருவரையொருவர் புறக்கணிக்க வேண்டாம், மற்றவரின் வியாபாரத்தில் தலையிட வேண்டாம். அல்லாஹ்வின் அடியார்களே! சகோதரர்களாக வாழுங்கள்.",
+            "ml": "നിങ്ങൾ അന്യോന്യം അസൂയ വെക്കരുത്, വില കൂട്ടുവാൻ വേണ്ടി മത്സരിക്കരുത്, അന്യോന്യം വെറുക്കരുത്, അന്യോന്യം പിന്തിരിഞ്ഞു നിൽക്കരുത്, മറ്റൊരാളുടെ കച്ചവടത്തിനു മീതെ കച്ചവടം ചെയ്യരുത്. ഓ അല്ലാഹുവിൻ്റെ ദാസന്മാരേ, അന്യോന്യം സഹോദരന്മാരായി ഇരിക്കുക."
         },
-        {
-            "type": "dua",
-            "ar": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي بَصَرِي نُورًا",
-            "tr": "Allahummaj-'al fi qalbi nuran wa fi basari nuran",
-            "translations": {
-                "en": "O Allah, place light in my heart and light in my sight.",
-                "bn": "হে আল্লাহ! আমার হৃদয়ে নূর দান করুন এবং আমার দৃষ্টিতে নূর দান করুন।",
-                "ur": "اے اللہ! میرے دل میں نور پیدا کر دے اور میری بصارت میں نور پیدا کر دے۔",
-                "ar": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي بَصَرِي نُورًا",
-                "tr": "Allah'ım! Kalbime nur ver, gözüme nur ver.",
-                "ms": "Ya Allah, jadikanlah cahaya dalam hatiku dan cahaya pada penglihatanku.",
-                "id": "Ya Allah, jadikanlah cahaya dalam hatiku dan cahaya pada pandanganku.",
-                "fr": "Ô Allah, place une lumière dans mon cœur et une lumière dans ma vue.",
-                "hi": "ऐ अल्लाह! मेरे दिल में नूर पैदा कर और मेरी आँखों (दृष्टि) में नूर पैदा कर।",
-                "te": "ఓ అల్లాహ్! నా హృదయంలో కాంతిని మరియు నా దృష్టిలో కాంతిని నింపు.",
-                "ta": "யா அல்லாஹ்! என் உள்ளத்தில் ஒளியையும், என் பார்வையில் ஒளியையும் ஏற்படுத்துவாயாக!",
-                "ml": "അല്ലാഹുവേ! എന്റെ ഹൃദയത്തിൽ പ്രകാശവും എന്റെ കാഴ്ചയിൽ പ്രകാശവും നീ നൽകേണമേ."
-            },
-            "ref": "Bukhari & Muslim"
+        "ref": "Muslim",
+        "arabic": "لاَ تَحَاسَدُوا، وَلاَ تَنَاجَشُوا، وَلاَ تَبَاغَضُوا، وَلاَ تَدَابَرُوا، وَلاَ يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا",
+        "transliteration": "La tahasadu, wala tanajashu, wala tabaghadu, wala tadabaru, wala yabi' ba'dukum 'ala bay'i ba'd, wa kunu 'ibadallahi ikhwana."
+    },
+    {
+        "type": "dua",
+        "ar": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي بَصَرِي نُورًا",
+        "tr": "Allahummaj-'al fi qalbi nuran wa fi basari nuran",
+        "translations": {
+            "en": "O Allah, place light in my heart, and on my tongue light, and in my ears light and in my sight light, and above me light, and below me light, and to my right light, and to my left light, and before me light and behind me light. Place in my soul light.",
+            "bn": "হে আল্লাহ! আমার অন্তরে আলো সৃষ্টি করুন, আমার দৃষ্টিতে আলো দিন, আমার শ্রবণে আলো দিন, আমার ডান দিকে আলো দিন, আমার বাম দিকে আলো দিন, আমার উপরে আলো দিন, আমার নীচে আলো দিন, আমার সামনে আলো দিন, আমার পিছনে আলো দিন, এবং আমার জন্য আলোকে বিশাল করে দিন।",
+            "ur": "اے اللہ! میرے دل میں نور پیدا کر، میری آنکھوں میں نور، میرے کانوں میں نور، میری دائیں جانب نور، میری بائیں جانب نور، میرے اوپر نور، میرے نیچے نور، میرے آگے نور، میرے پیچھے نور پیدا کر، اور میرے لیے نور کو بہت بڑا کر دے۔",
+            "ar": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي بَصَرِي نُورًا، وَفِي سَمْعِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ يَسَارِي نُورًا، وَفَوْقِي نُورًا، وَتَحْتِي نُورًا، وَأَمَامِي نُورًا، وَخَلْفِي نُورًا، وَعَظِّمْ لِي نُورًا (صحيح مسلم)",
+            "tr": "Ey Allah'ım! Kalbime, gözüme, kulağıma, sağıma, soluma, üstüme, altıma, önüme ve arkama nur ver. Ve benim nurumu büyüt.",
+            "ms": "Ya Allah, jadikanlah cahaya dalam hatiku, cahaya pada penglihatanku, cahaya pada pendengaranku, cahaya di sebelah kananku, cahaya di sebelah kiriku, cahaya di atasku, cahaya di bawahku, cahaya di depanku, cahaya di belakangku, dan besarkanlah cahaya untukku.",
+            "id": "Ya Allah, jadikanlah cahaya dalam hatiku, cahaya pada penglihatanku, cahaya pada pendengaranku, cahaya di sebelah kananku, cahaya di sebelah kiriku, cahaya di atasku, cahaya di bawahku, cahaya di depanku, cahaya di belakangku, dan agungkanlah cahaya bagiku.",
+            "fr": "Ô Allah, mets de la lumière dans mon cœur, de la lumière dans ma vue, de la lumière dans mon ouïe, de la lumière à ma droite, de la lumière à ma gauche, de la lumière au-dessus de moi, de la lumière en dessous de moi, de la lumière devant moi, de la lumière derrière moi, et accorde-moi une lumière immense.",
+            "hi": "ऐ अल्लाह! मेरे दिल में नूर (रोशनी) पैदा कर, मेरी आँखों में नूर, मेरे कानों में नूर, मेरी दाईं ओर नूर, मेरी बाईं ओर नूर, मेरे ऊपर नूर, मेरे नीचे नूर, मेरे आगे नूर, मेरे पीछे नूर पैदा कर, और मेरे लिए नूर को बहुत बड़ा कर दे।",
+            "te": "ఓ అల్లాహ్! నా హృదయంలో వెలుగునివ్వు, నా కంటిలో వెలుగునివ్వు, నా చెవిలో వెలుగునివ్వు, నా కుడి వైపు వెలుగునివ్వు, నా ఎడమ వైపు వెలుగునివ్వు, నా పైన వెలుగునివ్వు, నా క్రింద వెలుగునివ్వు, నా ముందు వెలుగునివ్వు, నా వెనుక వెలుగునివ్వు, మరియు నా వెలుగును గొప్పగా చేయి.",
+            "ta": "யா அல்லாஹ்! என் இதயத்தில் ஒளியை ஏற்படுத்துவாயாக, என் பார்வையில் ஒளியை ஏற்படுத்துவாயாக, என் செவிப்புலனில் ஒளியை ஏற்படுத்துவாயாக, என் வலது புறம் ஒளியை ஏற்படுத்துவாயாக, என் இடது புறம் ஒளியை ஏற்படுத்துவாயாக, என் மேல் ஒளியை ஏற்படுத்துவாயாக, என் கீழ் ஒளியை ஏற்படுத்துவாயாக, என் முன்னே ஒளியை ஏற்படுத்துவாயாக, என் பின்னே ஒளியை ஏற்படுத்துவாயாக, மேலும் எனக்கான ஒளியை மகத்தானதாக ஆக்குவாயாக.",
+            "ml": "അല്ലാഹുവേ! എൻ്റെ ഹൃദയത്തിൽ നീ പ്രകാശം നൽകേണമേ, എൻ്റെ കാഴ്ചയിൽ പ്രകാശം നൽകേണമേ, എൻ്റെ കേൾവിയിൽ പ്രകാശം നൽകേണമേ, എൻ്റെ വലതുഭാഗത്ത് പ്രകാശം നൽകേണമേ, എൻ്റെ ഇടതുഭാഗത്ത് പ്രകാശം നൽകേണമേ, എൻ്റെ മുകളിൽ പ്രകാശം നൽകേണമേ, എൻ്റെ താഴെ പ്രകാശം നൽകേണമേ, എൻ്റെ മുന്നിൽ പ്രകാശം നൽകേണമേ, എൻ്റെ പിന്നിൽ പ്രകാശം നൽകേണമേ, എനിക്കുള്ള പ്രകാശം നീ മഹത്തരമാക്കേണമേ."
         },
-        {
-            "type": "hadith",
+        "ref": "Bukhari & Muslim",
+        "arabic": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي بَصَرِي نُورًا، وَفِي سَمْعِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ يَسَارِي نُورًا، وَفَوْقِي نُورًا، وَتَحْتِي نُورًا، وَأَمَامِي نُورًا، وَخَلْفِي نُورًا، وَعَظِّمْ لِي نُورًا",
+        "transliteration": "Allahummaj’al fee qalbee nooran, wa fee basaree nooran, wa fee sam’ee nooran, wa ’an yameenee nooran, wa ’an yasaree nooran, wa fawqee nooran, wa tahtee nooran, wa amamee nooran, wa khalfee nooran, wa a’dhim lee nooran."
+    },
+    {
+        "type": "hadith",
+        "ar": "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
+        "tr": "Khairun-nasi anfa'uhum lin-nas",
+        "translations": {
+            "en": "The best of people are those most beneficial to people.",
+            "bn": "মানুষের মধ্যে সেই ব্যক্তিই উত্তম, যে মানুষের জন্য সবচেয়ে বেশি কল্যাণকর।",
+            "ur": "لوگوں میں بہترین وہ ہے جو لوگوں کے لیے سب سے زیادہ فائدہ مند ہو۔",
             "ar": "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
-            "tr": "Khairun-nasi anfa'uhum lin-nas",
-            "translations": {
-                "en": "The best of people are those most beneficial to people.",
-                "bn": "মানুষের মধ্যে সেই ব্যক্তিই উত্তম, যে মানুষের জন্য সবচেয়ে বেশি কল্যাণকর।",
-                "ur": "لوگوں میں بہترین وہ ہے جو لوگوں کے لیے سب سے زیادہ فائدہ مند ہو۔",
-                "ar": "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
-                "tr": "İnsanların en hayırlısı, insanlara en faydalı olanıdır.",
-                "ms": "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia yang lain.",
-                "id": "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.",
-                "fr": "Le meilleur des hommes est celui qui est le plus utile aux hommes.",
-                "hi": "लोगों में सबसे बेहतर वह है जो लोगों के लिए सबसे ज़्यादा फायदेमंद हो।",
-                "te": "మనుషుల్లో ఉత్తముడు ఎవరంటే ఇతరులకు అత్యధిక ప్రయోజనం చేకూర్చేవాడు.",
-                "ta": "மக்களில் சிறந்தவர் எவர் என்றால், மனிதர்களுக்கு அதிகப் பயன் தருபவரே ஆவார்.",
-                "ml": "ജനങ്ങളിൽ ഉത്തമൻ ജനങ്ങൾക്ക് പ്രയോജനപ്പെടുന്നവനാണ്."
-            },
-            "ref": "Daraqutni"
+            "tr": "İnsanların en hayırlısı, insanlara en faydalı olanıdır.",
+            "ms": "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia yang lain.",
+            "id": "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.",
+            "fr": "Le meilleur des hommes est celui qui est le plus utile aux hommes.",
+            "hi": "लोगों में सबसे बेहतर वह है जो लोगों के लिए सबसे ज़्यादा फायदेमंद हो।",
+            "te": "మనుషుల్లో ఉత్తముడు ఎవరంటే ఇతరులకు అత్యధిక ప్రయోజనం చేకూర్చేవాడు.",
+            "ta": "மக்களில் சிறந்தவர் எவர் என்றால், மனிதர்களுக்கு அதிகப் பயன் தருபவரே ஆவார்.",
+            "ml": "ജനങ്ങളിൽ ഉത്തമൻ ജനങ്ങൾക്ക് പ്രയോജനപ്പെടുന്നവനാണ്."
         },
-        {
-            "type": "dua",
-            "ar": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ",
-            "tr": "Rabbana taqabbal minna innaka Antas-Sami'ul-'Alim",
-            "translations": {
-                "en": "Our Lord, accept from us. Indeed You are the Hearing, the Knowing.",
-                "bn": "হে আমাদের পালনকর্তা! আমাদের পক্ষ থেকে কবুল করুন। নিশ্চয়ই আপনি শ্রবণকারী ও সর্বজ্ঞ।",
-                "ur": "اے ہمارے رب! ہم سے قبول فرما، بیشک تو ہی سننے والا اور جاننے والا ہے۔",
-                "ar": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ",
-                "tr": "Rabbimiz! Bizden kabul et. Şüphesiz Sen, işitensin, bilensin.",
-                "ms": "Wahai Tuhan kami, terimalah daripada kami, sesungguhnya Engkaulah Yang Maha Mendengar, lagi Maha Mengetahui.",
-                "id": "Ya Tuhan kami, terimalah (amal) dari kami. Sungguh, Engkaulah Yang Maha Mendengar, Maha Mengetahui.",
-                "fr": "Notre Seigneur ! Accepte ceci de notre part ! Car c'est Toi l'Audient, l'Omniscient.",
-                "hi": "ऐ हमारे रब! हमसे (यह इबादत) कबूल फरमा। बेशक तू ही सुनने वाला और जानने वाला है।",
-                "te": "ఓ మా ప్రభూ! మా నుండి అంగీకరించు. నిశ్చయంగా నీవు వినేవాడివి మరియు తెలిసినవాడివి.",
-                "ta": "எங்கள் இறைவா! எங்களிடமிருந்து (இதைப்) பெற்றுக் கொள்வாயாக! நிச்சயமாக நீயே (யாவற்றையும்) செவியேற்பவனாகவும், அறிபவனாகவும் இருக்கிறாய்.",
-                "ml": "ഞങ്ങളുടെ നാഥാ! ഞങ്ങളിൽ നിന്ന് നീ സ്വീകരിക്കേണമേ. തീർച്ചയായും നീ എല്ലാം കേൾക്കുന്നവനും അറിയുന്നവനുമാകുന്നു."
-            },
-            "ref": "Quran 2:127"
+        "ref": "Daraqutni"
+    },
+    {
+        "type": "dua",
+        "ar": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ",
+        "tr": "Rabbana taqabbal minna innaka Antas-Sami'ul-'Alim",
+        "translations": {
+            "en": "Our Lord, accept [this] from us. Indeed You are the Hearing, the Knowing. And turn to us in forgiveness. Indeed, You are the Accepting of repentance, the Merciful.",
+            "bn": "হে আমাদের পালনকর্তা! আমাদের থেকে কবুল করুন। নিশ্চয় আপনি সর্বশ্রোতা, সর্বজ্ঞ। এবং আমাদের তওবা কবুল করুন, নিশ্চয় আপনি তওবা কবুলকারী, পরম দয়ালু।",
+            "ur": "اے ہمارے رب! ہم سے قبول فرما، بیشک تو ہی خوب سننے والا، جاننے والا ہے۔ اور ہماری توبہ قبول فرما، بیشک تو ہی توبہ قبول کرنے والا، نہایت رحم والا ہے۔",
+            "ar": "رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ (سورة البقرة 127-128)",
+            "tr": "Rabbimiz! Bizden kabul buyur, şüphesiz sen hakkıyla işitensin, hakkıyla bilensin. Tevbemizi de kabul et. Şüphesiz sen tevbeleri çokça kabul eden, çok merhametli olansın.",
+            "ms": "Wahai Tuhan kami! Terimalah amalan kami, sesungguhnya Engkaulah Yang Maha Mendengar, lagi Maha Mengetahui. Dan terimalah taubat kami. Sesungguhnya Engkaulah Yang Maha Penerima taubat, lagi Maha Mengasihani.",
+            "id": "Ya Tuhan kami, terimalah daripada kami (amalan kami), sesungguhnya Engkaulah Yang Maha Mendengar lagi Maha Mengetahui. Dan terimalah taubat kami. Sesungguhnya Engkaulah Yang Maha Penerima taubat lagi Maha Penyayang.",
+            "fr": "Notre Seigneur, accepte ceci de notre part ! Car c'est Toi l'Audient, l'Omniscient. Et accepte notre repentir. Car c'est Toi le Grand Accueillant au repentir, le Très Miséricordieux.",
+            "hi": "हमारे रब! हमारी ओर से कबूल कर ले, बेशक तू ही सुनने वाला, जानने वाला है। और हमारी तौबा कबूल कर, बेशक तू ही तौबा कबूल करने वाला, अत्यंत दयालु है।",
+            "te": "మా ప్రభూ! మా నుండి ఆమోదించు, నిజమే, నీవు అంతా వినేవాడివి, అన్నీ తెలిసినవాడివి. మరియు మా పశ్చాత్తాపాన్ని అంగీకరించు, నిజమే, నీవు పశ్చాత్తాపాన్ని అంగీకరించేవాడివి, దయగలవాడివి.",
+            "ta": "எங்கள் இறைவா! எங்களிடமிருந்து ஏற்றுக்கொள்வாயாக. நிச்சயமாக நீயே செவியேற்பவன், நன்கறிபவன். மேலும் எங்களுடைய மன்னிப்பை ஏற்றுக்கொள்வாயாக. நிச்சயமாக நீயே மன்னிப்பை ஏற்றுக்கொள்பவன், மிக்க கருணையாளன்.",
+            "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ! ഞങ്ങളിൽ നിന്ന് ഇത് സ്വീകരിക്കേണമേ. തീർച്ചയായും നീ എല്ലാം കേൾക്കുന്നവനും അറിയുന്നവനുമാകുന്നു. ഞങ്ങളുടെ പശ്ചാത്താപം സ്വീകരിക്കേണമേ. തീർച്ചയായും നീ പശ്ചാത്താപം സ്വീകരിക്കുന്നവനും കരുണാനിധിയുമാകുന്നു."
         },
-        {
-            "type": "hadith",
-            "ar": "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ",
-            "tr": "Ma naqasat sadaqatun min malin",
-            "translations": {
-                "en": "Wealth does not decrease because of charity.",
-                "bn": "সদকা করার কারণে কখনো সম্পদ কমে যায় না।",
-                "ur": "صدقہ سے مال کم نہیں ہوتا۔",
-                "ar": "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ",
-                "tr": "Sadaka vermekle mal eksilmez.",
-                "ms": "Sedekah itu tidak mengurangkan harta.",
-                "id": "Sedekah tidak akan mengurangi harta.",
-                "fr": "L'aumône ne diminue en rien la richesse.",
-                "hi": "सदाक़ा (दान) देने से धन कम नहीं होता।",
-                "te": "దానం చేయడం వల్ల సంపద తగ్గదు.",
-                "ta": "தர்மம் செய்வதால் செல்வம் குறைந்து போவதில்லை.",
-                "ml": "ദാനധർമ്മം കാരണം സമ്പത്ത് കുറയുകയില്ല."
-            },
-            "ref": "Muslim"
+        "ref": "Quran 2:127",
+        "arabic": "رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ",
+        "transliteration": "Rabbana taqabbal minna, innaka antas-Samee’ul-‘Aleem. Wa tub ‘alayna, innaka antat-Tawwabur-Raheem."
+    },
+    {
+        "type": "hadith",
+        "ar": "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ",
+        "tr": "Ma naqasat sadaqatun min malin",
+        "translations": {
+            "en": "Charity does not decrease wealth, no one forgives another except that Allah increases his honor, and no one humbles himself for the sake of Allah except that Allah raises his status.",
+            "bn": "সাদাকাহ দিলে সম্পদ কমে যায় না, আর যে ব্যক্তি ক্ষমা করে, আল্লাহ তার সম্মানই বৃদ্ধি করেন। এবং যে কেউ আল্লাহর সন্তুষ্টির জন্য বিনয়ী হয়, আল্লাহ তার মর্যাদা বাড়িয়ে দেন।",
+            "ur": "صدقہ دینے سے مال کم نہیں ہوتا، اور جو بندہ معاف کر دے تو اللہ اس کی عزت ہی بڑھاتا ہے، اور جو شخص اللہ کے لیے عاجزی اختیار کرتا ہے تو اللہ اسے بلند درجے عطا فرماتا ہے۔",
+            "ar": "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا، وَمَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلاَّ رَفَعَهُ اللَّهُ (صحيح مسلم)",
+            "tr": "Sadaka malı eksiltmez. Affetmesi sebebiyle Allah bir kulun ancak izzetini (şerefini) artırır. Allah için alçakgönüllü olan bir kimseyi de Allah ancak yüceltir.",
+            "ms": "Sedekah tidak mengurangkan harta, tidaklah Allah menambah bagi seorang hamba yang pemaaf melainkan kemuliaan, dan tidaklah seseorang merendahkan diri kerana Allah melainkan Allah akan meninggikan darjatnya.",
+            "id": "Sedekah itu tidak akan mengurangi harta, tidaklah kemaha-maafan seorang hamba melainkan Allah akan menambah kemuliaannya, dan tidaklah seseorang merendahkan diri karena Allah melainkan Allah akan meninggikan derajatnya.",
+            "fr": "L'aumône ne diminue en rien la richesse, Allah n'ajoute au pardon d'un serviteur que gloire et honneur, et nul ne s'humilie pour Allah sans qu'Allah ne l'élève en degrés.",
+            "hi": "दान (सदक़ा) देने से माल कम नहीं होता, माफ़ करने से अल्लाह बंदे की इज़्ज़त ही बढ़ाता है, और जो कोई अल्लाह के लिए विनम्रता अपनाता है, अल्लाह उसका दर्जा बुलंद कर देता है।",
+            "te": "దానం సంపదను తగ్గించదు, క్షమించడం ద్వారా అల్లాహ్ ఒక సేవకుడి గౌరవాన్ని మాత్రమే పెంచుతాడు మరియు ఎవరైనా అల్లాహ్ కోసం వినయం అవలంబిస్తే, అల్లాహ్ అతని స్థానాన్ని పెంచుతాడు.",
+            "ta": "தர்மம் செய்வதால் செல்வம் குறைவதில்லை, மன்னிக்கும் ஒரு அடியாரின் கண்ணியத்தை அல்லாஹ் கூட்டவே செய்கிறான். மேலும் யாரொருவர் அல்லாஹ்வுக்காகப் பணிந்து நடக்கிறாரோ அவரை அல்லாஹ் உயர்த்துகிறான்.",
+            "ml": "ദാനം സമ്പത്തിനെ കുറയ്ക്കുകയില്ല. മാപ്പ് നൽകുന്നതിലൂടെ അല്ലാഹു ഒരു ദാസൻ്റെ ആദരവ് വർദ്ധിപ്പിക്കുകയേ ഉള്ളൂ. അല്ലാഹുവിന് വേണ്ടി ആരെങ്കിലും വിനയം കാണിച്ചാൽ അല്ലാഹു അവനെ ഉയർത്താതിരിക്കില്ല."
         },
-        {
-            "type": "dua",
-            "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
-            "tr": "Allahumma inni as'alukal-huda wat-tuqa wal-'afafa wal-ghina",
-            "translations": {
-                "en": "O Allah, I ask You for guidance, piety, chastity, and self-sufficiency.",
-                "bn": "হে আল্লাহ, আমি তোমার কাছে হেদায়েত, তাকওয়া, পবিত্রতা এবং স্বয়ংসম্পূর্ণতা চাই।",
-                "ur": "اے اللہ میں تجھ سے ہدایت، پرہیزگاری، عفت اور خودداری کا سوال کرتا ہوں۔",
-                "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
-                "tr": "Allah'ım, Senden hidayet, takva, iffet ve kendine yetmeni isterim.",
-                "ms": "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian, dan kecukupan diri.",
-                "id": "Ya Allah, aku mohon kepada-Mu petunjuk, ketakwaan, kesucian, dan kemandirian.",
-                "fr": "Ô Allah, je Te demande guidance, piété, chasteté et autonomie.",
-                "hi": "हे अल्लाह, मैं आपसे मार्गदर्शन, धर्मपरायणता, शुद्धता और आत्मनिर्भरता मांगता हूं।",
-                "te": "ఓ అల్లాహ్, నేను నిన్ను మార్గదర్శకత్వం, దైవభక్తి, పవిత్రత మరియు స్వయం సమృద్ధి కోసం అడుగుతున్నాను.",
-                "ta": "யா அல்லாஹ், நான் உன்னிடம் நேர்வழி, இறையச்சம், கற்பு, தன்னிறைவு ஆகியவற்றைக் கேட்கிறேன்.",
-                "ml": "അല്ലാഹുവേ, ഞാൻ നിന്നോട് മാർഗദർശനം, ഭക്തി, പവിത്രത, സ്വയം പര്യാപ്തത എന്നിവ ആവശ്യപ്പെടുന്നു."
-            },
-            "ref": "Muslim"
-        },
-        {
-            "type": "hadith",
-            "ar": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
-            "tr": "Innamal a'malu bin-niyat",
-            "translations": {
-                "en": "Verily, actions are judged by intentions.",
-                "bn": "নিয়ত দ্বারা কর্মের বিচার হয়।",
-                "ur": "بے شک اعمال کا فیصلہ نیتوں سے ہوتا ہے۔",
-                "ar": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
-                "tr": "Şüphesiz ameller niyetlere göre değerlendirilir.",
-                "ms": "Sesungguhnya amal itu dinilai dengan niat.",
-                "id": "Sesungguhnya perbuatan diukur dari niatnya.",
-                "fr": "En vérité, les actions sont jugées par les intentions.",
-                "hi": "वास्तव में, कार्यों का मूल्यांकन इरादों से किया जाता है।",
-                "te": "నిశ్చయంగా, చర్యలు ఉద్దేశాలను బట్టి నిర్ణయించబడతాయి.",
-                "ta": "உண்மையில், செயல்கள் நோக்கங்களால் தீர்மானிக்கப்படுகின்றன.",
-                "ml": "തീർച്ചയായും, പ്രവർത്തനങ്ങൾ വിലയിരുത്തുന്നത് ഉദ്ദേശ്യങ്ങളാൽ ആണ്."
-            },
-            "ref": "Bukhari & Muslim"
-        },
-        {
-            "type": "dua",
-            "ar": "رَبِّ زِدْنِي عِلْمًا",
-            "tr": "Rabbi zidni 'ilma",
-            "translations": {
-                "en": "My Lord, increase me in knowledge.",
-                "bn": "হে আমার প্রভু, আমাকে জ্ঞান বৃদ্ধি করুন।",
-                "ur": "میرے رب میرے علم میں اضافہ فرما۔",
-                "ar": "رَبِّ زِدْنِي عِلْمًا",
-                "tr": "Rabbim ilmimi arttır.",
-                "ms": "Ya Tuhanku, tambahkanlah kepadaku ilmu.",
-                "id": "Ya Tuhanku, tambahlah ilmuku.",
-                "fr": "Mon Seigneur, augmente-moi en connaissance.",
-                "hi": "मेरे प्रभु, मेरा ज्ञान बढ़ाओ।",
-                "te": "నా ప్రభూ, నాకు జ్ఞానాన్ని పెంచుము.",
-                "ta": "என் இறைவா, எனக்கு அறிவை அதிகப்படுத்துவாயாக!",
-                "ml": "എൻ്റെ രക്ഷിതാവേ, എനിക്ക് അറിവ് വർദ്ധിപ്പിക്കേണമേ."
-            },
-            "ref": "Quran 20:114"
-        },
-        {
-            "type": "hadith",
-            "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
-            "tr": "Tabassumuka fi wajhi akhika laka sadaqah",
-            "translations": {
-                "en": "Your smile for your brother is charity.",
-                "bn": "আপনার ভাইয়ের জন্য আপনার হাসি দাতব্য।",
-                "ur": "اپنے بھائی کے لیے آپ کی مسکراہٹ صدقہ ہے۔",
-                "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
-                "tr": "Kardeşine gülümsemen sadakadır.",
-                "ms": "Senyumanmu untuk saudaramu adalah sedekah.",
-                "id": "Senyummu untuk saudaramu adalah sedekah.",
-                "fr": "Votre sourire pour votre frère est une charité.",
-                "hi": "अपने भाई के लिए आपकी मुस्कुराहट परोपकार है।",
-                "te": "మీ సోదరుడి కోసం మీ చిరునవ్వు దాతృత్వం.",
-                "ta": "உங்கள் சகோதரனுக்கான உங்கள் புன்னகை ஒரு தொண்டு.",
-                "ml": "നിങ്ങളുടെ സഹോദരനോടുള്ള നിങ്ങളുടെ പുഞ്ചിരി ദാനധർമ്മമാണ്."
-            },
-            "ref": "Tirmidhi"
-        },
-        {
-            "type": "dua",
-            "ar": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
-            "tr": "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
-            "translations": {
-                "en": "O Allah, You are forgiving and love forgiveness, so forgive me.",
-                "bn": "হে আল্লাহ, আপনি ক্ষমাশীল এবং ক্ষমাকে ভালবাসেন, তাই আমাকে ক্ষমা করুন।",
-                "ur": "اے اللہ تو معاف کرنے والا ہے اور معافی کو پسند کرتا ہے پس مجھے معاف کر دے۔",
-                "ar": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
-                "tr": "Allah'ım sen affedicisin, affetmeyi seversin, beni de affet.",
-                "ms": "Ya Allah, Engkau Maha Pemaaf dan menyukai pengampunan, maka ampunilah aku.",
-                "id": "Ya Allah, Engkau maha pemaaf dan menyukai ampunan, maka ampunilah aku.",
-                "fr": "Ô Allah, Tu es Pardonneur et Tu aimes le pardon, alors pardonne-moi.",
-                "hi": "हे अल्लाह, तू क्षमा करने वाला है और क्षमा से प्रेम करता है, इसलिए मुझे क्षमा कर दे।",
-                "te": "ఓ అల్లాహ్, నీవు క్షమాశీలి మరియు క్షమాపణను ప్రేమిస్తున్నావు, కాబట్టి నన్ను క్షమించు.",
-                "ta": "யா அல்லாஹ், நீ மன்னிப்பவன், மன்னிப்பை விரும்புபவன், எனவே என்னை மன்னியுங்கள்.",
-                "ml": "അല്ലാഹുവേ, നീ പൊറുക്കുന്നവനും ക്ഷമയെ സ്നേഹിക്കുന്നവനുമാണ്, അതിനാൽ എന്നോട് ക്ഷമിക്കൂ."
-            },
-            "ref": "Tirmidhi"
-        }
-    ];
+        "ref": "Muslim",
+        "arabic": "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا، وَمَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلاَّ رَفَعَهُ اللَّهُ",
+        "transliteration": "Ma naqasat sadaqatun min malin, wa ma zadallahu 'abdan bi'afwin illa 'izza, wa ma tawada'a ahadun lillahi illa rafa'ahullah."
+    }
+];
 
     const NAMES_OF_ALLAH = [
         { num: 1, ar: 'ٱلرَّحْمَـٰنُ', en: 'Ar-Rahman', translations: { en: 'The Most Gracious', bn: 'পরম দয়ালু', ur: 'نہایت مہربان', tr: 'Rahmân', fr: 'Le Tout-Miséricordieux', hi: 'अत्यंत दयालु', id: 'Yang Maha Pengasih', ms: 'Maha Pemurah' } },
