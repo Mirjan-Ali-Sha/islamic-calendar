@@ -190,7 +190,7 @@ const PrayerTimes = (() => {
         if (diff < 0) diff += 24;
         const h = Math.floor(diff);
         const m = Math.floor((diff - h) * 60);
-        const s = Math.floor(((diff - h) * 60 - m) * 60);
+        const s = Math.ceil(((diff - h) * 60 - m) * 60);
         return `${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
     }
 

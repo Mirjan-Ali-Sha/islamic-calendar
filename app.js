@@ -1526,7 +1526,7 @@ const App = (() => {
         $('ramadan-iftar').textContent = times.maghrib.h12;
 
         // Countdown to Iftar or Suhoor
-        const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
+        const currentHrs = now.getHours() + (now.getMinutes() + (now.getSeconds() + now.getMilliseconds() / 1000) / 60) / 60;
         const maghribHrs = times._raw.maghrib;
         const fajrHrs = suhoorHrs - 10 / 60;
 
@@ -1535,7 +1535,7 @@ const App = (() => {
             const diff = maghribHrs - currentHrs;
             const h = Math.floor(diff);
             const m = Math.floor((diff - h) * 60);
-            const s = Math.floor((diff * 3600) % 60);
+            const s = Math.ceil(((diff - h) * 60 - m) * 60);
             $('ramadan-countdown').textContent = `🍽️ Iftar in ${h}h ${m}m ${s}s`;
         } else {
             // After Iftar or before Suhoor — countdown to Suhoor
@@ -2007,7 +2007,7 @@ const App = (() => {
                 let times = PrayerTimes.calculate(now, currentCity.lat, currentCity.lng, currentCity.tz, calcMethod, asrSchool);
                 // Apply time adjustment for countdown too
                 times = applyTimeAdjustment(times);
-                const currentHrs = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
+                const currentHrs = now.getHours() + (now.getMinutes() + (now.getSeconds() + now.getMilliseconds() / 1000) / 60) / 60;
                 const next = PrayerTimes.getNextPrayer(times, currentHrs);
 
                 // ── Prohibited Times Check ──
