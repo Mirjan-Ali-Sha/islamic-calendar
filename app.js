@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.4';
+const APP_VERSION = '1.8.5';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -218,8 +218,11 @@ const App = (() => {
             const connectivityDot = $('connectivity-dot');
             let onlineToastTimer = null;
 
-            function updateOnlineStatus() {
-                const isOnline = navigator.onLine;
+            let currentIsOnline = null;
+
+            function applyOnlineState(isOnline) {
+                if (currentIsOnline === isOnline) return;
+                currentIsOnline = isOnline;
 
                 // Update connectivity dot
                 if (connectivityDot) {
@@ -255,17 +258,32 @@ const App = (() => {
                 }
             }
 
-            window.addEventListener('online', updateOnlineStatus);
-            window.addEventListener('offline', updateOnlineStatus);
-            // Initial check — only show banner if offline at startup
-            if (connectivityDot) {
-                connectivityDot.classList.toggle('offline', !navigator.onLine);
-                connectivityDot.title = navigator.onLine ? 'Online' : 'Offline';
+            async function checkRealConnectivity() {
+                if (!navigator.onLine) {
+                    applyOnlineState(false);
+                    return;
+                }
+                try {
+                    // Use HEAD request with cache busting to bypass SW and check real internet
+                    const res = await fetch(window.location.origin + window.location.pathname + '?ping=' + Date.now(), {
+                        method: 'HEAD',
+                        cache: 'no-store'
+                    });
+                    applyOnlineState(res.ok || res.status === 405 || res.status === 200);
+                } catch (e) {
+                    applyOnlineState(false);
+                }
             }
-            if (!navigator.onLine && offlineBanner) {
-                offlineBanner.style.display = 'flex';
-                if (offlineText) offlineText.textContent = 'You are offline — using cached data';
-            }
+
+            window.addEventListener('online', checkRealConnectivity);
+            window.addEventListener('offline', () => applyOnlineState(false));
+
+            // Periodic real check
+            setInterval(checkRealConnectivity, 15000);
+
+            // Initial check
+            applyOnlineState(navigator.onLine);
+            checkRealConnectivity();
 
             console.log('App: Initialization complete.');
 
