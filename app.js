@@ -212,16 +212,60 @@ const App = (() => {
             initPWA();
             startPrayerCountdown();
 
-            // ── Offline indicator ──
+            // ── Online / Offline indicator ──
             const offlineBanner = $('offline-banner');
+            const offlineText = $('offline-text');
+            const connectivityDot = $('connectivity-dot');
+            let onlineToastTimer = null;
+
             function updateOnlineStatus() {
+                const isOnline = navigator.onLine;
+
+                // Update connectivity dot
+                if (connectivityDot) {
+                    connectivityDot.classList.toggle('offline', !isOnline);
+                    connectivityDot.title = isOnline ? 'Online' : 'Offline';
+                }
+
                 if (offlineBanner) {
-                    offlineBanner.style.display = navigator.onLine ? 'none' : 'flex';
+                    if (!isOnline) {
+                        // Offline: show amber banner persistently
+                        clearTimeout(onlineToastTimer);
+                        offlineBanner.classList.remove('online-mode');
+                        offlineBanner.querySelector('.offline-icon').textContent = '📡';
+                        if (offlineText) offlineText.textContent = 'You are offline — using cached data';
+                        offlineBanner.style.display = 'flex';
+                        offlineBanner.style.animation = 'none';
+                        void offlineBanner.offsetWidth; // reflow
+                        offlineBanner.style.animation = 'slideDown 0.4s var(--ease)';
+                    } else {
+                        // Online: show green toast briefly, then hide
+                        offlineBanner.classList.add('online-mode');
+                        offlineBanner.querySelector('.offline-icon').textContent = '✅';
+                        if (offlineText) offlineText.textContent = 'Back online';
+                        offlineBanner.style.display = 'flex';
+                        offlineBanner.style.animation = 'none';
+                        void offlineBanner.offsetWidth;
+                        offlineBanner.style.animation = 'slideDown 0.4s var(--ease)';
+                        clearTimeout(onlineToastTimer);
+                        onlineToastTimer = setTimeout(() => {
+                            offlineBanner.style.display = 'none';
+                        }, 3000);
+                    }
                 }
             }
+
             window.addEventListener('online', updateOnlineStatus);
             window.addEventListener('offline', updateOnlineStatus);
-            updateOnlineStatus(); // Check initial state
+            // Initial check — only show banner if offline at startup
+            if (connectivityDot) {
+                connectivityDot.classList.toggle('offline', !navigator.onLine);
+                connectivityDot.title = navigator.onLine ? 'Online' : 'Offline';
+            }
+            if (!navigator.onLine && offlineBanner) {
+                offlineBanner.style.display = 'flex';
+                if (offlineText) offlineText.textContent = 'You are offline — using cached data';
+            }
 
             console.log('App: Initialization complete.');
 
@@ -1853,7 +1897,7 @@ const App = (() => {
         if (!currentCity) return;
         if (currentCity.id === '__gps__') {
             const tz = getDSTAwareTimezone(currentCity, new Date());
-            $('location-name').textContent = `📍 ${currentCity.name} (GMT${tz >= 0 ? '+' : ''}${tz})`;
+            $('location-name').textContent = `${currentCity.name} (GMT${tz >= 0 ? '+' : ''}${tz})`;
         } else {
             $('location-name').textContent = `${currentCity.name}, ${currentCity.country}`;
         }
