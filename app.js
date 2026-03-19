@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.9';
+const APP_VERSION = '1.8.10';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -406,6 +406,27 @@ const App = (() => {
             }
         });
 
+        // ── Hardware Back Button Support ──
+        window.addEventListener('popstate', (e) => {
+            // Close standard modals
+            ['lang-modal', 'event-modal', 'date-prayer-modal', 'location-modal', 'settings-modal', 'zakat-modal', 'warning-modal'].forEach(id => {
+                const el = $(id);
+                if (el) el.style.display = 'none';
+            });
+            // Close full-screen views
+            const qibla = $('qibla-view');
+            if (qibla) qibla.style.display = 'none';
+            const tasbih = $('tasbih-view');
+            if (tasbih) tasbih.classList.remove('active');
+            const hub = $('islamic-hub-view');
+            if (hub) hub.classList.remove('active');
+            
+            document.body.style.overflow = '';
+            if (typeof stopQibla === 'function' && qibla && qibla.style.display === 'none') {
+                stopQibla();
+            }
+        });
+
         // ── Location bindings ──
         $('btn-change-location').addEventListener('click', () => {
             renderCityList();
@@ -470,6 +491,7 @@ const App = (() => {
         // Qibla
         $('btn-qibla').addEventListener('click', () => {
             initQibla();
+            history.pushState({ modal: 'qibla-view' }, '');
             $('qibla-view').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         });
@@ -477,6 +499,7 @@ const App = (() => {
             stopQibla();
             $('qibla-view').style.display = 'none';
             document.body.style.overflow = '';
+            if (history.state && history.state.modal === 'qibla-view') history.back();
         });
 
         // Zakat
@@ -493,10 +516,14 @@ const App = (() => {
 
         // Tasbih counter
         $('btn-tasbih').addEventListener('click', () => {
+            history.pushState({ modal: 'tasbih-view' }, '');
             $('tasbih-view').classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
         $('tasbih-back-btn').addEventListener('click', () => {
             $('tasbih-view').classList.remove('active');
+            document.body.style.overflow = '';
+            if (history.state && history.state.modal === 'tasbih-view') history.back();
         });
 
         // Restore tasbih state from localStorage
@@ -675,7 +702,9 @@ const App = (() => {
         // ── Islamic Tutorials & Duas Hub ──
         $('btn-names').addEventListener('click', () => {
             showWarningModal('hubWarning', () => {
+                history.pushState({ modal: 'islamic-hub-view' }, '');
                 $('islamic-hub-view').classList.add('active');
+                document.body.style.overflow = 'hidden';
                 renderNames();
                 renderDuasList();
                 renderTutorials();
@@ -684,6 +713,8 @@ const App = (() => {
         });
         $('islamic-hub-back-btn').addEventListener('click', () => {
             $('islamic-hub-view').classList.remove('active');
+            document.body.style.overflow = '';
+            if (history.state && history.state.modal === 'islamic-hub-view') history.back();
         });
 
         // Tab switching
@@ -1752,8 +1783,19 @@ const App = (() => {
 
     // ── Modal helpers ──
     function toggleModal(id, show) {
-        $(id).style.display = show ? 'flex' : 'none';
-        document.body.style.overflow = show ? 'hidden' : '';
+        const el = $(id);
+        if (!el) return;
+        if (show) {
+            history.pushState({ modal: id }, '');
+            el.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        } else {
+            el.style.display = 'none';
+            document.body.style.overflow = '';
+            if (history.state && history.state.modal === id) {
+                history.back();
+            }
+        }
     }
 
     // ── Time Adjustment helper ──
