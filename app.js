@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.9.0';
+const APP_VERSION = '2.0.0';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
