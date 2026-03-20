@@ -2506,8 +2506,8 @@ const App = (() => {
                 // Event is explicitly set to null, or no data loaded
                 data.wish = '';
             } else {
-                const currentHijriYear = hijri.hYear || 1445;
-                const varietyIndex = currentHijriYear % wishesPool.length;
+                const yearForSelection = currentHijriYear || 1445;
+                const varietyIndex = yearForSelection % wishesPool.length;
                 const selectedWish = wishesPool[varietyIndex];
                 data.wish = selectedWish[currentLang] || selectedWish['en'] || "";
             }
