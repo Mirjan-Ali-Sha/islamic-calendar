@@ -140,8 +140,9 @@ body::before {
 }
 
 .header-brand h1 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    white-space: nowrap;
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
     -webkit-background-clip: text;
@@ -190,21 +191,20 @@ body::before {
 /* Compact Today Banner */
 .today-banner {
     box-sizing: border-box;
-    padding: 2px 16px;
+    padding: 10px 16px;
     max-width: 720px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0px;
+    gap: 4px;
     position: sticky;
     top: 82px; /* 50 + 32 */
     background: var(--surface);
     z-index: 1060;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    height: 54px; /* Compact */
+    min-height: 80px; /* Allows content to expand natively */
     justify-content: center;
-    overflow: hidden;
 }
 
 .today-banner::before {

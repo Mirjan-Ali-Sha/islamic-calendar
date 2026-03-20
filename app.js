@@ -7,7 +7,7 @@
  * ║  Also update CACHE_NAME in sw.js to match!           ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const APP_VERSION = '1.8.10';
+const APP_VERSION = '1.9.0';
 const App = (() => {
     // ── State ──
     let currentLang = localStorage.getItem('ic-lang') || 'en';
@@ -731,24 +731,37 @@ const App = (() => {
         });
 
         // ── Share Daily Dua/Hadith ──
-        $('btn-share-dua').addEventListener('click', () => {
+        $('btn-share-dua').addEventListener('click', (e) => {
             const content = IslamicContent.getDailyContent();
             const typeLabel = content.type === 'dua' ? 'Dua' : 'Hadith';
             const translation = (content.translations && content.translations[currentLang]) || (content.translations && content.translations.en) || content.en || '';
-            const text = `📖 ${typeLabel} of the Day\n\n${content.ar}\n\n"${translation}"\n\n— ${content.ref}\n\nShared from Islamic Calendar App`;
-            shareText(text);
+            const data = {
+                isDua: true,
+                icon: content.type === 'dua' ? '🤲' : '📜',
+                name: `${typeLabel} of the Day`,
+                dua: content.ar,
+                pronunciation: content.tr,
+                translation: `"${translation}"`,
+                ref: `— ${content.ref}`,
+                color: '#2ecc71'
+            };
+            shareCardObj(e.currentTarget, data);
         });
 
         // ── Share Event Cards ──
         document.addEventListener('click', e => {
             const shareBtn = e.target.closest('.event-share-btn');
             if (!shareBtn) return;
-            const card = shareBtn.closest('.event-card');
-            if (!card) return;
-            const name = card.querySelector('.event-card-name')?.textContent || '';
-            const date = card.querySelector('.event-card-date')?.textContent || '';
-            const text = `🌙 ${name}\n📅 ${date}\n\nShared from Islamic Calendar App`;
-            shareText(text);
+            const data = {
+                isDua: false,
+                id: shareBtn.getAttribute('data-id'),
+                name: shareBtn.getAttribute('data-name'),
+                date: shareBtn.getAttribute('data-date'),
+                desc: shareBtn.getAttribute('data-desc'),
+                icon: shareBtn.getAttribute('data-icon'),
+                color: shareBtn.getAttribute('data-color')
+            };
+            shareCardObj(shareBtn, data);
         });
     }
 
@@ -1424,6 +1437,7 @@ const App = (() => {
             const greg = HijriEngine.hijriToGregorian(currentHijriYear, currentHijriMonth, event.day);
             const dateStr = `${event.day} ${HijriEngine.getMonthName(currentHijriMonth, currentLang)} · ${greg.day} ${HijriEngine.getGregMonthName(greg.month, currentLang)}`;
             const catLabel = cat.label[currentLang] || cat.label.en;
+            const desc = event.desc[currentLang] || event.desc.en || '';
 
             return `
                 <div class="event-card" data-event-id="${event.id}" data-day="${event.day}" style="--cat-color:${cat.color}">
@@ -1434,7 +1448,13 @@ const App = (() => {
                         <div class="event-card-date">${dateStr}</div>
                     </div>
                     <span class="event-card-category" style="color:${cat.color};background:${cat.bg}">${catLabel}</span>
-                    <button class="event-share-btn" title="Share">
+                    <button class="event-share-btn" title="Share"
+                            data-id="${event.id}"
+                            data-name="${name.replace(/"/g, '&quot;')}" 
+                            data-date="${dateStr.replace(/"/g, '&quot;')}" 
+                            data-desc="${desc.replace(/"/g, '&quot;')}" 
+                            data-icon="${cat.icon}" 
+                            data-color="${cat.color}">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
                     </button>
                 </div>`;
@@ -2373,6 +2393,205 @@ const App = (() => {
             });
         }
     });
+
+    // ══════════════════════════════════════
+    // DYNAMIC IMAGE CANVAS GENERATOR & SHARE
+    // ══════════════════════════════════════
+    function generateShareImage(data) {
+        const W = 1080, H = 1080;
+        const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H;
+        const ctx = canvas.getContext('2d');
+
+        const bgGrad = ctx.createRadialGradient(W/2, H*0.3, 0, W/2, H*0.3, H);
+        bgGrad.addColorStop(0, '#0b2c1c'); bgGrad.addColorStop(0.5, '#071d12'); bgGrad.addColorStop(1, '#030a06');
+        ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W, H);
+
+        for (let i = 0; i < 150; i++) {
+            const x = Math.random() * W, y = Math.random() * H, r = Math.random() * 2 + 0.5, alpha = Math.random() * 0.7 + 0.1;
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = Math.random() < 0.4 ? `rgba(212, 165, 55, ${alpha})` : `rgba(255, 255, 248, ${alpha})`;
+            ctx.fill();
+        }
+
+        const cardX = 80, cardW = W - 160, cardY = 120, cardH = H - 240, cardR = 30;
+        function drawRoundedRect(x, y, w, h, r) {
+            ctx.beginPath(); ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+            ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h); ctx.lineTo(x+r, y+h);
+            ctx.quadraticCurveTo(x, y+h, x, y+h-r); ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
+        }
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'; ctx.shadowBlur = 60; ctx.shadowOffsetY = 20;
+        drawRoundedRect(cardX, cardY, cardW, cardH, cardR);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)'; ctx.fill();
+        ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+        ctx.strokeStyle = data.color || 'rgba(212, 165, 55, 0.25)'; ctx.lineWidth = 3; ctx.stroke();
+
+        const topGrad = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY);
+        topGrad.addColorStop(0, 'transparent'); topGrad.addColorStop(0.5, data.color || 'rgba(212, 165, 55, 0.9)'); topGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = topGrad; ctx.fillRect(cardX + 40, cardY, cardW - 80, 4);
+
+        const cx = W / 2;
+        function writeCenter(text, y, font, color, maxW = cardW - 80) {
+            ctx.font = font; ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            const words = text.split(' '); let line = ''; const lines = [];
+            for (const word of words) {
+                const testLine = line + word + ' ';
+                if (ctx.measureText(testLine).width > maxW && line) { lines.push(line.trim()); line = word + ' '; } 
+                else { line = testLine; }
+            }
+            lines.push(line.trim());
+            const match = font.match(/(\d+)px/);
+            const lineH = (match ? parseInt(match[1]) : 30) * 1.5;
+            for (const l of lines) { ctx.fillText(l, cx, y); y += lineH; }
+            return y;
+        }
+
+        let currY = cardY + 120;
+
+        if (data.isDua) {
+            currY = writeCenter(data.icon, currY - 60, '80px serif', '#fff') + 20;
+            currY = writeCenter(data.name, currY, 'bold 44px Inter, sans-serif', '#2ecc71') + 40;
+            
+            const dGrad = ctx.createLinearGradient(cx - 150, currY, cx + 150, currY);
+            dGrad.addColorStop(0, 'transparent'); dGrad.addColorStop(0.5, data.color || 'rgba(46, 204, 113, 0.6)'); dGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = dGrad; ctx.fillRect(cx - 150, currY, 300, 2);
+            ctx.font = '20px serif'; ctx.fillStyle = data.color || 'rgba(46, 204, 113, 0.8)'; ctx.fillText('◆', cx, currY - 8);
+            currY += 40;
+
+            currY = writeCenter(data.dua, currY, 'bold 44px Amiri, serif', '#f5d782') + 25;
+            if (data.pronunciation) {
+                currY = writeCenter(data.pronunciation, currY, 'italic 24px Inter, sans-serif', 'rgba(255, 215, 0, 0.9)') + 25;
+            }
+            currY = writeCenter(data.translation, currY, 'italic 26px Inter, sans-serif', 'rgba(255, 255, 255, 0.8)') + 30;
+            currY = writeCenter(data.ref, currY, '22px Inter, sans-serif', 'rgba(255, 255, 255, 0.5)') + 40;
+        } else {
+            currY = writeCenter(data.icon, currY - 60, '100px serif', '#fff') + 30;
+            currY = writeCenter(data.name, currY, 'bold 56px Inter, sans-serif', '#fff') + 30;
+            
+            const dGrad = ctx.createLinearGradient(cx - 150, currY, cx + 150, currY);
+            dGrad.addColorStop(0, 'transparent'); dGrad.addColorStop(0.5, data.color || 'rgba(212, 165, 55, 0.6)'); dGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = dGrad; ctx.fillRect(cx - 150, currY, 300, 2);
+            ctx.font = '20px serif'; ctx.fillStyle = data.color || 'rgba(212, 165, 55, 0.8)'; ctx.fillText('◆', cx, currY - 8);
+            currY += 40;
+
+            currY = writeCenter(data.date, currY, '32px Inter, sans-serif', 'rgba(255,255,255,0.8)') + 40;
+            currY = writeCenter(data.desc, currY, '400 34px Amiri, Inter, sans-serif', '#f5d782', cardW - 120) + 40;
+            
+            if (data.wish) {
+                currY = writeCenter(`"${data.wish}"`, currY + 10, 'italic 30px Inter, sans-serif', 'rgba(255, 255, 255, 0.9)', cardW - 100) + 40;
+            }
+        }
+
+        ctx.font = '24px Inter, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.textAlign = 'center';
+        ctx.fillText(`Islamic Calendar App`, cx, H - 60);
+
+        return canvas;
+    }
+
+    async function shareCardObj(btn, data) {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span>⏳</span>...';
+        btn.disabled = true;
+
+        if (!data.isDua && !data.wish) {
+            const eventId = data.id || 'generic';
+            
+            let wishesPool;
+            if (window.EventWishes && window.EventWishes.hasOwnProperty(eventId)) {
+                wishesPool = window.EventWishes[eventId];
+            } else if (window.EventWishes) {
+                wishesPool = window.EventWishes['generic'];
+            }
+            
+            if (!wishesPool) {
+                // Event is explicitly set to null, or no data loaded
+                data.wish = '';
+            } else {
+                const currentHijriYear = hijri.hYear || 1445;
+                const varietyIndex = currentHijriYear % wishesPool.length;
+                const selectedWish = wishesPool[varietyIndex];
+                data.wish = selectedWish[currentLang] || selectedWish['en'] || "";
+            }
+        }
+        
+        let text = `${data.icon} ${data.name} ${data.icon}\n\n${data.isDua ? (data.dua + '\n' + (data.pronunciation ? data.pronunciation + '\n' : '') + data.translation + '\n' + data.ref) : ('📅 ' + data.date + '\n\n' + data.desc + (data.wish ? '\n\n✨ "' + data.wish + '"' : ''))}`;
+        const filename = `${data.name.replace(/\s+/g, '-').toLowerCase()}-islamic-calendar.png`;
+
+        try {
+            const canvas = generateShareImage(data);
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
+            
+            let shareSuccess = false;
+
+            try { 
+                if (!blob) throw new Error("Canvas gen failed");
+                const file = new File([blob], filename, { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ title: data.name, text: text + '\n\n🔗 ', url: window.location.href, files: [file] });
+                    shareSuccess = true;
+                    btn.innerHTML = originalHTML; btn.disabled = false; return;
+                }
+            } catch(e) { if(e.name==='AbortError') { btn.innerHTML=originalHTML; btn.disabled=false; return; } }
+
+            if (!shareSuccess) {
+                try {
+                    if (navigator.share) {
+                        await navigator.share({ title: data.name, text: text, url: window.location.href });
+                        if (blob) downloadBlob(blob, filename); 
+                        shareSuccess = true;
+                        btn.innerHTML = originalHTML; btn.disabled = false; return;
+                    }
+                } catch(e) { if(e.name==='AbortError') { btn.innerHTML=originalHTML; btn.disabled=false; return; } }
+            }
+
+            if (!shareSuccess) {
+                if (blob) downloadBlob(blob, filename);
+                try {
+                    await navigator.clipboard.writeText(text + '\n\n🔗 ' + window.location.href);
+                    customToast('Image downloaded & text copied! 📋');
+                } catch (e) {
+                    customToast('Image downloaded! 📥');
+                }
+            }
+        } catch (err) {
+            console.error('Share Error:', err);
+            customToast('Err: ' + (err.message || 'Unknown'));
+        } finally {
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
+    }
+
+    function downloadBlob(blob, filename) {
+        if (!blob) return;
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.style.display = 'none';
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { URL.revokeObjectURL(url); if (a.parentNode) a.parentNode.removeChild(a); }, 1000);
+    }
+
+    function customToast(msg) {
+        let toast = document.getElementById('ic-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'ic-toast';
+            toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:#fff;padding:12px 24px;border-radius:30px;z-index:99999;transition:opacity 0.3s;opacity:0;pointer-events:none;font-size:0.95rem;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+    }
+
+    // Replace the plaintext shareText entirely if any calls remain
+    function shareText(text) {
+        if (navigator.share) {
+            navigator.share({ text: text }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(text);
+            customToast('Copied to clipboard');
+        }
+    }
 
     return { navigateMonth, goToToday, setLanguage };
 })();

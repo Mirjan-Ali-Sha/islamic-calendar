@@ -8,7 +8,7 @@
  * ║  Change this whenever you update APP_VERSION         ║
  * ╚══════════════════════════════════════════════════════╝
  */
-const SW_VERSION = '1.8.10';
+const SW_VERSION = '1.9.0';
 const CACHE_NAME = `islamic-calendar-v${SW_VERSION}`;
 const ASSETS = [
     './',
